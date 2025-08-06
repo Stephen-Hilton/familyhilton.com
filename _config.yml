@@ -1,0 +1,6 @@
+url: "https://yourusername.github.io"
+baseurl: "" # or "/repo-name"
+remote_theme: "mmistakes/so-simple-theme"
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
