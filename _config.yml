@@ -2,10 +2,10 @@ title: "The Family Hilton Blog Site"
 url: "https://stephen-hilton.github.io"
 baseurl: "/familyhilton.com" # or "/repo-name"
 
-remote_theme: "alshedivat/al-folio"
-# remote_theme: "mmistakes/so-simple-theme"
+# remote_theme: "alshedivat/al-folio" # "mmistakes/so-simple-theme"
+remote_theme: pages-themes/cayman@v0.2.0
 
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-
+  - jekyll-remote-theme # add this line to the plugins list if you already have one
