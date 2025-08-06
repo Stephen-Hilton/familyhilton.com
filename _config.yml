@@ -3,7 +3,7 @@ url: "https://stephen-hilton.github.io"
 baseurl: "/familyhilton.com" # or "/repo-name"
 
 # remote_theme: "alshedivat/al-folio" # "mmistakes/so-simple-theme"
-remote_theme: pages-themes/cayman@v0.2.0
+remote_theme: "mmistakes/so-simple-theme"
 
 plugins:
   - jekyll-feed
