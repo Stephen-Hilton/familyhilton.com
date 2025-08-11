@@ -1,0 +1,165 @@
+# content/_global/top_nav.yaml
+
+version: 1
+id: "top-nav-main"
+aria_label: "Primary navigation"
+sr_only_name: false             # If true, hides the text label visually (keeps for screen readers)
+
+layout:
+  container: "max-w-7xl"          # Your template's width constraint class/flag
+  align: "between"                # left | center | between
+  sticky: true
+  sticky_offset_px: 0
+  transparent_on_home: true       # Make nav transparent over hero on the homepage
+  elevate_on_scroll: true         # Add shadow/border after scroll
+  collapse_breakpoint: "md"       # When to switch to mobile menu
+  border_bottom: true
+  shadow: "sm"
+  z_index: 50
+
+behavior:
+  auto_highlight_active: true
+  active_match: "prefix"          # exact | prefix | segment
+  hash_aware: false               # Treat #anchors as route changes for active state
+  open_on_hover_desktop: true     # Dropdowns open on hover for desktop
+  close_on_route_change: true
+
+accessibility:
+  skip_to_content:
+    enabled: true
+    target_id: "main-content"     # Page template should give <main id="main-content">
+  aria_current: "page"
+  focus_outline: true
+  reduce_motion: false
+
+announcement_bar:
+  enabled: false
+  text_md: "✨ Welcome to our new site!"
+  href: "/pages/blogs.html"
+  dismissible: true
+  storage_key: "announce_v1_dismissed"
+
+theme:
+  show_theme_toggle: true
+  default: "system"               # light | dark | system
+  options: ["light", "dark", "system"]
+
+search:
+  enabled: true
+  placeholder: "Search posts…"
+  action: "/pages/search.html"    # If client-side search, point to a search page/shell
+  method: "GET"
+  query_param: "q"
+  hotkey: "/"
+  autocomplete: false
+
+auth:
+  show_login: false
+  login_label: "Sign in"
+  login_href: "/pages/login.html"
+  show_profile_when_authenticated: false  # Your template can switch based on a flag/session
+  # Optional profile menu example (shown when authenticated)
+  profile_menu:
+    avatar_src: "{{avatar-default.png}}"
+    items:
+      - label: "My profile"
+        href: "/pages/profile.html"
+      - label: "Sign out"
+        href: "/pages/logout.html"
+
+i18n:
+  show_language_switcher: false
+  languages:
+    - code: "en-US"
+      label: "English"
+      href: "/?lang=en-US"
+
+menus:
+  left:                           # Primary, left-aligned items
+    - type: "link"
+      label: "Home"
+      href: "/index.html"
+      icon: null
+      exact: true
+    - type: "link"
+      label: "About"
+      href: "/pages/about.html"
+
+    - type: "dropdown"            # Simple dropdown
+      label: "Blog"
+      href: "/pages/blogs.html"   # Optional parent link
+      caret: true
+      children:
+        - label: "All posts"
+          href: "/pages/blogs.html"
+        - label: "Projects"
+          href: "/pages/blogs.html#projects"
+        - separator: true
+        - label: "RSS"
+          href: "/feed.xml"
+          target: "_blank"
+          rel: "noopener"
+
+    - type: "mega"                # Mega menu with columns
+      label: "People"
+      columns:
+        - heading: "Family"
+          items:
+            - label: "Stephen"
+              href: "/pages/people/stephen.html"
+            - label: "Joy"
+              href: "/pages/people/joy.html"
+            - label: "Tate"
+              href: "/pages/people/tate.html"
+            - label: "Quinn"
+              href: "/pages/people/quinn.html"
+
+  right:                          # Utility/right-aligned items
+    - type: "link"
+      label: "Contact"
+      href: "/pages/contact.html"
+    - type: "button"              # Uses style mapping in styles.button_variants
+      label: "Get updates"
+      href: "/pages/subscribe.html"
+      style: "primary"
+    - type: "icon"
+      icon: "github"              # Your template maps icon set (e.g., lucide, fa)
+      label: "GitHub"
+      href: "https://github.com/username/repo"
+      target: "_blank"
+      rel: "noopener"
+
+mobile:
+  menu_mode: "drawer"             # drawer | overlay | dropdown
+  from_breakpoint: "md"
+  position: "left"                # left | right (for drawer)
+  width_px: 320
+  backdrop: true
+  close_on_link_click: true
+  include_search: true
+  include_auth: true
+
+social:
+  show: false
+  items:
+    - icon: "twitter"
+      label: "Twitter"
+      href: "https://twitter.com/…"
+
+styles:                            # Hook into your CSS framework/classes
+  base_classes: "top-nav"
+  container_classes: "container"
+  link_classes: "nav-link"
+  active_link_classes: "is-active"
+  dropdown_classes: "dropdown"
+  mega_menu_classes: "mega"
+  button_variants:
+    primary: "btn btn-primary"
+    secondary: "btn btn-secondary"
+    ghost: "btn btn-ghost"
+  icon_set: "lucide"               # lucide | fa | custom
+
+tests:                             # Optional build-time sanity checks
+  validate_internal_links: true
+  require_unique_labels: true
+  warn_on_missing_pages: true

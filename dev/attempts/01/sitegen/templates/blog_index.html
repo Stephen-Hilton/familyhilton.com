@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ meta.title or "Blog" }}</h1>
+  <div class="grid cards">
+    {% for p in posts %}
+      <div class="card">
+        <h3><a href="{{ p.href }}">{{ p.title }}</a></h3>
+        <div class="small">{{ p.date or "" }} · {{ p.author or "" }}</div>
+      </div>
+    {% else %}
+      <div class="card small">No posts yet.</div>
+    {% endfor %}
+  </div>
+{% endblock %}

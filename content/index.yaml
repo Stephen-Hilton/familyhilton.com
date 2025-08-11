@@ -1,0 +1,13 @@
+meta:
+  title: 'Hilton Family'
+  description: 'Updates, projects, and adventures.'
+  date: '2025-08-11'
+layout: 'home'
+hero:
+  headline: 'Welcome to our site'
+  subheadline: 'Simple, fast, and friendly.'
+  background_image: '{{banner.svg}}'
+sections:
+  - type: 'markdown'
+    heading: 'Hello'
+    body_md: 'This is a starter site. Edit content in /content.'

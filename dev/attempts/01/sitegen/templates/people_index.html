@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>People</h1>
+  <div class="grid cards">
+    {% for person in people %}
+      <div class="card">
+        {% if person.avatar %}<img class="avatar" src="{{ person.avatar }}" alt="{{ person.name }}"/>{% endif %}
+        <h3><a href="{{ person.href }}">{{ person.name }}</a></h3>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

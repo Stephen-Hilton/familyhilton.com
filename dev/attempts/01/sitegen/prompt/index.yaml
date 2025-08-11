@@ -1,0 +1,110 @@
+# content/index.yaml
+
+meta:
+  title: "Hilton Family"
+  description: "Updates, projects, and adventures from our crew."
+  author: "Stephen Hilton"
+  date: "2025-08-11"    # ISO date for the homepage config
+  layout: "home"        # e.g., home | standard 
+  keywords: "family, blog, updates, projects, adventures"
+
+show:                   # page visibility (overrides the global defaults)
+  banner: true          # Show the banner at the top
+  top_nav: true         # Show the top navigation
+  left_nav: false       # Show the left navigation
+  footer: true          # Show the footer
+ 
+# The main content sections of the homepage
+# Each section can be a different type with unique properties.  
+# The current types include: hero, markdown, listing, features, divider
+# The order of sections determines their display on the page.
+sections:
+
+  - type: "hero"
+    style: "full-bleed"   # full-bleed | contained
+    title: "Family Hilton"
+    subtitle: "Welcome to the Hilton Family site, we're glad you're here!"
+    background_image: "{{banner.png}}"    # resolves to content/_images/banner.png
+    overlay: "dark-40"    # optional UI hint for template
+    ctas:
+      - label: "About Us"
+        href: "/pages/about.html"
+        style: "primary"
+      - label: "Read the Blog"
+        href: "/pages/blogs.html"
+        style: "secondary"
+
+  - type": "markdown"       # inline markdown block
+    heading: "Welcome!"
+    body_md: |-
+      Hi there! We’re the **Hilton Family**, and this is our little corner of the web.
+      Here you’ll find updates on our lives, projects we’re working on, and stories from our adventures together. 
+      We’re excited to share our journey with you!
+
+  - type: "features"
+    heading: "What you’ll find here:"
+    items:
+      - icon: "heart"
+        title: "Family Updates"
+        text: "Short notes, photos, and milestones."
+        href: "/pages/blogs.html"
+      - icon: "car"
+        title: "Travel Map"
+        text: "Maps and notes from our adventures."
+        href: "/pages/travelmap.html"
+      - icon: "users"
+        title: "Meet the Crew"
+        text: "Stephen, Joy, Tate, and Quinn."
+        href: "/pages/people.html"
+
+  - type: 'listing'          # listing of subfolder .md files
+    heading: "Latest Blogs"
+    style: "list"           # cards | list | compact
+    sort: "date_desc"        # date_desc | date_asc | title_asc
+    limit: 3                 # show all (use paginate for paging)
+    source: "blogs/"         # subfolder to list content from. If Null, use folder whose name matches this filename (blogs.yaml -> blogs/)
+    paginate:
+      enabled: false
+    excerpt:
+      enabled: true
+      length: 160            # characters (fallback to first paragraph if no summary)
+    meta:
+      show_date: true
+      date_format: "YYYY MMM D"
+      show_author: true
+      show_read_time: true
+      show_tags: true
+
+  - type: 'listing'          # listing of subfolder .md files
+    heading: "Say Hello!"
+    style: "cards"           # cards | list | compact
+    sort: "date_desc"        # date_desc | date_asc | title_asc
+    limit: 4                 # show all (use paginate for paging)
+    source: "people/"        # subfolder to list content from. If Null, use folder whose name matches this filename (blogs.yaml -> blogs/)
+    paginate:
+      enabled: false
+    excerpt:
+      enabled: false
+    meta:
+      show_date: true
+      date_format: "YYYY MMM D"
+      show_author: false
+      show_read_time: false
+      show_tags: false
+
+  - type: 'listing'          # listing of subfolder .md files
+    heading: "Furry Family"
+    style: "cards"           # cards | list | compact
+    sort: "title_asc"        # date_desc | date_asc | title_asc
+    limit: 3                 # show all (use paginate for paging)
+    source: "pets/"        # subfolder to list content from. If Null, use folder whose name matches this filename (blogs.yaml -> blogs/)
+    paginate:
+      enabled: false
+    excerpt:
+      enabled: false
+    meta:
+      show_date: true
+      date_format: "YYYY MMM D"
+      show_author: false
+      show_read_time: false
+      show_tags: false

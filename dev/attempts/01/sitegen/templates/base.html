@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>
+    {{ meta.title }}
+    {% if globals.seo and globals.seo.default_title_suffix %}{{ globals.seo.default_title_suffix }}{% endif %}
+  </title>
+  <meta name="description" content="{{ meta.description or '' }}"/>
+
+  {# Optional: load a nicer font #}
+  {#
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  #}
+
+  {# Site CSS #}
+  {% for css in (globals.assets.css or []) %}
+    <link rel="stylesheet" href="{{ css }}?v={{ asset_stamp }}">
+  {% endfor %}
+</head>
+<body>
+
+  {% if top_nav %}
+  <div class="topbar">
+    <div class="brand">
+      <a href="{{ top_nav.brand.href or '/index.html' }}">{{ top_nav.brand.site_name or 'Site' }}</a>
+    </div>
+
+    <nav class="nav">
+      {% for item in (top_nav.menus.left or []) %}
+        <a class="nav-link" href="{{ item.href }}">{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+
+    <div class="right">
+      {% for item in (top_nav.menus.right or []) %}
+        <a class="nav-link" href="{{ item.href }}">{{ item.label }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if hero %}
+  <section class="hero"
+    {% if hero.background_image %}
+      style="background-image:url('{{ hero.background_image }}');"
+    {% endif %}>
+    <div class="container">
+      <h1>{{ hero.headline }}</h1>
+      {% if hero.subheadline %}<p class="small">{{ hero.subheadline }}</p>{% endif %}
+
+      {% if hero.ctas %}
+        <div class="cta-row">
+          {% for c in hero.ctas %}
+            <a class="btn btn-{{ c.style or 'primary' }}" href="{{ c.href }}">{{ c.label }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  <main id="main-content">
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container small">
+      &copy; {{ (globals.site.name if globals.site else "Site") }} · {{ now[:10] }}
+    </div>
+  </footer>
+
+  {# Site JS #}
+  {% for js in (globals.assets.js or []) %}
+    <script src="{{ js }}?v={{ asset_stamp }}"></script>
+  {% endfor %}
+</body>
+</html>
