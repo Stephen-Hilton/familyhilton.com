@@ -1,3 +1,2 @@
 .DSstore
-theme/
-.jekyll-cache/
+**/venv*/
