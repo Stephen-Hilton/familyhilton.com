@@ -4,10 +4,14 @@ meta:
   date: '2025-08-11'
 layout: 'home'
 hero:
-  headline: 'Welcome to our site'
-  subheadline: 'Simple, fast, and friendly.'
+  headline: 'Welcome to the Hilton Family Site!'
+  subheadline: Sharing our updates, projects, and adventures for a more curated crowd.
   background_image: '{{banner.svg}}'
 sections:
   - type: 'markdown'
-    heading: 'Hello'
-    body_md: 'This is a starter site. Edit content in /content.'
+    heading: 'Welcome!'
+    body_md: |-
+      Welcome the Hilton family site! In this little corner of the internet you can find updates, projects, and adventures from the Hilton family. 
+      This is under construction, so please bear with us as we build out content.  Lots of exciting developments proffessionally and personally, along with new adventures in school for everyone.
+      Stay tuned for more updates!
+      

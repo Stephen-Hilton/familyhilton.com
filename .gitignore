@@ -1,2 +1,4 @@
 .DSstore
 **/venv*/
+__pycache__
+*.pyc

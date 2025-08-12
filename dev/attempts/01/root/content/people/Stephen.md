@@ -11,4 +11,9 @@ I’m also comfortable owning the unglamorous parts of work: the edge cases, the
 
 Outside of work, I’m a curious generalist. I like learning new tools, reading widely, and getting outside whenever I can. Friends would probably say I’m steady, optimistic, and good at making complex ideas feel straightforward.
 
-If you’re into clear thinking and consistent delivery—and you like working with kind, low-ego people—there’s a good chance we’d get along.
+If you’re into clear thinking and consistent delivery—and you like working with kind, low-ego people—there’s a good chance we’d get along.  Let's talk!
+
+[My Resume](http://resume.hilton.zone)
+
+[Find a Time to Talk!](http://30min-stephen.familyhilton.com)
+ 
