@@ -1,0 +1,9 @@
+Hi, I’m Joy — one of the founding members of AC Parks Foundation and a big believer that kids protect what they understand. I design and deliver hands-on programs that help students fall in love with local ecology and learn how to be good stewards of the planet. Think field lessons in city parks, simple experiments, habitat observation, and small actions that add up—native plants, pollinators, litter audits, and “leave it better than you found it” habits.
+
+My happy place is at the intersection of learning and logistics. I work with teachers, principals, and community partners to tailor lessons to grade level and curriculum, align on safety and accessibility, and make sure the buses, supplies, and permissions all just… work. I keep things simple, engaging, and practical so kids walk away with confidence and a clear “I can do this” next step.
+
+I’m proud that our programs consistently earn rave reviews from schools and partner organizations. What they usually mention: the calm, welcoming vibe; the way we meet students where they are; and how we turn big environmental ideas into doable, everyday actions. I measure success by what sticks—students who spot a new bird, convince a caregiver to plant a milkweed, or organize a mini clean-up on their block.
+
+As a founder, I also help shape the foundation’s partnerships and programming calendar, recruit and train volunteers, and build simple systems that keep quality high as we grow. Collaboration is everything: parks staff, educators, nonprofits, and families all have a seat at the table.
+
+If you’re interested in bringing ecology and stewardship to your school or program—or you’d like to volunteer—let’s talk. You can learn more about our work at https://ACParks.org.

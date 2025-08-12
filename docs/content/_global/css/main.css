@@ -1,0 +1,53 @@
+body{font-family:system-ui;background:#0b1020;color:#e9ecf1;margin:0}.container{max-width:1100px;margin:0 auto;padding:24px}.topbar{position:sticky;top:0;padding:12px 24px;background:#1114;backdrop-filter:blur(6px);display:flex;justify-content:space-between}.grid{display:grid;gap:16px}.grid.cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}.card{background:#121933;padding:20px;border-radius:16px}
+/* === Nav spacing + global link color override === */
+
+/* Space out the nav items clearly */
+.topbar .nav,
+.topbar .right {
+  gap: 1.25rem !important;       /* was too tight; add real separation */
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: .4rem .75rem;          /* give each item its own hit area */
+  border-radius: 12px;
+  letter-spacing: .2px;
+}
+
+.nav-link,
+.nav-link:link,
+.nav-link:visited {
+  color: #F0F3FA !important;      /* very light gray, always readable */
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,.08);
+  text-decoration: none;
+}
+
+/* Make ALL anchors very light gray, before and after click */
+a,
+a:link,
+a:visited,
+a:active {
+  color: #E8ECF5 !important;      /* global: no purple/dark visited links */
+}
+
+/* Keep hover contrast nice */
+a:hover {
+  color: #FFFFFF !important;
+  text-decoration: underline;
+}
+
+/* Ensure button-style links keep their button colors (not overridden by :visited) */
+a.btn:link,
+a.btn:visited,
+a.btn-primary:link,
+a.btn-primary:visited,
+a.btn-secondary:link,
+a.btn-secondary:visited,
+a.btn-ghost:link,
+a.btn-ghost:visited {
+  color: inherit !important;
+}
