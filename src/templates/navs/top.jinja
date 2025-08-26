@@ -1,0 +1,52 @@
+{#
+top.jinja
+
+This navigation template can be used to overlay the main content with navigation options. 
+The navigation pages available can be found in the config file: /index.yaml, in the "site" 
+section:  
+
+```yaml
+    nav_pages: ['about','people','pets','blogs']  # sets order / list of main pages for navs.  If missing or null, use all pages, in alpha order
+```
+
+If missing or null, use all pages found in the project root directory, except for index.html,
+placed in alphabetical order, with label for the nav link being the filename (minus extension) in all caps.  
+For example,  ABOUT  |  BLOGS  |  PEOPLE  |  PETS
+
+Besides the /index.yaml in section site.nav_pages, there are no other configurations.  Like all pages, 
+it should use the selected css and javascript files to ensure all activities are local-browser only, but
+have an interactive feeling. 
+
+This template is used to generate the top navigation for content pages.  
+It should be fairly thin, but provide:
+- a click-able logo in the upper-left that returns to the index.html page 
+- the title of the site, as defined in the index.yaml [site] section 
+
+#}
+<header class="top-nav">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <a href="/index.html" class="logo-link">
+                <img src="/src/images/{{ site.logo | default('logo.png') }}" alt="{{ site.title }}" class="nav-logo">
+                <span class="site-title">{{ site.title }}</span>
+            </a>
+        </div>
+        
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                {% set nav_pages = site.nav_pages or ['about', 'blogs', 'people', 'pets'] %}
+                {% for page_name in nav_pages %}
+                <li class="nav-item">
+                    <a href="/{{ page_name }}.html" class="nav-link">{{ page_name.upper() }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            
+            {% if has_right_nav %}
+            <button class="nav-toggle-right" onclick="toggleRightNav()" aria-label="Toggle right navigation">
+                <span class="hamburger"></span>
+            </button>
+            {% endif %}
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,50 @@
+page:
+  title: "Blogs"  # title of the page, also the browser tab title
+  description: "Notes, projects, and updates from the Hilton crew."  # description / subtitle
+  image: "logo.png" # image file, as found in /src/images/ folder
+  author: "Stephen Hilton" # author of the page, if applicable (should appear in footer)
+  date: true  # if type date, use as-is.  If "true", use date of last sitegen.py generation.
+  keywords: "family, blog, updates, projects, adventures" # SEO / metadata keywords
+  navs: ["top", "footer", "left"]  # navigation sections that wrap this page. Template for each should be included in /src/templates/navs/[nav].jinja
+
+sections: 
+
+- type: 'pagelist.cards'   # jinja html template as found in /src/templates/sections/[type].jinja
+  heading: "Latest Blogs"  # section header
+  subfolder: "blogs"       # subfolder under project root to sort, iterate, and produce pagelist items, one item per page found
+  image: true              # if false, skip image.  If true, us the md Front Matter "image".  If true but no image defined, default to logo.png
+  sort: "date_desc"        # sort order of files found under the subfolder.  Allows format: [date|title|author]_[asc|desc]
+  limit: 3                 # limit total number of items. Null or omitt to show all (use paginate for paging)
+  paginate:                # config for how list of items are displayed (style is defined by css and jinja)
+    enabled: false           # enable pagination when displaying many items
+    per_page: 3              # show this many posts per page, during pagination
+  filters:
+    show_tag_filters: false  # render clickable tag chips to filter listing (client-side)
+    tags:
+      include: []            # restrict index to these tags; empty => all
+      exclude: ["draft"]     # hide posts tagged draft, even if file exists
+
+- type: 'divider'  # jinja html template as found in /src/templates/sections/[type].jinja
+
+- type: 'pagelist.tiles'   # jinja html template as found in /src/templates/sections/[type].jinja
+  heading: "All Blogs"     # section header
+  subfolder: "blogs"       # subfolder under project root to sort, iterate, and produce pagelist items, one item per page found
+  image: true              # if false, skip image.  If true, us the md Front Matter "image".  If true but no image defined, default to logo.png
+  sort: "date_desc"        # sort order of files found under the subfolder.  Allows format: [date|title|author]_[asc|desc]
+  limit: 3                 # limit total number of items. Null or omitt to show all (use paginate for paging)
+  paginate:                # config for how list of items are displayed (style is defined by css and jinja)
+    enabled: false           # enable pagination when displaying many items
+    per_page: 12              # show this many posts per page, during pagination
+  filters:
+    show_tag_filters: false  # render clickable tag chips to filter listing (client-side)
+    tags:
+      include: []            # restrict index to these tags; empty => all
+      exclude: ["draft"]     # hide posts tagged draft, even if file exists
+
+ 
+rss:
+  enabled: true
+  url: "/feed.xml"
+  title: "Hilton Family — Blog"
+  limit: 50
+

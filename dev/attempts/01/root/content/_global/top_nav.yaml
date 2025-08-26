@@ -1,8 +1,0 @@
-version: 1
-brand: { site_name: 'Hilton Family', href: '/index.html' }
-menus:
-  left:
-    - { type: link, label: Home,   href: /index.html }
-    - { type: link, label: Blog,   href: /pages/blogs.html }
-    - { type: link, label: People, href: /pages/people.html }
-  right: []

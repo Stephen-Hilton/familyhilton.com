@@ -1,0 +1,57 @@
+/* Light Theme CSS */
+@import url('default.css');
+
+:root {
+    --primary-color: #3b82f6;
+    --secondary-color: #6b7280;
+    --accent-color: #f59e0b;
+    --background-color: #ffffff;
+    --surface-color: #f9fafb;
+    --text-color: #111827;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Light theme specific overrides */
+.hero-section {
+    background-color: var(--surface-color);
+}
+
+.feature-item {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+}
+
+.page-card,
+.page-tile {
+    border: 1px solid var(--border-color);
+}
+
+.markdown-content blockquote {
+    background-color: var(--surface-color);
+    border-left: 4px solid var(--primary-color);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+}
+
+.markdown-content code {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.markdown-content pre {
+    background-color: #f3f4f6;
+    border: 1px solid var(--border-color);
+}
+
+/* Enhanced light theme styling */
+.top-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.footer {
+    background: linear-gradient(to bottom, var(--surface-color), #f3f4f6);
+}

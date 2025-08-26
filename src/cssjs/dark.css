@@ -1,0 +1,143 @@
+/* Dark Theme CSS */
+@import url('default.css');
+
+:root {
+    --primary-color: #60a5fa;
+    --secondary-color: #9ca3af;
+    --accent-color: #fbbf24;
+    --background-color: #111827;
+    --surface-color: #1f2937;
+    --text-color: #f9fafb;
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+}
+
+/* Dark theme specific overrides */
+.top-nav {
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom-color: var(--border-color);
+}
+
+.hero-section {
+    background-color: var(--surface-color);
+}
+
+.hero-overlay.dark-40 {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.feature-item {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+}
+
+.feature-item:hover {
+    background-color: #374151;
+}
+
+.page-card,
+.page-tile {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+}
+
+.page-card:hover,
+.page-tile:hover {
+    background-color: #374151;
+}
+
+.footer {
+    background: linear-gradient(to bottom, var(--surface-color), #0f172a);
+    border-top-color: var(--border-color);
+}
+
+.markdown-content blockquote {
+    background-color: var(--surface-color);
+    border-left: 4px solid var(--primary-color);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+}
+
+.markdown-content code {
+    background-color: #374151;
+    color: #e5e7eb;
+}
+
+.markdown-content pre {
+    background-color: #374151;
+    border: 1px solid var(--border-color);
+}
+
+.left-nav,
+.right-nav {
+    background-color: var(--surface-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.right-nav {
+    border-left: 1px solid var(--border-color);
+    border-right: none;
+}
+
+/* Dark theme button styles */
+.hero-cta-primary {
+    background: var(--primary-color);
+    color: var(--background-color);
+}
+
+.hero-cta-primary:hover {
+    background: var(--accent-color);
+    color: var(--background-color);
+}
+
+.hero-cta-secondary {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+.hero-cta-secondary:hover {
+    background: var(--text-color);
+    color: var(--background-color);
+}
+
+/* Enhanced dark theme effects */
+.nav-link:hover {
+    background-color: var(--surface-color);
+}
+
+.section-divider {
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+/* Improved contrast for accessibility */
+.card-title,
+.tile-title,
+.feature-title {
+    color: var(--text-color);
+}
+
+.card-description,
+.feature-text {
+    color: var(--text-muted);
+}
+
+/* Dark theme scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}

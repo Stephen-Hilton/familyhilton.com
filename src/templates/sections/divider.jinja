@@ -1,0 +1,15 @@
+{#
+divider.jinja
+
+Very simple section that adds a horizontal rule (aka divider) across the body, to seperate sections.  
+This is the only template section type that does not require any config settings.
+
+
+Example of the settings allowed in the yaml config "section" dictionary: 
+
+- type: 'divider'  # jinja html template as found in /src/templates/sections/[type].jinja
+
+#}
+<section class="divider-section">
+    <hr class="section-divider">
+</section>

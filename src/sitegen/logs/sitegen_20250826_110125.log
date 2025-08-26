@@ -1,0 +1,16 @@
+2025-08-26 11:01:25,356 - INFO - Starting site generation...
+2025-08-26 11:01:25,383 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/blogs.html
+2025-08-26 11:01:25,421 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/pets.html
+2025-08-26 11:01:25,423 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/about.html
+2025-08-26 11:01:25,431 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/index.html
+2025-08-26 11:01:25,434 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/people.html
+2025-08-26 11:01:25,437 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/README.html
+2025-08-26 11:01:25,439 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/blogs/2025-08-05--stephen--Confessions-of-GenX-Tech-Leader.html
+2025-08-26 11:01:25,440 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/blogs/2025-08-12--stephen--Vibe-Coding-Web-Builder.html
+2025-08-26 11:01:25,441 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/pets/sunny.html
+2025-08-26 11:01:25,441 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/pets/luna.html
+2025-08-26 11:01:25,442 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/pets/zelda.html
+2025-08-26 11:01:25,443 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/people/joy.html
+2025-08-26 11:01:25,443 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/people/stephen.html
+2025-08-26 11:01:25,448 - INFO - Generated: /Users/stephen.hilton/Dev/familyhilton.com/dev/attempts/02/src/prompt.html
+2025-08-26 11:01:25,450 - INFO - Site generation completed!

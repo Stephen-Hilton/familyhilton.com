@@ -1,0 +1,67 @@
+{#
+pagelist.tiles.jinja
+
+This section should be sleek and modern, displaying N-number of sub-items in a clean and intuative format. 
+The format is a "tile" format.  Each tile is a medium-sized element, no more than 3 displayed across the page at a time, 
+scaling down dynamically in-browser as page width demands. The height of each tile (item) should perhaps 20% to 25% of 
+the width, making the overall size feel like a narrow tile.  Include as much information as will fit in the space, 
+without feeling cramped.   
+
+Example of the settings allowed in the yaml config "section" dictionary: 
+
+
+- type: 'pagelist.tiles'   # jinja html template as found in /src/templates/sections/[type].jinja
+  heading: "Latest Blogs"  # section header
+  subfolder: "blogs"       # subfolder under project root to sort, iterate, and produce pagelist items, one item per page found
+  image: true              # if false, skip image.  If true, us the md Front Matter "image".  If true but no image defined, default to logo.png
+  sort: "date_desc"        # sort order of files found under the subfolder.  Allows format: [date|title|author]_[asc|desc]
+  limit: 3                 # limit total number of items. Null or omitt to show all (use paginate for paging)
+  paginate:                # config for how list of items are displayed (style is defined by css and jinja)
+    enabled: false           # enable pagination when displaying many items
+    per_page: 3              # show this many posts per page, during pagination
+  filters:
+    show_tag_filters: false  # render clickable tag chips to filter listing (client-side)
+    tags:
+      include: []            # restrict index to these tags; empty => all
+      exclude: ["draft"]     # hide posts tagged draft, even if file exists
+
+#}
+<section class="pagelist-tiles-section">
+    {% if heading %}
+    <div class="section-header">
+        <h2 class="section-heading">{{ heading }}</h2>
+    </div>
+    {% endif %}
+    
+    {% if pages %}
+    <div class="tiles-grid">
+        {% for page in pages %}
+        <article class="page-tile">
+            <a href="{{ subfolder }}/{{ page.html_path.name }}" class="tile-link">
+                {% if image and page.frontmatter.image %}
+                <div class="tile-image">
+                    <img src="/src/images/{{ page.frontmatter.image }}" alt="{{ page.frontmatter.title }}" class="tile-img">
+                </div>
+                {% elif image %}
+                <div class="tile-image">
+                    <img src="/src/images/logo.png" alt="{{ page.frontmatter.title }}" class="tile-img">
+                </div>
+                {% endif %}
+                
+                <div class="tile-content">
+                    <h3 class="tile-title">{{ page.frontmatter.title }}</h3>
+                    <div class="tile-meta">
+                        {% if page.frontmatter.author %}
+                        <span class="tile-author">{{ page.frontmatter.author }}</span>
+                        {% endif %}
+                        {% if page.frontmatter.date %}
+                        <span class="tile-date">{{ page.frontmatter.date }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>

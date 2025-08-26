@@ -1,8 +1,0 @@
-site:
-  name: 'Hilton Family'
-  base_url: ''
-assets:
-  css: ['/content/_global/css/main.css']
-  js:  ['/content/_global/javascript/main.js']
-seo:
-  default_title_suffix: ' — Hilton Family'

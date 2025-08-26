@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-  <article class="card">
-    <h1>{{ meta.title }}</h1>
-    <div class="small">{{ meta.date or "" }}{% if meta.author %} · <a href="/pages/people/{{ meta.author | replace(' ', '-') }}.html">{{ meta.author }}</a>{% endif %}</div>
-    <div class="post-body">{{ sections[0].html | safe }}</div>
-  </article>
-{% endblock %}

@@ -1,0 +1,54 @@
+{#
+left.jinja
+This template is used to generate a left slide-out navigation vertical bar for content pages.  
+The navigation section should provide:
+- a click-able logo in the upper-left of that section, that returns to the index.html page 
+- the title of the site and page, under the logo 
+
+This navigation template can be used to overlay the main content with navigation options, 
+when activated (slid-out) by the user.
+The navigation pages available can be found in the config file: /index.yaml, in the "site" 
+section:  
+
+```yaml
+    nav_pages: ['about','people','pets','blogs']  # sets order / list of main pages for navs.  If missing or null, use all pages, in alpha order
+```
+
+If missing or null, use all pages found in the project root directory, except for index.html,
+placed in alphabetical order, with label for the nav link being the filename (minus extension) in all caps.  
+For example,  ABOUT  |  BLOGS  |  PEOPLE  |  PETS
+
+Besides the /index.yaml in section site.nav_pages, there are no other configurations.  Like all pages, 
+it should use the selected css and javascript files to ensure all activities are local-browser only, but
+have an interactive feeling. 
+
+#}
+<aside class="left-nav" id="leftNav">
+    <button class="left-nav-handle" onclick="toggleLeftNav()" aria-label="Toggle navigation">
+        <img src="/src/icons/hamburger.svg" alt="Menu" class="hamburger-icon">
+    </button>
+    <div class="left-nav-content">
+        <div class="nav-header">
+            <a href="/index.html" class="nav-brand">
+                <img src="/src/images/{{ site.logo | default('logo.png') }}" alt="{{ site.title }}" class="nav-logo">
+                <div class="nav-titles">
+                    <h3 class="site-title">{{ site.title }}</h3>
+                    <h4 class="page-title">{{ page.title }}</h4>
+                </div>
+            </a>
+            <button class="nav-close" onclick="closeLeftNav()" aria-label="Close navigation">&times;</button>
+        </div>
+        
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                {% set nav_pages = site.nav_pages or ['about', 'blogs', 'people', 'pets'] %}
+                {% for page_name in nav_pages %}
+                <li class="nav-item">
+                    <a href="/{{ page_name }}.html" class="nav-link">{{ page_name.upper() }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    <div class="nav-overlay" onclick="closeLeftNav()"></div>
+</aside>

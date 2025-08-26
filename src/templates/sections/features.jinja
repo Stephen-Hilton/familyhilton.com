@@ -1,0 +1,51 @@
+{#
+features.jinja
+This template should be sleek and modern, and generates a feature list, 
+with links, icons, and short description.  The list of features is entirely
+provided by the config.yaml.
+
+
+Example of the settings allowed in the yaml config "section" dictionary: 
+
+  - type: "features"
+    heading: "What you'll find here:"
+    items:
+      - icon: "blog.png" # icons are always scaled to 24x24
+        title: "Family Updates"
+        text: "Short notes, photos, and milestones."
+        href: "blogs.html"
+      - icon: "person.png"
+        title: "Meet the Hiltons!"
+        text: "Stephen, Joy, Tate, and Quinn"
+        href: "people.html"
+      - icon: "pet.png"
+        title: "Meet the Pets"
+        text: "Luna, Sunny, and Zelda"
+        href: "pets.html"
+
+#}
+<section class="features-section">
+    {% if heading %}
+    <div class="section-header">
+        <h2 class="section-heading">{{ heading }}</h2>
+    </div>
+    {% endif %}
+    
+    {% if items %}
+    <div class="features-grid">
+        {% for item in items %}
+        <div class="feature-item">
+            {% if item.href %}<a href="{{ item.href }}" class="feature-link">{% endif %}
+                <div class="feature-icon">
+                    <img src="/src/icons/{{ item.icon }}" alt="{{ item.title }}" class="feature-icon-img">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">{{ item.title }}</h3>
+                    <p class="feature-text">{{ item.text }}</p>
+                </div>
+            {% if item.href %}</a>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>

@@ -1,0 +1,71 @@
+{#
+pagelist.cards.jinja
+
+This section should be sleek and modern, displaying N-number of sub-items in a clean and intuative format. 
+The format is a "card" format.  Each card is a large element, no more than 3 displayed across the page at a time, 
+scaling down dynamically in-browser as page width demands.  The cards should be taller than they are wide, around 
+the aspect ratio of a playing card.  Include image and as much information as will fit in the space, without feeling cramped.   
+
+Example of the settings allowed in the yaml config "section" dictionary: 
+
+
+- type: 'pagelist.cards'   # jinja html template as found in /src/templates/sections/[type].jinja
+  heading: "Latest Blogs"  # section header
+  subfolder: "blogs"       # subfolder under project root to sort, iterate, and produce pagelist items, one item per page found
+  image: true              # if false, skip image.  If true, us the md Front Matter "image".  If true but no image defined, default to logo.png
+  sort: "date_desc"        # sort order of files found under the subfolder.  Allows format: [date|title|author]_[asc|desc]
+  limit: 3                 # limit total number of items. Null or omitt to show all (use paginate for paging)
+  paginate:                # config for how list of items are displayed (style is defined by css and jinja)
+    enabled: false           # enable pagination when displaying many items
+    per_page: 3              # show this many posts per page, during pagination
+  filters:
+    show_tag_filters: false  # render clickable tag chips to filter listing (client-side)
+    tags:
+      include: []            # restrict index to these tags; empty => all
+      exclude: ["draft"]     # hide posts tagged draft, even if file exists
+
+
+#}
+<section class="pagelist-cards-section">
+    {% if heading %}
+    <div class="section-header">
+        <h2 class="section-heading">{{ heading }}</h2>
+    </div>
+    {% endif %}
+    
+    {% if pages %}
+    <div class="cards-grid">
+        {% for page in pages %}
+        <article class="page-card">
+            <a href="{{ subfolder }}/{{ page.html_path.name }}" class="card-link">
+                {% if image and page.frontmatter.image %}
+                <div class="card-image">
+                    <img src="/src/images/{{ page.frontmatter.image }}" alt="{{ page.frontmatter.title }}" class="card-img">
+                </div>
+                {% elif image %}
+                <div class="card-image">
+                    <img src="/src/images/logo.png" alt="{{ page.frontmatter.title }}" class="card-img">
+                </div>
+                {% endif %}
+                
+                <div class="card-content">
+                    <h3 class="card-title">{{ page.frontmatter.title }}</h3>
+                    {% if page.frontmatter.description %}
+                    <p class="card-description">{{ page.frontmatter.description }}</p>
+                    {% endif %}
+                    
+                    <div class="card-meta">
+                        {% if page.frontmatter.author %}
+                        <span class="card-author">{{ page.frontmatter.author }}</span>
+                        {% endif %}
+                        {% if page.frontmatter.date %}
+                        <span class="card-date">{{ page.frontmatter.date }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>

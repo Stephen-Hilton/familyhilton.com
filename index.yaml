@@ -1,0 +1,93 @@
+# content/index.yaml
+
+site:  # configuration that covers the site as a whole:
+  title: "Family Hilton" # title of the page, also the browser tab title
+  description: "Updates, projects, and adventures from our crew." # description / subtitle
+  favicon: /image/favicon.png  # favicon.png for site
+  keywords: "family, blog, updates, projects, adventures" # SEO / metadata keywords
+  nav_pages: ['about','people','pets','blogs'] # sets order / list of main pages for navs.  If missing or null, use all pages, in alpha order
+  themes: # map to theme styles
+    default:
+      css: default.css
+      js: default.js
+    dark:
+      css: dark.css
+      js: default.js
+    light:
+      css: light.css
+      js: default.js
+
+
+page:  # configuration for this specific page:
+  title: "Home"  # title of the page, also the browser tab title
+  description: "Notes, projects, and updates from the Hilton crew."  # description / subtitle
+  image: "logo.png" # image file, as found in /src/images/ folder
+  author: "Stephen Hilton" # author of the page, if applicable (should appear in footer)
+  date: true  # if type date, use as-is.  If "true", use date of last sitegen.py generation.
+  keywords: "family, blog, updates, projects, adventures" # SEO / metadata keywords
+  navs: ['footer', 'left']  # navigation sections that wrap this page. Template for each should be included in /src/templates/navs/[nav].jinja
+
+ 
+# The main body content is defined below.
+# Each section can be a different type with unique properties.  
+# each "type" maps to a template file in /src/templates/sections/[type].jinja
+# The order of sections determines their display on the page.
+sections:
+
+  - type: "hero" # hero banner page, with call to actions (ctas)
+    title: "Family Hilton"
+    subtitle: "Welcome to the Hilton Family site, we're glad you're here!"
+    hero_image: "banner.png"  # image for the hero banner
+    overlay: "dark-40"    # optional UI hint for template
+    text_color: "white"  # optional UI hint for template
+    ctas:
+      - label: "About Us"
+        href: "about.html"
+        style: "primary"
+      - label: "Read the Blog"
+        href: "blogs.html"
+        style: "secondary"
+
+
+  - type: "markdown"       # inline markdown block
+    heading: "Welcome!"
+    content: |-
+      Hi there! We’re the **Hilton Family**, and this is our little corner of the web.
+      Here you’ll find updates on our lives, projects we’re working on, and stories from our adventures together. 
+      We’re excited to share our journey with you!
+
+
+  - type: "features"
+    heading: "What you’ll find here:"
+    items:
+      - icon: "add_comment.svg" # icons are always scaled to 24x24
+        title: "Family Updates"
+        text: "Short notes, photos, and milestones."
+        href: "blogs.html"
+      - icon: "md_diversity_1.svg"
+        title: "Meet the Hiltons!"
+        text: "Stephen, Joy, Tate, and Quinn"
+        href: "people.html"
+      - icon: "pets.svg"
+        title: "Meet the Pets"
+        text: "Luna, Sunny, and Zelda"
+        href: "pets.html"
+
+
+  - type: 'divider'  # jinja html template as found in /src/templates/sections/[type].jinja
+
+  
+  - type: 'pagelist.cards'   # jinja html template as found in /src/templates/sections/[type].jinja
+    heading: "Latest Blogs"  # section header
+    subfolder: "blogs"       # subfolder under project root to sort, iterate, and produce pagelist items, one item per page found
+    image: true              # if false, skip image.  If true, us the md Front Matter "image".  If true but no image defined, default to logo.png
+    sort: "date_desc"        # sort order of files found under the subfolder.  Allows format: [date|title|author]_[asc|desc]
+    limit: 3                 # limit total number of items. Null or omitt to show all (use paginate for paging)
+    paginate:                # config for how list of items are displayed (style is defined by css and jinja)
+      enabled: false           # enable pagination when displaying many items
+      per_page: 3              # show this many posts per page, during pagination
+    filters:
+      show_tag_filters: false  # render clickable tag chips to filter listing (client-side)
+      tags:
+        include: []            # restrict index to these tags; empty => all
+        exclude: ["draft"]     # hide posts tagged draft, even if file exists

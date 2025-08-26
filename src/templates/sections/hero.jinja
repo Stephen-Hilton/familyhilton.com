@@ -1,0 +1,44 @@
+{#
+hero.jinja
+This template should be sleek and modern, and generate a top landing / home page section, 
+with a hero banner, complete with banner image and call-to-action section.   
+
+Example of the settings allowed in the yaml config "section" dictionary: 
+
+  - type: "hero" # hero banner page, with call to actions (ctas)
+    title: "Family Hilton"
+    subtitle: "Welcome to the Hilton Family site, we're glad you're here!"
+    hero_image: "banner.svg"  # image for the hero banner
+    overlay: "dark-40"    # optional UI hint for template
+    text_color: "white"  # optional UI hint for template
+    ctas:
+      - label: "About Us"
+        href: "about.html"
+        style: "primary"
+      - label: "Read the Blog"
+        href: "blogs.html"
+        style: "secondary"
+
+#}
+<section class="hero-section" {% if hero_image %}style="background-image: url('/src/images/{{ hero_image }}')"{% endif %}>
+    <div class="hero-overlay {{ overlay | default('') }}">
+        <div class="hero-container">
+            <div class="hero-content" {% if text_color %}style="color: {{ text_color }}"{% endif %}>
+                <h1 class="hero-title">{{ title }}</h1>
+                {% if subtitle %}
+                <p class="hero-subtitle">{{ subtitle }}</p>
+                {% endif %}
+                
+                {% if ctas %}
+                <div class="hero-ctas">
+                    {% for cta in ctas %}
+                    <a href="{{ cta.href }}" class="hero-cta hero-cta-{{ cta.style | default('primary') }}">
+                        {{ cta.label }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
