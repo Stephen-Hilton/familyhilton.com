@@ -7,8 +7,8 @@ For an example, see my simple family page:  https://familyhilton.com
 To use: 
 1. Modify / add / remove .yaml config files in the project root, one yaml per webpage.
 2. Modify / add / remove .md config files from subfolders, such as `/blogs/*.md`
-2. Execute the `/src/sitegen.py` script to transform config files in html webpages.
-3. Optionally, execute `/src/webserver_start.py` to launch a local webserver and test your page.
+2. Execute the `/src/build_site.sh` script to transform config files in html webpages.
+3. Optionally, add the `-w` flag to launch a local webserver and test your page, i.e.,  `/src/webserver_start.py -w`
 
 
 # Does the world need another static-webpage builder?  
@@ -49,9 +49,9 @@ That way, if you want to vibe code new features / functionalities, you have a ha
 - **Static Output**: Generates pure HTML/CSS/JS for hosting anywhere
 
 # Usage
-There is no UI for this project - instead, it is all file-driven.  To create a new webpage, simply create a new yaml file, configure what settings and sections you want, save, and re-run `/src/sitegen.py` to rebuild the static website.
 
-## Types of Config Files
+
+## Create Your Config Files
 There are several types of config files, each used for a specific purpose.  Some are used to build the site and will change frequently, some are more back-end and will change infrequently - and only if you understand things like CSS and JS (or can ask AI to update).
 
 ### Sample File Structure
@@ -176,25 +176,35 @@ The css and javascript files are all expected to be stored in the /src/cssjs/ fo
 As with any file in the /src/ subdirectory, these files should not change frequently.
 
 
+## Generate the Site
 
+Once you've set all your config files, it's time to compile them into html files, aka your working webpage!  
 
-
-## Usage
-
-### Generate the Site
+To create your webpage (or update it with new/adjusted content), use a terminal window to run:
 
 ```bash
-python3 src/sitegen.py
+. ./src/build_site.sh
 ```
 
 This will:
-1. Process all `.yaml` files in the root directory
-2. Convert `.md` files to HTML (if no corresponding `.yaml` exists)
-3. Create a timestamped log file in `src/logs/`
+1. Install environment (except Python3.x), create a virtual machine, install dependencies, start pythons script
+2. Process all `.yaml` files in the root directory
+3. Convert `.md` files to HTML (if no corresponding `.yaml` exists)
+4. Create a timestamped log file in `src/logs/`
+
+You can optionally add a `-w` flag, which will start a local webserver, allowing you to test your website locally before publishing.
+
+```bash
+. ./src/build_site.sh -w
+```
+
+Note, you cannot have more than one server running at a time.  Subsequent servers will error with a port collision. 
+It's recommended you create a new terminal to run the `. ./src/build_site.sh -w` command.  You can then recompile the website anytime in a different terminal with the standard `. ./src/build_site.sh` command (no `-w` flag). 
 
 
 
-### Hosting
+
+# Hosting
 
 The generated HTML files can be hosted on:
 - GitHub Pages
@@ -206,11 +216,13 @@ The generated HTML files can be hosted on:
 I'll try to add instructions on how to set up at various places shortly. 
 
 ## Dependencies
+All dependencies are installed and kept up-to-date automatically by the `./src/build_site.sh` script.
 
 - Python 3.6+
 - PyYAML
 - Jinja2
 - Markdown
+- python-dotenv
 
 Dependencies are automatically installed when running the generator.
 

@@ -9,9 +9,9 @@
 ---
 
 
-I've recently been given feedback from a trusted source: I need a better social presence, particularly on LinkedIn.  Being younger side of GenX, this doesn’t come naturally. I grew up with computers, but not social media.  Grew up programming, not posting everything I eat for dinner. 
+I've recently been given feedback from a trusted source: I need a better social presence, particularly on LinkedIn.  I'm the younger side of GenX, but this still doesn’t come naturally. I grew up programming computers, not posting every meal to social media.
 
-Ironically, being a technologist in San Francisco / Silicon Valley for the last 15 years, I've consulted at almost all the big social media companies, where I had an amazing time building the new data scale needed to make the UX fast and easy. But... as a user?  Meh, I don't feel compelled to curate the image of a perfect life.  My life is messy and crazy, and I love every minute – but I’m too busy living my life to always stop and document.  Guess I live life like a lazy developer programs. 
+Ironically, being a technologist in San Francisco / Silicon Valley for the last 15 years I've consulted at almost all the big social media companies, where I had an amazing time building the new data scale needed to make the UX fast and easy. But... as a user?  Meh, I don't feel compelled to curate the image of a perfect life.  My life is messy and crazy, and I love every minute – but I’m too busy living my life to always stop and document.  Guess I live life like a lazy developer programs. 
 
 All that said – I take candid feedback seriously, and I take action. Humans are social creatures, and social media is a good way to share experiences in a scalable format. I don't really consider myself anti-social (clickbait), just happily distanced from social media.  My new goal is therefore: build a MVP social media presence that is fun and authentic and of some value.  But I want to do this my way -- I don't want to build a curated facade designed to impress, I just want to share real experiences with authentic thoughts. 
 
@@ -23,7 +23,6 @@ I’ve spent several years consulting at LinkedIn back-in-the-day (I was badged 
 # What to Post
 There are many smart and thoughtful leader publishing daily insights into our quickly evolving world - it can be intimidating using those well-polished professionals as a personal yard-stick of success.  So instead, I'm setting more realistic expectations: I’ll post what I know. This means topics like tech leadership, start-ups, solution engineering, customer success, AI, Web3, and the connective tissue that brings all of that together; data.
 And the occasional off-target rant about my dogs or some random topic.  This is my madness; I make no promises. 
-With THIS post partially complete, I’ll declare "mission accomplished" on blog number one. 
 
 # Keep Posting
 Honestly this is the hardest part.  It’s easy to start something new when the idea is fresh and shiny.  The challenge will come in a year, when deadlines are at-risk and priorities seem to demand every waking hour.  This is where rhythm helps – I’m a believer in the power of rhythm and the calendar, so I’ve blocked off 2 hours on my Friday morning (PT) to make sure I’m more connected.  Not "work time" nor "family time", this is "network time". Some weeks this might end up being a new blog, or a short post, or me catching up on other's posts and blogs. We'll play it by ear. 
@@ -41,7 +40,9 @@ This is all to say:  I AM going to use AI while putting together blogs, to help 
 
 # Future Topics
 The best way to hold yourself accountable is to make public promises you’ll almost certainly regret later.  
+
 Here’s a few ideas for future posts:
+
 - Vibe Coding a Static Webpage Framework with AWS-Q and Publishing on Github pages
 - Vibe Coding a Blog AI Agent and Logo Generator 
 - Solution Engineering, Sales, and CSMs – What’s the Difference?
@@ -50,4 +51,7 @@ Here’s a few ideas for future posts:
 - Why Web3 Should Rule the World (but probably won’t)
 - King-for-a-Day: Regulations in AI and Web3
 - Other thoughts / recommendations?
-As I complete these, I may come back and add URLs.  Maybe.  No promises.
+
+As I complete these, I may come back and add URLs.  
+
+Thanks, and remember to be human out there.

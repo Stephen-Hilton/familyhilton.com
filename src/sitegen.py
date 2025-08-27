@@ -1,20 +1,9 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-import yaml
-import re
+import os, sys, yaml, re, logging, markdown
 from pathlib import Path
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
-import logging
-
-try:
-    import markdown
-except ImportError:
-    print("Installing required packages...")
-    os.system("pip install markdown jinja2 pyyaml")
-    import markdown
 
 class SiteGenerator:
     def __init__(self):
@@ -354,11 +343,13 @@ class SiteGenerator:
             webbrowser.open(url)
             httpd.serve_forever()
 
+
 def main(start_test_server:bool = False):
     generator = SiteGenerator()
     generator.generate_site()
     if start_test_server: generator.start_test_server()
 
+ 
 if __name__ == "__main__":
-    main()
-    
+    start_server = '-w' in sys.argv
+    main(start_server)
