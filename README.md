@@ -15,20 +15,22 @@ To use:
 
 Probably not, but those that I found today were overly complicated for my super-simple use-case; a family webpage.  Specifically, I wanted something that was:
 - static, to be hosted on github pages or S3 bucket
+- simple, close to zero-code so all family members can edit (just markdown)
 - able to host free, or nearly free
-- decent looking but dead-simple to maintain
+- decent looking but MORE importantly, dead-simple to update
 - easy to extend / add new pages quickly
-- zero-code so all family members can edit (just markdown)
+- did I mention: simple?
 
-Jekyl was cool, but way more complex than I needed, and too much education required for the family. I felt like I was hunting squirrels with a bazooka. 
 
-It was also a chance for me to exercise AWS-Q with Claude 4.0 LLM - yes, obviously most of this was vibe coded. It took me several hours to architect how I wanted it to work and build out my desired structures for yaml and markdown by hand, and about 10 minutes for Q to create the entire working application with about 80% accuracy, then maybe another few hours of prompting for various fixes and updates to arrive at what you see here. It's not prefect yet, but for a little family site that's easy to stand up on github pages, I'm declaring victory and moving on for now. 
+Jekyl was cool, but way more complex than I needed, and too much education required for the family. It felt like hunting squirrels with a bazooka.  I am willing to sacrifice a lot of flexibility for simplicity, at least for this project.
 
-So... no, I probably didn't need to do this. But it was a fun little side project.  
+Also, it was fun. It was a chance to exercise AWS-Q with Claude 4.0 LLM - yes, obviously most of this was vibe coded. It took me several hours to architect how I wanted it to work and build out my desired structures for yaml and markdown by hand, and about 10 minutes for Q to create the entire working application with about 80% accuracy, then maybe another few hours of prompting for various fixes and updates to arrive at what you see here. It's not prefect yet, but for a little family site that's easy to stand up on github pages, I'm declaring victory and moving on for now. 
+
+So... no, I probably didn't need to do this. But it was a fun little side project, no apologies. 
+
 
 ## Open to Contributions
 When I was wrapping up initial dev, I prompted Claude to:
-
 
 >Please generate a comprehensive context compression summary, saved to a file `/src/ai_context.md` as a markdown format.  Design it to be optimal for the below future prompt:
 > 
