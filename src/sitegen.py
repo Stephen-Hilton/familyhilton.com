@@ -21,7 +21,7 @@ class SiteGenerator:
         self.root_path = Path(__file__).parent.parent
         self.src_path = Path(__file__).parent
         self.templates_path = self.src_path / "templates"
-        self.logs_path = self.src_path / "sitegen" / "logs"
+        self.logs_path = self.src_path / "logs"
         
         # Create logs directory if it doesn't exist
         self.logs_path.mkdir(parents=True, exist_ok=True)

@@ -41,12 +41,26 @@ have an interactive feeling.
         
         <nav class="nav-menu">
             <ul class="nav-links">
-                {% set nav_pages = site.nav_pages or ['about', 'blogs', 'people', 'pets'] %}
-                {% for page_name in nav_pages %}
-                <li class="nav-item">
-                    <a href="/{{ page_name }}.html" class="nav-link">{{ page_name.upper() }}</a>
-                </li>
-                {% endfor %}
+                {% if site and site.nav_pages %}
+                    {% for page_name in site.nav_pages %}
+                    <li class="nav-item">
+                        <a href="/{{ page_name }}.html" class="nav-link">{{ page_name.upper() }}</a>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="nav-item">
+                        <a href="/about.html" class="nav-link">ABOUT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/people.html" class="nav-link">PEOPLE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/pets.html" class="nav-link">PETS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/blogs.html" class="nav-link">BLOGS</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </div>
