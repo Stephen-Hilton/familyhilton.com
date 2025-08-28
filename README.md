@@ -40,6 +40,14 @@ Time to make it your own... try these steps:
  
 If you don't want to see "Popcorn" on navs, or you want the nav pages in a different order, you can explicitly define in the `/index.yaml` under the `site` section, `nav_pages` value, which is a list of pages, in display order.
 
+**- Push to Github and Setup Hosting**
+  - Commit your changes to Github, by entering in your terminal window:<br>
+  ```shell
+  git add .
+  git 
+  ```
+
+
 - You can host on github pages directly, or via AWS S3 static pages.  See details at the bottom of this page.
 
 # Features
