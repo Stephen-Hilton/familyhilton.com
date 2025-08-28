@@ -4,12 +4,12 @@ A Python-based static site generator that converts YAML configuration files and 
 
 For an example, see my simple family page:  https://familyhilton.com  which is running directly from this repo.
 
-## Quick Start
+# Quick Start
 
-### Requirements
+## Requirements
 This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/).  It also assumes you have [git](https://github.com/git-guides/install-git) installed on your computer.  
 
-# Build Your Own Website
+## Build Your Own Website
 To get started building your own webpage: 
 
 1. Create / login to your [Github.com](https://githublcom) account
@@ -22,9 +22,9 @@ cd /folder_where_you_cloned_your_repo_above/
 . ./src/build_site.sh -i -w
 ```
 
-Done!  You should now have a local copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
+**Done!**  You should now have a local copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
 
-Time to make it your own... try these steps:
+## Make the Content Your Own
 
 **- Add your own "PERSON" page:**
   - Open up the "people" directory, copy/paste "stephen.md" and rename to "your_name.md"
