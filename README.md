@@ -2,68 +2,45 @@
 
 A Python-based static site generator that converts YAML configuration files and Markdown content into a complete static website.  It's dynamic, simply iterating over the contents of the project root directory, and picking up / converting all content it finds.
 
-For an example, see my simple family page:  https://familyhilton.com
+For an example, see my simple family page:  https://familyhilton.com  which is running directly from this repo.
 
 ## Quick Start:
 
-This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/) to get caught up!
+This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/).
 
-To get started building your own webpage, open a terminal window: 
+To get started building your own webpage: 
 
-1. Clone this repo locally:<br>`git clone https://github.com/Stephen-Hilton/familyhilton.com.git`
-2. Install packages (-i), build your site, and open in a local webserver (-w):<br>
+1. Create / login to your [Github.com](https://githublcom) account
+2. Fork the FamilyHilton.com repo and rename to something meaningful to you:<br>
+[https://github.com/Stephen-Hilton/familyhilton.com/fork](https://github.com/Stephen-Hilton/familyhilton.com/fork)
+3. Clone your new repo locally by opening a terminal window on your computer and enter:<br>`git clone https://github.com/<your-name>/<your-repo-name>.git`
+4. Install the builder and dependencies (-i), build your site, and open in a local webserver for testing (-w), all by typing in your terminal window:<br>
   `. ./src/build_site.sh -i -w`
 
 Done!  You should now have a local copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
 
 Time to make it your own... try these steps:
 
-- Open up the "people" directory, copy/paste "stephen.md", rename to "yourname.md", open the file and update the config information.
+**- Add your own "PERSON" page:**
+  - Open up the "people" directory, copy/paste "stephen.md" and rename to "your_name.md"
+  - Open your new .md file and update the config information, then save
   - When done, run `/src/build_site.sh` to rebuild the site
   - Refresh your browser window to see changes
-  - Look at your "people" page, you should see your new page!
+  - Click on on the "People" navigation, you should see your new page!
   - Remove Stephen, Joy, etc. and start filling in your own folks.
   - Try the same with pets, blogs, etc.
 
-- In the project root directory, copy/paste the `/about.yaml` and rename it to something you care about, let's say `/popcorn.yaml`.  Open the new file and change the config as you see fit.
+**- Add a new "Core" page**
+  - In the project root directory, copy/paste the `/about.yaml` and rename, let's say `/popcorn.yaml`
+  - Open your new .yaml file and update the config information, then save
   - When done, run `/src/build_site.sh` to rebuild the site
   - Refresh your browser window to see changes
-  - You should see a new "Popcorn" page available on all navigation!
-  
-You can repeat the steps immediately above with markdown files as well. Copy `/pets/luna.md` into the project root folder, modify, rename to `/soda.md`, and run `/src/build_site.sh`.  You should now see "Soda" as a new page / nav option.  Currently files in subfolders (like pets, blogs, etc.) are limited to markdown, not yaml.  Leave a comment if that's important to you.  Not hard, just not needed by me today.
-
+  - You should see a new "Popcorn" page available on all nav sections!
+  - Try the same again, this time copy/pasting `/pets/luna.md` to the root directory, and renaming to `/soda.md` and updating the configuration. 
+ 
 If you don't want to see "Popcorn" on navs, or you want the nav pages in a different order, you can explicitly define in the `/index.yaml` under the `site` section, `nav_pages` value, which is a list of pages, in display order.
 
-There are many other settings in the different configs, named as something intuative (hopefully) to an average user.  
-
-
-# Does the world need another static-webpage builder?  
-
-Probably not, but those that I found today were overly complicated for my super-simple use-case; a family webpage.  Specifically, I wanted something that was:
-- static, to be hosted on github pages or S3 bucket
-- simple, close to zero-code so all family members can edit (just markdown)
-- able to host free, or nearly free
-- decent looking but MORE importantly, dead-simple to update
-- easy to extend / add new pages quickly
-- did I mention: simple?
-
-
-Jekyl was cool, but way more complex than I needed, and too much education required for the family. It felt like hunting squirrels with a bazooka.  I am willing to sacrifice a lot of flexibility for simplicity, at least for this project.
-
-Also, it was fun. It was a chance to exercise AWS-Q with Claude 4.0 LLM - yes, obviously most of this was vibe coded. It took me several hours to architect how I wanted it to work and build out my desired structures for yaml and markdown by hand, and about 10 minutes for Q to create the entire working application with about 80% accuracy, then maybe another few hours of prompting for various fixes and updates to arrive at what you see here. It's not prefect yet, but for a little family site that's easy to stand up on github pages, I'm declaring victory and moving on for now. 
-
-So... no, I probably didn't need to do this. But it was a fun little side project, no apologies. 
-
-
-## Open to Contributions
-When I was wrapping up initial dev, I prompted Claude to:
-
->Please generate a comprehensive context compression summary, saved to a file `/src/ai_context.md` as a markdown format.  Design it to be optimal for the below future prompt:
-> 
->Please read the file /src/ai_context.md to understand the project goals and context history before the next request.
-
-That way, if you want to vibe code new features / functionalities, you have a handy context file to start with. If you are on AWS Q (as with many tools) it'll just read the entire project, including that context file. 
-
+- You can host on github pages directly, or via AWS S3 static pages.  See details at the bottom of this page.
 
 # Features
 
@@ -77,7 +54,6 @@ That way, if you want to vibe code new features / functionalities, you have a ha
 - **Static Output**: Generates pure HTML/CSS/JS for hosting anywhere
 
 # Usage
-
 
 ## Create Your Config Files
 There are several types of config files, each used for a specific purpose.  Some are used to build the site and will change frequently, some are more back-end and will change infrequently - and only if you understand things like CSS and JS (or can ask AI to update).
@@ -239,7 +215,6 @@ Optionally perform install/upgrade and start a webserver.
 ```
 
 
-
 # Hosting
 
 The generated HTML files can be hosted on:
@@ -265,3 +240,31 @@ Dependencies are automatically installed when running the generator (-i).
 ## Logs
 
 All generation activity is logged to timestamped files in `src/logs/` for debugging and monitoring.
+
+
+
+# Does the world need another static-webpage builder?  
+
+Probably not, but those that I found today were overly complicated for my super-simple use-case; a family webpage.  Specifically, I wanted something that was:
+- static, to be hosted on github pages or S3 bucket
+- simple, close to zero-code so all family members can edit (just markdown)
+- able to host free, or nearly free
+- decent looking but MORE importantly, dead-simple to update
+- easy to extend / add new pages quickly
+- did I mention: simple?
+
+
+Jekyl was cool, but way more complex than I needed, and too much education required for the family. It felt like hunting squirrels with a bazooka.  I am willing to sacrifice a lot of flexibility for simplicity, at least for this project.
+
+Also, it was fun. It was a chance to exercise AWS-Q with Claude 4.0 LLM - yes, obviously most of this was vibe coded. It took me several hours to architect how I wanted it to work and build out my desired structures for yaml and markdown by hand, and about 10 minutes for Q to create the entire working application with about 80% accuracy, then maybe another few hours of prompting for various fixes and updates to arrive at what you see here. It's not prefect yet, but for a little family site that's easy to stand up on github pages, I'm declaring victory and moving on for now. 
+
+So... no, I probably didn't need to do this. But it was a fun little side project, no apologies. 
+
+## Open to Contributions
+When I was wrapping up initial dev, I prompted Claude to:
+
+>Please generate a comprehensive context compression summary, saved to a file `/src/ai_context.md` as a markdown format.  Design it to be optimal for the below future prompt:
+> 
+>Please read the file /src/ai_context.md to understand the project goals and context history before the next request.
+
+That way, if you want to vibe code new features / functionalities, you have a handy context file to start with. If you are on AWS Q (as with many tools) it'll just read the entire project, including that context file. 
