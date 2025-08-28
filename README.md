@@ -22,7 +22,7 @@ cd /folder_where_you_cloned_your_repo_above/
 . ./src/build_site.sh -i -w
 ```
 
-**Done!**  You should now have a local copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
+**Done!**  You should now have a copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
 
 ## Make the Content Your Own
 
