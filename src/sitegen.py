@@ -39,7 +39,28 @@ class SiteGenerator:
         if index_file.exists():
             with open(index_file, 'r') as f:
                 config = yaml.safe_load(f)
-                return config.get('site', {})
+                site_config = config.get('site', {})
+                
+                # Auto-discover nav_pages if not specified
+                if 'nav_pages' not in site_config or not site_config['nav_pages']:
+                    page_files = []
+                    # Get all .yaml files (except index.yaml)
+                    for yaml_file in self.root_path.glob("*.yaml"):
+                        page_name = yaml_file.stem
+                        if page_name != 'index':  # Exclude index.yaml
+                            page_files.append(page_name)
+                    
+                    # Get all .md files in root (only if no corresponding .yaml exists)
+                    for md_file in self.root_path.glob("*.md"):
+                        page_name = md_file.stem
+                        if page_name != 'README':  # Exclude README.md
+                            yaml_equivalent = self.root_path / f"{page_name}.yaml"
+                            if not yaml_equivalent.exists():
+                                page_files.append(page_name)
+                    
+                    site_config['nav_pages'] = sorted(page_files)
+                    
+                return site_config
         return {}
     
     def parse_markdown_frontmatter(self, content):
@@ -337,11 +358,23 @@ class SiteGenerator:
             def __init__(self, *args, **kwargs):
                 super().__init__(*args, directory=root_path, **kwargs)
         
-        with socketserver.TCPServer(("", port), Handler) as httpd:
-            url = f"http://localhost:{port}"
-            print(f"Server running at: {url}")
-            webbrowser.open(url)
-            httpd.serve_forever()
+        # Try ports starting from the given port until we find a free one
+        while port < 9000:  # Reasonable upper limit
+            try:
+                with socketserver.TCPServer(("", port), Handler) as httpd:
+                    url = f"http://localhost:{port}"
+                    print(f"Server running at: {url}")
+                    webbrowser.open(url)
+                    httpd.serve_forever()
+                break
+            except OSError as e:
+                if e.errno == 48:  # Address already in use
+                    print(f"Port {port} is in use, trying {port + 1}...")
+                    port += 1
+                else:
+                    raise e
+        else:
+            print("Error: Could not find an available port between 8000-8999")
 
 
 def main(start_test_server:bool = False):

@@ -1,34 +1,33 @@
 #!/bin/zsh
 
-# Deactivate any active virtual environment
-if [[ -n "$VIRTUAL_ENV" ]]; then
-    deactivate
-fi
+PREV_PWD="$PWD"
 
 
 # Get script directory (works in zsh)
 SCRIPT_DIR="${0:A:h}"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-PREV_PWD="$PWD"
-
 echo "Script dir: $SCRIPT_DIR"
 echo "Project root: $PROJECT_ROOT"
 
 
+
+# Deactivate any active virtual environment
+if [[ -n "$VIRTUAL_ENV" ]]; then deactivate; fi
+
 # Change to project root
 cd "$SCRIPT_DIR" || { echo "Error: Cannot change to project root directory"; exit 1; }
 
-# Create virtual environment (in /src/ directory)
-python3 -m venv venv_sitegen || { echo "Error: Failed to create virtual environment"; exit 1; }
-
-# Activate virtual environment
-source ./venv_sitegen/bin/activate || { echo "Error: Failed to activate virtual environment"; exit 1; }
-
-# Install required packages
-pip3 install pyyaml jinja2 markdown python-dotenv openai gradio || { echo "Error: Failed to install required packages"; exit 1; }
-
+# Install/Upgrade if -i, otherwise just activate the virtual environment 
+if [[ "$1" == "-i" || "$2" == "-i" ]]; then
+    python3 -m venv venv_sitegen || { echo "Error: Failed to create virtual environment"; exit 1; }
+    source ./venv_sitegen/bin/activate || { echo "Error: Failed to activate virtual environment"; exit 1; }
+    pip3 install --upgrade pip pyyaml jinja2 markdown python-dotenv openai gradio || { echo "Error: Failed to install required packages"; exit 1; }
+else
+    source ./venv_sitegen/bin/activate || { echo "Error: Failed to activate virtual environment"; exit 1; }
+fi
+ 
 # Run sitegen
-if [[ "$1" == "-w" ]]; then
+if [[ "$1" == "-w" || "$2" == "-w" ]]; then
     python3 sitegen.py -w || { echo "Error: Failed to run sitegen with web server"; exit 1; }
     echo "Success: Site generated and web server started"
 else
@@ -36,5 +35,9 @@ else
     echo "Success: Site generated"
 fi
 
+# Deactivate any active virtual environment
+if [[ -n "$VIRTUAL_ENV" ]]; then deactivate; fi
+
 # Change back to original directory
 cd "$PREV_PWD" || { echo "Error: Cannot change to starting directory"; exit 1; }
+

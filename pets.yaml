@@ -21,10 +21,10 @@ sections:
   subfolder: "pets"       # subfolder under project root to sort, iterate, and produce pagelist items, one item per page found
   image: true              # if false, skip image.  If true, us the md Front Matter "image".  If true but no image defined, default to logo.png
   sort: "title_asc"        # sort order of files found under the subfolder.  Allows format: [date|title|author]_[asc|desc]
-  limit: 3                 # limit total number of items. Null or omitt to show all (use paginate for paging)
+  limit: 4                 # limit total number of items. Null or omitt to show all (use paginate for paging)
   paginate:                # config for how list of items are displayed (style is defined by css and jinja)
     enabled: false           # enable pagination when displaying many items
-    per_page: 3              # show this many posts per page, during pagination
+    per_page: 4              # show this many posts per page, during pagination
   filters:
     show_tag_filters: false  # render clickable tag chips to filter listing (client-side)
     tags:

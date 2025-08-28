@@ -4,11 +4,37 @@ A Python-based static site generator that converts YAML configuration files and 
 
 For an example, see my simple family page:  https://familyhilton.com
 
-To use: 
-1. Modify / add / remove .yaml config files in the project root, one yaml per webpage.
-2. Modify / add / remove .md config files from subfolders, such as `/blogs/*.md`
-2. Execute the `/src/build_site.sh` script to transform config files in html webpages.
-3. Optionally, add the `-w` flag to launch a local webserver and test your page, i.e.,  `/src/webserver_start.py -w`
+## Quick Start:
+
+This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/) to get caught up!
+
+To get started building your own webpage, open a terminal window: 
+
+1. Clone this repo locally:<br>`git clone https://github.com/Stephen-Hilton/familyhilton.com.git`
+2. Install packages (-i), build your site, and open in a local webserver (-w):<br>
+  `. ./src/build_site.sh -i -w`
+
+Done!  You should now have a local copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
+
+Time to make it your own... try these steps:
+
+- Open up the "people" directory, copy/paste "stephen.md", rename to "yourname.md", open the file and update the config information.
+  - When done, run `/src/build_site.sh` to rebuild the site
+  - Refresh your browser window to see changes
+  - Look at your "people" page, you should see your new page!
+  - Remove Stephen, Joy, etc. and start filling in your own folks.
+  - Try the same with pets, blogs, etc.
+
+- In the project root directory, copy/paste the `/about.yaml` and rename it to something you care about, let's say `/popcorn.yaml`.  Open the new file and change the config as you see fit.
+  - When done, run `/src/build_site.sh` to rebuild the site
+  - Refresh your browser window to see changes
+  - You should see a new "Popcorn" page available on all navigation!
+  
+You can repeat the steps immediately above with markdown files as well. Copy `/pets/luna.md` into the project root folder, modify, rename to `/soda.md`, and run `/src/build_site.sh`.  You should now see "Soda" as a new page / nav option.  Currently files in subfolders (like pets, blogs, etc.) are limited to markdown, not yaml.  Leave a comment if that's important to you.  Not hard, just not needed by me today.
+
+If you don't want to see "Popcorn" on navs, or you want the nav pages in a different order, you can explicitly define in the `/index.yaml` under the `site` section, `nav_pages` value, which is a list of pages, in display order.
+
+There are many other settings in the different configs, named as something intuative (hopefully) to an average user.  
 
 
 # Does the world need another static-webpage builder?  
@@ -70,7 +96,7 @@ root/
 │   └── *.md                # Markdown people profiles
 └── src/                    # Source files (modify with care / infrequently)
     ├── sitegen.py          # Main generator script
-    ├── webserver_start.py  # local webserver for testing
+    ├── build_site.sh       # Install, build site, start webserver (-w)
     ├── logs/               # location of sitegen logs
     ├── cssjs/              # CSS and JavaScript themes
     ├── images/             # Site images
@@ -142,22 +168,20 @@ Have fun and explore!
 
 The typical use-case for Markdown is to keep longer user-generated content stored in a sub-directory, such as blog posts or people's bios.  A common practice will be to generate one yaml file that displays many subpages, all generated and stored in a subfolder. 
 
-For example, you might have a subfolder called `/blogs/` in which you write and store many blog files as markdown.  You then create a `/blogs.yaml` page that includes a section `type: pagelist.tiles` which points to your `/blogs/*` subfolder.  When sitegen.py is executed, it will turn all .yaml and .md files into html, generate a section in the newly created `/blogs.html` that iterates and display a listing of all pages in the subfolder `/blogs/*.html`.  
+For example, you might have a subfolder called `/blogs/` in which you write and store many blog files as markdown.  You then create a `/blogs.yaml` page that includes a section `type: pagelist.tiles` which points to your `/blogs/*` subfolder.  When build_site.sh is executed, it will turn all .yaml and .md files into html, generate a section in the newly created `/blogs.html` that iterates and display a listing of all pages in the subfolder `/blogs/*.html`.  
 
-Another example, the `/people.yaml` config contains a section for `type: pagelist.cards` that points at your subfolder `/people/*.md`.  When sitegen.py is executed, it generates the `/people.html` page, which lists all people and links their personal pages stored in `/people/*.html`.   
+Another example, the `/people.yaml` config contains a section for `type: pagelist.cards` that points at your subfolder `/people/*.md`.  When build_site.sh is executed, it generates the `/people.html` page, which lists all people and links their personal pages stored in `/people/*.html`.   
 
 Both of the above examples can be found in this repo. 
 
 ### [image].png (and other image types)
 All images are expected to exist in the /src/images/* folder, so any configuration that specifies an image file, assume that image is stored in the /src/images/* folder.  For example, `image: "logo.png"` would actually be located at `image: "/src/images/logo.png"`.  These can be any web-safe image type (including video), and are here to be referenced by various pages. 
 
-### python (sitegen.py and webserver_start.py)
-This is the main python engine that, when executed via `python3 ./src/sitegen.py` will build all html pages as specified above.  
-
-Additionally, test your changes locally by executing via terminal: `python3 ./src/webserver_start.py` which will start a local webserver and open your page. 
-
 ## Config Files You'll Probably NOT Care About:
 Unless of course you're a webdev, in which case, please contribute!
+
+### python (sitegen.py)
+This is the main python engine that, when executed via `python3 ./src/sitegen.py` will build all html pages as specified above.  This is typically called with the wrapper script, `. ./src/build_site.sh` which also builds the python virtual machine, installs all dependencies, and optionally (-w) starts a local webserver. 
 
 ### [sectiontype].jinja
 When adding sections to your page.yaml file, each section must map to a .jinja file found in `/src/templates/sections/`.  
@@ -173,36 +197,46 @@ As with any file in the /src/ subdirectory, these files should not change freque
 ### [theme].css and [theme].js
 The css and javascript files are all expected to be stored in the /src/cssjs/ folder.  Because there may be global or special-use css and js files, the /index.yaml file contains a "site/"themes" section that defines theme names and assigns the css and js files explicitly, however always assumes the files exist in /src/cssjs subfolder. 
 
-**NOT YET IMPLEMENTED** - currently, dynamic theme switching hasn't been added to the framework.  Not hard, just not a priority at the moment.  Feel free to extend and open a PR!
+**NOT YET IMPLEMENTED** - currently, dynamic theme switching hasn't been added to the framework.  Not hard, just not a priority at the moment.  Feel free to extend and open a PR!  Just remember, it has to be done 100% client-side.
 
 As with any file in the /src/ subdirectory, these files should not change frequently.
 
 
-## Generate the Site
+## Generating the Site
 
-Once you've set all your config files, it's time to compile them into html files, aka your working webpage!  
+Once you've set your config files, it's time to compile them into html files, aka your working webpage!  
 
-To create your webpage (or update it with new/adjusted content), use a terminal window to run:
+### First Run?
+If this is the **first time running the script**, open a terminal window and:
+```bash
+. ./src/build_site.sh -i -w
+```
+
+### Generating Site
+To synthesize all config files into html and build your site, use the command:
 
 ```bash
 . ./src/build_site.sh
 ```
+**Available flags:**
+- `-i` - Install/update Python dependencies (required on first run)
+- `-w` - Start local webserver for testing (blocking terminal, `ctl-C` to quit)
 
-This will:
-1. Install environment (except Python3.x), create a virtual machine, install dependencies, start pythons script
-2. Process all `.yaml` files in the root directory
-3. Convert `.md` files to HTML (if no corresponding `.yaml` exists)
-4. Create a timestamped log file in `src/logs/`
 
-You can optionally add a `-w` flag, which will start a local webserver, allowing you to test your website locally before publishing.
+The `build_site.sh` script will:
+1. Convert all `.yaml` or `.md` files in the root directory to HTML
+2. Convert `.md` files in subdirectories to HTML
+3. Create a timestamped log file in `src/logs/`
 
+Optionally perform install/upgrade and start a webserver.
+
+**Examples:**
 ```bash
-. ./src/build_site.sh -w
+. ./src/build_site.sh -i -w    # First run with webserver
+. ./src/build_site.sh -w       # Generate site and start webserver
+. ./src/build_site.sh -i       # Update libraries and generate site
+. ./src/build_site.sh          # Just generate site
 ```
-
-Note, you cannot have more than one server running at a time.  Subsequent servers will error with a port collision. 
-It's recommended you create a new terminal to run the `. ./src/build_site.sh -w` command.  You can then recompile the website anytime in a different terminal with the standard `. ./src/build_site.sh` command (no `-w` flag). 
-
 
 
 
@@ -226,7 +260,7 @@ All dependencies are installed and kept up-to-date automatically by the `./src/b
 - Markdown
 - python-dotenv
 
-Dependencies are automatically installed when running the generator.
+Dependencies are automatically installed when running the generator (-i).
 
 ## Logs
 

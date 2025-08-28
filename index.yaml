@@ -5,7 +5,7 @@ site:  # configuration that covers the site as a whole:
   description: "Updates, projects, and adventures from our crew." # description / subtitle
   favicon: /image/favicon.png  # favicon.png for site
   keywords: "family, blog, updates, projects, adventures" # SEO / metadata keywords
-  nav_pages: ['about','people','pets','blogs'] # sets order / list of main pages for navs.  If missing or null, use all pages, in alpha order
+  # nav_pages: ['about','people','pets','blogs'] # sets order / list of main pages for navs.  If missing or null, use all pages, in alpha order
   themes: # map to theme styles
     default:
       css: default.css
