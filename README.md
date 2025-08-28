@@ -6,7 +6,7 @@ For an example, see my simple family page:  https://familyhilton.com  which is r
 
 ## Quick Start:
 
-This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/).
+This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/). 
 
 To get started building your own webpage: 
 
