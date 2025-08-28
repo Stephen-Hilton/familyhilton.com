@@ -16,9 +16,8 @@ To get started building your own webpage:
 2. Fork the FamilyHilton.com repo and rename to something meaningful to you:<br>
 [https://github.com/Stephen-Hilton/familyhilton.com/fork](https://github.com/Stephen-Hilton/familyhilton.com/fork)
 3. Clone your newly forked repo (aka download the code locally) by opening a terminal window on your computer and enter:<br>`git clone https://github.com/<your-name>/<your-repo-name>.git`
-4. Install the builder and dependencies (-i), build your site, and open in a local webserver for testing (-w), all by typing in your terminal window:<br>
+4. Install the builder and dependencies (-i), build your site, and open in a local webserver for testing (-w), all by typing in your terminal window: <br>(from within the newly cloned project folder)<br>
 ```shell
-cd /folder_where_you_cloned_your_repo_above/
 . ./src/build_site.sh -i -w
 ```
 
@@ -28,7 +27,7 @@ cd /folder_where_you_cloned_your_repo_above/
 
 **- Add your own "PERSON" page:**
   - Open up the "people" directory, copy/paste "stephen.md" and rename to "your_name.md"
-  - Open your new .md file and update the config information, then save
+  - Open your new .md file and update the config information to your preference, then save
   - When done, run `/src/build_site.sh` to rebuild the site
   - Refresh your browser window to see changes
   - Click on on the "People" navigation, you should see your new page!
@@ -37,7 +36,7 @@ cd /folder_where_you_cloned_your_repo_above/
 
 **- Add a new "Core" page**
   - In the project root directory, copy/paste the `/about.yaml` and rename, let's say `/popcorn.yaml`
-  - Open your new .yaml file and update the config information, then save
+  - Open your new .yaml file and update the config information to your preference, then save
   - When done, run `/src/build_site.sh` to rebuild the site
   - Refresh your browser window to see changes
   - You should see a new "Popcorn" page available on all nav sections!
