@@ -15,7 +15,7 @@ To get started building your own webpage:
 [https://github.com/Stephen-Hilton/familyhilton.com/fork](https://github.com/Stephen-Hilton/familyhilton.com/fork)
 3. Clone your new repo locally by opening a terminal window on your computer and enter:<br>`git clone https://github.com/<your-name>/<your-repo-name>.git`
 4. Install the builder and dependencies (-i), build your site, and open in a local webserver for testing (-w), all by typing in your terminal window:<br>
-  `. ./src/build_site.sh -i -w`
+  `. ./src/build_site.sh -i -w` 
 
 Done!  You should now have a local copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
 
