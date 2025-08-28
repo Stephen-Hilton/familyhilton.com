@@ -44,11 +44,20 @@ If you don't want to see "Popcorn" on navs, or you want the nav pages in a diffe
   - Commit your changes to Github, by entering in your terminal window:<br>
   ```shell
   git add .
-  git 
+  git commit -m "setting up my new site"
+  git push origin main
   ```
+  - In Github.com, navigate to your repo
+    - Click "settings" in the upper-right menu bar
+    - Find "Pages" on the left nagivation bar, under "Code and Automation" section
+  - Under the "Build and Deploy" section, set the "Source" dropdown to "Deploy from a branch"
+  - Set the "Branch" to "Main" (should be the default)
+  - Click on the "Visit Site" button at the top to see your newly hosted site!!
 
+**Congratulations!  Your site is now live!**
 
-- You can host on github pages directly, or via AWS S3 static pages.  See details at the bottom of this page.
+If you want to use your own Custom Domain instead, you can enter the URL on this page.  This requires some setup with your DNS provider (AWS Route53, Google Sites, GoDaddy.com, etc.) so I'd recommend Googling: <br>`Github Pages custom domain setup using GoDaddy` <br>(or whatever DNS provider) and follow those instructions. 
+
 
 # Features
 
