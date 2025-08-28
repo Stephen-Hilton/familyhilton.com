@@ -4,18 +4,23 @@ A Python-based static site generator that converts YAML configuration files and 
 
 For an example, see my simple family page:  https://familyhilton.com  which is running directly from this repo.
 
-## Quick Start:
+## Quick Start
 
-This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/). 
+### Requirements
+This guide assumes you know the basics of yaml and markdown.  No worries if they're new to you, both are very easy - check out these tutorials on [yaml](https://spacelift.io/blog/yaml) and [markdown](https://www.markdowntutorial.com/).  It also assumes you have [git](https://github.com/git-guides/install-git) installed on your computer.  
 
+# Build Your Own Website
 To get started building your own webpage: 
 
 1. Create / login to your [Github.com](https://githublcom) account
 2. Fork the FamilyHilton.com repo and rename to something meaningful to you:<br>
 [https://github.com/Stephen-Hilton/familyhilton.com/fork](https://github.com/Stephen-Hilton/familyhilton.com/fork)
-3. Clone your new repo locally by opening a terminal window on your computer and enter:<br>`git clone https://github.com/<your-name>/<your-repo-name>.git`
+3. Clone your newly forked repo (aka download the code locally) by opening a terminal window on your computer and enter:<br>`git clone https://github.com/<your-name>/<your-repo-name>.git`
 4. Install the builder and dependencies (-i), build your site, and open in a local webserver for testing (-w), all by typing in your terminal window:<br>
-  `. ./src/build_site.sh -i -w` 
+```shell
+cd /folder_where_you_cloned_your_repo_above/
+. ./src/build_site.sh -i -w
+```
 
 Done!  You should now have a local copy of https://familyhilton.com running locally (as something close to http://localhost:8000).  
 
@@ -41,22 +46,23 @@ Time to make it your own... try these steps:
 If you don't want to see "Popcorn" on navs, or you want the nav pages in a different order, you can explicitly define in the `/index.yaml` under the `site` section, `nav_pages` value, which is a list of pages, in display order.
 
 **- Push to Github and Setup Hosting**
-  - Commit your changes to Github, by entering in your terminal window:<br>
+  - Commit and Push your changes to Github, by entering in your terminal window:<br>
   ```shell
+  cd /folder_where_you_cloned_your_repo_above/
   git add .
   git commit -m "setting up my new site"
   git push origin main
   ```
-  - In Github.com, navigate to your repo
+  - In Github.com, navigate to your repo, then:
     - Click "settings" in the upper-right menu bar
-    - Find "Pages" on the left nagivation bar, under "Code and Automation" section
-  - Under the "Build and Deploy" section, set the "Source" dropdown to "Deploy from a branch"
-  - Set the "Branch" to "Main" (should be the default)
+    - Click "Pages" on the left navigation bar, last item in the "Code and Automation" section
+  - Under the "Build and Deploy" section, set the "Source" dropdown to "Github Actions"
+  - Wait a minute while Github Actions do their thing.  FamilyHilton.com repo already contains the GH Actions config file, so it should just work. 
   - Click on the "Visit Site" button at the top to see your newly hosted site!!
 
 **Congratulations!  Your site is now live!**
 
-If you want to use your own Custom Domain instead, you can enter the URL on this page.  This requires some setup with your DNS provider (AWS Route53, Google Sites, GoDaddy.com, etc.) so I'd recommend Googling: <br>`Github Pages custom domain setup using GoDaddy` <br>(or whatever DNS provider) and follow those instructions. 
+If you want to use your own Custom Domain instead, you can enter the URL on this page. That said, this step requires some setup with your DNS provider (AWS Route53, Google Sites, GoDaddy.com, etc.) so I'd recommend Googling: <br>`Github Pages custom domain setup using GoDaddy` <br>(or whatever DNS provider) and follow those instructions. 
 
 
 # Features
