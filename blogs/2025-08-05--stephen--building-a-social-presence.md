@@ -15,19 +15,19 @@ Ironically, being a technologist in San Francisco / Silicon Valley for the last 
 
 All that said – I take candid feedback seriously, and I take action. Humans are social creatures, and social media is a good way to share experiences in a scalable format. I don't really consider myself anti-social (clickbait), just happily distanced from social media.  My new goal is therefore: build a MVP social media presence that is fun and authentic and of some value.  But I want to do this my way -- I don't want to build a curated facade designed to impress, I just want to share real experiences with authentic thoughts. 
 
-# Where to Start
+## Where to Start
 I decided on LinkedIn for fairly obvious reasons, and a few non-obvious ones:
 
 I’ve spent several years consulting at LinkedIn back-in-the-day (I was badged when they IPO’d) and LinkedIn still reigns as the center of professional networking, so they’re doing something right.  Given most of my posts will be business related, it seems like a good place to start.  Plus, I’m too old for Instagram, too young for Facebook, too loquacious for TwitterX, and don’t want to be monitored by the CPP, ruling out TikToc.  I guess that leaves YouTube and LinkedIn.  I’ve no appetite for video content, so LinkedIn it is. 
 
-# What to Post
+## What to Post
 There are many smart and thoughtful leader publishing daily insights into our quickly evolving world - it can be intimidating using those well-polished professionals as a personal yard-stick of success.  So instead, I'm setting more realistic expectations: I’ll post what I know. This means topics like tech leadership, start-ups, solution engineering, customer success, AI, Web3, and the connective tissue that brings all of that together; data.
 And the occasional off-target rant about my dogs or some random topic.  This is my madness; I make no promises. 
 
-# Keep Posting
+## Keep Posting
 Honestly this is the hardest part.  It’s easy to start something new when the idea is fresh and shiny.  The challenge will come in a year, when deadlines are at-risk and priorities seem to demand every waking hour.  This is where rhythm helps – I’m a believer in the power of rhythm and the calendar, so I’ve blocked off 2 hours on my Friday morning (PT) to make sure I’m more connected.  Not "work time" nor "family time", this is "network time". Some weeks this might end up being a new blog, or a short post, or me catching up on other's posts and blogs. We'll play it by ear. 
 
-# Keep It Real
+## Keep It Real
 When fiction authors start writing, they talk about “finding their voice” – a style and rhythm that readers can settle into. If you’ve read Stephen King, you’ll know the easy, colloquial voice of his stories are very different than, say, the terse dense prose of Earnest Hemingway.  If you don’t find a voice that readers can settle into and focus on your story, maybe it’s time to consider a career change. 
 
 I bring that up because I think humans are starting to hear the “voice” of AI.  They’re starting to intuitively pick up when content is AI generated, which – given the sheer volume of it – isn’t hard to understand.  We’re a pretty adaptable bunch.
@@ -38,7 +38,7 @@ But if you’re NOT using AI, you’re making a mistake.  It’s like a caveman 
 
 This is all to say:  I AM going to use AI while putting together blogs, to help me stay consistent and efficient.  However I will NOT be doing a prompt/copy/paste.  I may use AI to edit before publication, or record audio thoughts while walking the dogs and ask AI to transpose and clean up.  But all thoughts will be mine.  If-and-when AI slop is no longer distinguishable from human slop, it’s time to drop the pretense and join the church of our new machine-god.
 
-# Future Topics
+## Future Topics
 The best way to hold yourself accountable is to make public promises you’ll almost certainly regret later.  
 
 Here’s a few ideas for future posts:
