@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Building a Static Web Builder with AWS-Q (for Github Pages)</title>
-    <meta name="description" content="Notes, projects, and updates from the Hilton crew.">
+    <meta name="description" content="For small projects, vibe coding a new static web framework is officially faster than just reading the docs of existing frameworks.">
     <meta name="keywords" content="family, blog, updates, projects, adventures">
     <meta name="author" content="Stephen Hilton">
     <link rel="icon" type="image/png" href="/src/images/favicon.png">
@@ -60,7 +60,7 @@
         
         
         
-        <p class="markdown-description">Notes, projects, and updates from the Hilton crew.</p>
+        <p class="markdown-description">For small projects, vibe coding a new static web framework is officially faster than just reading the docs of existing frameworks.</p>
         
         
         
@@ -68,16 +68,28 @@
         
         
         <p>I spent a Saturday afternoon building a tiny static webpage builder in Python with the new AWS-Q extension for VSCode. Version one (which you're reading now) could admittedly use some tweaking, but it also came together in just a few hours, and that’s the whole point: fast, clear progress beats perfect polish when you’re learning and shipping.</p>
-<p>After struggling thru the weirdness that was Jekyll and running into problem after problem, I decided, "if I'm. going to spend this much time, I should see if AWS-Q can just auto-generate a similar static webpage builder in less time than floundering around Jekyll" (spoiler: it can, but doesn't look as good). The concept was simple: read content from YAML/Markdown, run it through Jinja templates, and spit out clean HTML into a root/ folder you can serve with python -m http.server or upload to a github page. </p>
-<p>I started by writing a requirements document, getting the bare-bones on paper (er, digitally speaking) and having AWS-Q help me flesh out details and provide recommendations.  Once I was happy with the requirements, <strong>but before I submitted for code generation</strong> I asked AWS-Q what questions it had about the document... and it had many, eroding my previous happy-state.  After another 45mins of extending the document, I felt it was good enough to get started!</p>
-<p>I asked AWS-Q to sketch the skeleton: a sitegen package with build, clean, and init commands; a templates/ directory for base.html, home.html, blog_index.html, etc.; and a content/ directory where index.yaml, blogs.yaml, and people.yaml live alongside subfolders full of .md files. From there, it was a steady back-and-forth: I described how I wanted blog posts parsed (author and title from the filename), how the homepage hero should read CTAs, and how images in Markdown should resolve from a shared _images folder. AWS-Q handled the boilerplate fast.</p>
-<p>The first execution of the code had 1 error, and I had a copy/paste error (AI:1, human:1, tied game).  But after a little adjustment we were in business: index.html appeared, pages/blogs.html listed posts, and individual blog and people pages rendered from Markdown with a minimal header and footer.  We even got extras like sitemap.xml and robots.txt for free. </p>
-<p>Was it pretty? Meh. The initial CSS looked like it had been borrowed from 2010, and the nav link hover-overs are a weird yellow. But that’s the magic of a quick prototype—you can see the whole loop: schema → template → output. Now the improvements are obvious.</p>
-<p>Production-ready isn't the point - in a couple hours, I went from nothing to a custom static generator I understand end-to-end. I also have learnings on how I'll structure the v2 (a project for a future Saturday): I'll likely expand yaml just a bit, collapse many of the custom section types into fewer, more flexible options, and layer in more assumptions to comb out complexity. This is for simple, static, family type websites, so simple is better.   After that, I'm thinking MCP server!</p>
-<p>This was initially deployed on Github pages, but with very little effort (and some help from AWS-Q in console) I was able to stand up the same static site on AWS.</p>
-<p>For now, I’m calling it a win. The first attempt may be ugly, but I was able to code it faster than struggling through Jekyll.  Let me know what you think:</p>
-<p>https://familyhilton.com (Github Pages)
-https://hilton.zone (AWS-S3)</p>
+<h2>Requirement</h2>
+<p>This started after I decided to update our somewhat aged <a href="https://familyhilton.com">https://familyhilton.com</a> family website.  It was previously on Wix.com just for convenience, but we didn't really update it often, and $10/mo hosting seemed like overkill for such a simple site.  For the amount of traffic we get, Github Pages would work just fine, and - even better - for free.</p>
+<h2>Why Build New?</h2>
+<p>I always start any problem with looking for an easy, existing solution.  Github Pages is tightly integrated with the ruby framework Jekyll, so I dug in, hoping that after 30minutes of playing around I could come up with a working site.  Cut to several hours later and still struggling with the weirdness that was Jekyll, running into problem after problem, I decided, "I just want a super-simple static webpage, why is this so hard? Rather than spending all this time learning a framework for such a small project, maybe I'll try out AWS-Q, and see if I can auto-generate a similar static webpage builder in less time" (spoiler: yes, you can, but doesn't look as good). </p>
+<h2>The Requirements</h2>
+<p>The concept was simple: read content from YAML/Markdown, run it through Jinja templating engine in Python, and spit out clean HTML into a root/ folder as a static web page served in platforms like Github pages or AWS S3. Make the process primarily file-base, error-resistant, and easy enough for almost anyone to operate. </p>
+<h2>The Plan</h2>
+<p>I started by writing a requirements document, getting the bare-bones on paper (er, digitally speaking) and having AWS-Q help me flesh out details and provide recommendations.  Once I was happy with the requirements, <strong>but before I submitted for code generation</strong> I asked AWS-Q what questions it had about the document... and it had many, eroding my previous happy-state.  After another 45mins of extending the document, I felt that my requirements doc (aka prompt.md) was good enough to submit and see what Q could come up with.</p>
+<p>The final requirements: a single sitegen.py script with methods to build, test, and even serve (using local https server) a static website using a series of simple config files.  Config files would live in the project root, to make it easy to move to Github Pages or AWS S3 hosts, and to keep it dead-simple for non-technical users to modify (same reason I went with yaml instead of json).  Each config file would produce an identically named html file (e.g., index.yaml produced index.html, blogs.yaml produced blogs.html, etc.), with dynamic sections that allowed the engine to iterate through subfolders and produce N-number of subpages (e.g., blogs.html included an index for <code>/blogs/*.md</code>). Basically, the MVP for what a "family" website might want: a home page, an about page, and index pages for N-number of blogs, people, and pet pages, all neatly indexed.</p>
+<p>Any technical files were tucked into a <code>/src/</code> subfolder, including the python engine, jinja templates, css / js, etc.  This was to declutter the content for the non-technical user. </p>
+<h2>The Build</h2>
+<p>After about 2 hours of fiddling with the requirements doc and yaml config file design, I fired off my fairly verbose prompt.md to AWS-Q, and within about 10 minutes had all code built. The first execution of the sitegen.py had 1 error, which was easily handed to AWS-Q and fixed. The website then built incorrectly, which was a human copy/paste error (AI:1, human:1, tied game).  With those adjustment made we were in business: index.html appeared, pages/blogs.html listed posts, and individual blog and people pages rendered from Markdown with a minimal header and footer.  We even got extras like sitemap.xml and robots.txt for free, just by asking for it. </p>
+<p>Was it pretty? Meh, let's say 6/10.  The initial CSS generated by AWS-Q looked like it had been borrowed from 2015, and the nav link hover-overs are a weird yellow, but those are both just tastes, not broken - and an easy prompt to fix.  But more importantly, that’s the magic of a quick prototype — you can see the whole project in miniature, all at once: requirements → context → llm codegen → product test → repeat.  Now the improvements needed are real and obvious to see, not hidden in a theoretical state, weeks to discovery.</p>
+<h2>Next Steps</h2>
+<p>This was for a small family site, so... honestly not much left to do.  Production-grade isn't the point - in a couple hours, I went from nothing to a custom static webpage generator, built to my bespoke requirements (and 90% of that time was defining the requirements). I also immediately see the changes needed for v2 (a project for a future Saturday, maybe): I'll likely expand yaml just a bit, collapse many of the custom section types into fewer, more flexible options, and layer in more assumptions to comb out complexity. This is for simple, static, family type websites, so simple is better.   After that, I'm thinking MCP server!</p>
+<p>This was initially deployed on Github pages, but with very little effort (and some help from AWS-Q in the AWS console) I was able to stand up the same static site on AWS in about 15 minutes.  A more immediate next-step: setup a CI/CD pipeline to auto-sync S3 after a Github.com merge. </p>
+<p>For today, I’m calling it a win and moving on.  Let me know what you think:</p>
+<ul>
+<li><a href="https://familyhilton.com">familyhilton.com</a> (Github Pages)</li>
+<li><a href="https://hilton.zone">hilton.zone</a> (AWS S3 / Route 53)</li>
+<li><a href="https://github.com/Stephen-Hilton/familyhilton.com">github.com/Stephen-Hilton/familyhilton.com</a> (code)</li>
+</ul>
     </div>
 </section>
     </main>
