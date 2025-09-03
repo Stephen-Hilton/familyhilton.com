@@ -45,8 +45,8 @@ This was initially deployed on Github pages, but with very little effort (and so
 
 For today, I’m calling it a win and moving on.  Let me know what you think:
 
-- [familyhilton.com](https://familyhilton.com) (Github Pages)
-- [hilton.zone](https://hilton.zone) (AWS S3 / Route 53)
+- [familyhilton.com](https://familyhilton.com) (Github Pages - this is the "real" site)
+- [hilton.zone](http://hilton.zone) (AWS S3 / Route 53 -- http only, not https. Just for testing!)
 - [github.com/Stephen-Hilton/familyhilton.com](https://github.com/Stephen-Hilton/familyhilton.com) (code)
 
 ## Epilogue
