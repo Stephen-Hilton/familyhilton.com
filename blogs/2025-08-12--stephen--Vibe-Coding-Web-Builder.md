@@ -55,6 +55,6 @@ The oversimplification that "SaaS is Dead" has been repeatedly refuted.  Rather,
 
 But - the Hayday is done.  Remember, I used wix.com until recently.  In 2 hours I created a novel, bespoke web framework for a target audience using AI, which effectively replaced my need for the Wix SaaS.  Why?  Because I was using Wix as a hosting platform with a page builder simple enough that my family could manage edits.  Wix's product was just a product to me - one easily replaced with AI, given my very simple requirements.
 
-I'm not saying most people will go "build their own" SaaS replacements today, especially at the enterprise where cross-team workflow integration are required. But maybe in a few years? SaaS providers are scrambling to re-focus on the experience and outcome, not the product.  Lovable figured that out, which is why there are now hundreds of Lovable clones. 
+The SaaS providers who survive are right now scrambling to re-focus on the experience and outcome, not the product.  Lovable figured that out, which is why there are now hundreds of Lovable clones. 
 
 Maybe another way to say it: "SaaS is Becoming a Commodity", aka increasingly undifferentiated, unless they can adapt to the coming AI world.  
