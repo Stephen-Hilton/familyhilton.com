@@ -943,18 +943,35 @@ section {
         aspect-ratio: 3/2;
     }
     
+    .longtiles-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    
+    .page-longtile {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: var(--spacing-lg);
+    }
+    
     .longtile-link {
+        display: flex !important;
         flex-direction: column;
         min-height: auto;
+        width: 100%;
     }
     
     .longtile-image {
         width: 100%;
         height: 200px;
+        display: block !important;
     }
     
     .longtile-content {
         padding: var(--spacing-md);
+        display: block !important;
+        width: 100%;
     }
     
     .longtile-highlights-container {
