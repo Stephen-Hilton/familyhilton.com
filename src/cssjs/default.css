@@ -957,6 +957,15 @@ section {
         padding: var(--spacing-md);
     }
     
+    .longtile-highlights-container {
+        gap: 0.25rem;
+    }
+    
+    .highlight-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
     .footer-container {
         flex-direction: column;
         text-align: center;
