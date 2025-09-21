@@ -1,0 +1,34 @@
+page:
+  title: "Stephen's Project List"  # title of the page, also the browser tab title
+  description: "Wins, learnings, and battle scars in technology"  # description / subtitle
+  image: "logo.png" # image file, as found in /src/images/ folder
+  author: "Stephen Hilton" # author of the page, if applicable (should appear in footer)
+  date: true  # if type date, use as-is.  If "true", use date of last sitegen.py generation.
+  keywords: "stephen, aws loop, interview, stories" # SEO / metadata keywords
+  navs: ["footer"]  # navigation sections that wrap this page. Template for each should be included in /src/templates/navs/[nav].jinja
+
+sections: 
+
+- type: 'markdown'         # jinja html template as found in /src/templates/sections/[type].jinja
+  heading: null      # section header
+  content: |
+    # Stephen's Project Experiences 
+    Wins, learnings, experience, and battle scars I've accumulated over my time working in technology with Silicon Valley companies.
+    
+
+
+
+- type: 'pagelist.longtile'   # jinja html template as found in /src/templates/sections/[type].jinja
+  heading: "Stories"  # section header
+  subfolder: "projects"       # subfolder under project root to sort, iterate, and produce pagelist items, one item per page found
+  image: True              # if false, skip image.  If true, us the md Front Matter "image".  If true but no image defined, default to logo.png
+  sort: "title_asc"        # sort order of files found under the subfolder.  Allows format: [date|title|author]_[asc|desc]
+  limit: 40                 # limit total number of items. Null or omitt to show all (use paginate for paging)
+  paginate:                # config for how list of items are displayed (style is defined by css and jinja)
+    enabled: false           # enable pagination when displaying many items
+    per_page: 40              # show this many posts per page, during pagination
+  filters:
+    show_tag_filters: false  # render clickable tag chips to filter listing (client-side)
+    tags:
+      include: []            # restrict index to these tags; empty => all
+      exclude: ["draft"]     # hide posts tagged draft, even if file exists

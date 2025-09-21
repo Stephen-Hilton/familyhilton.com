@@ -75,9 +75,12 @@ class SiteGenerator:
                         # Convert list format to dict format
                         lines = frontmatter_text.split('\n')
                         yaml_dict = {}
+                        current_key = None
+                        current_array = []
+                        
                         for line in lines:
                             line = line.strip()
-                            if line.startswith('- ') and ':' in line:
+                            if line.startswith('- ') and ':' in line and not line.startswith('  -'):
                                 # Remove comments
                                 if '#' in line:
                                     line = line.split('#')[0].strip()
@@ -106,8 +109,35 @@ class SiteGenerator:
                                                 yaml_dict[key] = value
                                         except:
                                             yaml_dict[key] = value
+                                    elif not value:  # Empty value means it's an array
+                                        current_key = key
+                                        current_array = []
                                     else:
                                         yaml_dict[key] = value
+                            elif line.startswith('  - '):
+                                # This is an array item
+                                if current_key:
+                                    current_array.append(line[4:].strip())
+                            elif current_key and line.startswith('- ') and ':' in line:
+                                # Save previous array and start new key
+                                if current_array:
+                                    yaml_dict[current_key] = current_array
+                                    current_array = []
+                                # Process new key
+                                key_value = line[2:].split(':', 1)
+                                if len(key_value) == 2:
+                                    key = key_value[0].strip()
+                                    value = key_value[1].strip().strip('"').strip("'")
+                                    if not value:  # Empty value means it's an array
+                                        current_key = key
+                                    else:
+                                        yaml_dict[key] = value
+                                        current_key = None
+                        
+                        # Save final array if exists
+                        if current_key and current_array:
+                            yaml_dict[current_key] = current_array
+                            
                         frontmatter = yaml_dict
                     else:
                         frontmatter = yaml.safe_load(frontmatter_text)
