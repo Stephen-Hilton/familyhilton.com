@@ -953,6 +953,8 @@ section {
         display: block !important;
         width: 100% !important;
         margin-bottom: var(--spacing-lg);
+        background: var(--background-color) !important;
+        border: 1px solid var(--border-color) !important;
     }
     
     .longtile-link {
@@ -960,6 +962,7 @@ section {
         flex-direction: column;
         min-height: auto;
         width: 100%;
+        color: var(--text-color) !important;
     }
     
     .longtile-image {
@@ -972,6 +975,19 @@ section {
         padding: var(--spacing-md);
         display: block !important;
         width: 100%;
+        background: var(--background-color) !important;
+    }
+    
+    .longtile-title {
+        color: var(--text-color) !important;
+        font-size: 1.1rem !important;
+        margin-bottom: var(--spacing-sm) !important;
+    }
+    
+    .longtile-description {
+        color: var(--text-muted) !important;
+        font-size: 0.9rem !important;
+        margin-bottom: var(--spacing-md) !important;
     }
     
     .longtile-highlights-container {
