@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compression Card Mis-Sizing: A Hard Lesson at Teradata</title>
+    <meta name="description" content="As SE for a 1.2B user social media customer, discovered compression cards provided 40% less compression savings than CPUs, undersizing my system sizing. Worked with engineering to deliver custom fix (+15% free nodes) and shared mistake widely to prevent recurrence. Lesson: read technical docs carefully, and ask questions frequently.">
+    <meta name="keywords" content="aws loop, projects, learnings">
+    <meta name="author" content="Stephen Hilton">
+    <link rel="icon" type="image/png" href="/src/images/favicon.png">
+    <link rel="stylesheet" href="/src/cssjs/default.css">
+</head>
+<body>
+    
+    
+<header class="top-nav">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <a href="/index.html" class="logo-link">
+                <img src="/src/images/logo.png" alt="Family Hilton" class="nav-logo">
+                <span class="site-title">Family Hilton</span>
+            </a>
+        </div>
+        
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                
+                
+                <li class="nav-item">
+                    <a href="/about.html" class="nav-link">ABOUT</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/people.html" class="nav-link">PEOPLE</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/pets.html" class="nav-link">PETS</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/blogs.html" class="nav-link">BLOGS</a>
+                </li>
+                
+            </ul>
+            
+            
+        </nav>
+    </div>
+</header>
+    
+    
+    
+    <main>
+        
+<section class="markdown-section">
+    <div class="markdown-content">
+        
+        <h1 class="markdown-title">Compression Card Mis-Sizing: A Hard Lesson at Teradata</h1>
+        
+        
+        
+        <p class="markdown-description">As SE for a 1.2B user social media customer, discovered compression cards provided 40% less compression savings than CPUs, undersizing my system sizing. Worked with engineering to deliver custom fix (+15% free nodes) and shared mistake widely to prevent recurrence. Lesson: read technical docs carefully, and ask questions frequently.</p>
+        
+        
+        
+        <hr class="markdown-divider">
+        
+        
+        <h1>Overview</h1>
+<h3>Situation:</h3>
+<ul>
+<li>Role: SE covering professional social media customer with 1.2B users</li>
+<li>Installed first system, then sold second system for blue/green deployments</li>
+<li>New platform included dedicated compression cards vs CPU compression</li>
+</ul>
+<h3>Tactics:</h3>
+<ul>
+<li>Problem discovered after data replication showed storage overfill risk</li>
+<li>Compression cards reduced efficiency ~40% vs CPUs, leading to undersized system</li>
+<li>Validated compression differences and escalated to engineering</li>
+<li>Explored multiple remediation options with Sales and HW Engineering</li>
+<li>Balanced CPU/IO tradeoffs while minimizing customer impact</li>
+<li>Proposed hybrid fix: disable compression cards + add extra nodes</li>
+</ul>
+<h3>Actions:</h3>
+<ul>
+<li>Confirmed compression card inefficiency with engineers</li>
+<li>Determined IO limits prevented CPU-only compression without changes</li>
+<li>Negotiated providing 15% additional nodes free to offset loss</li>
+<li>Delivered custom install: main CPU compression + extra nodes to offset IO shortfall</li>
+<li>Ensured customer satisfaction with tailored solution</li>
+</ul>
+<h3>Results:</h3>
+<ul>
+<li>Customer received fully functional system with resolved capacity issue</li>
+<li>Personal lesson: rigorously review technical documentation for new platforms</li>
+<li>Teradata avoided larger impact of repeated mis-sizing across accounts</li>
+<li>Built trust internally and externally through transparency</li>
+<li>Shared error transparently across SE, regional, and all-hands calls</li>
+<li>Potential tens of millions saved by preventing recurrence</li>
+</ul>
+<hr />
+<h1>Customer Obsession:</h1>
+<p>Transparency, accountability, and protecting customers from systemic risk.</p>
+<ul>
+<li><strong>Ownership</strong> – Took responsibility for mis-sizing, drove resolution and shared lesson broadly.  </li>
+<li><strong>Customer Obsession</strong> – Ensured customer success by delivering extra nodes at no cost.  </li>
+<li><strong>Dive Deep</strong> – Validated compression issue through analysis and technical documentation.  </li>
+<li><strong>Earn Trust</strong> – Built credibility by openly admitting error across teams.  </li>
+<li><strong>Insist on the Highest Standards</strong> – Resolved to never skim new platform technical documentation again.  </li>
+<li><strong>Deliver Results</strong> – Delivered working system with custom solution, avoided repeated costly mistakes.  </li>
+</ul>
+<p><a href="/projects.html">Back to the project index page</a>.</p>
+<hr />
+<h1>Full Text</h1>
+<p>When I was a SE at Teradata, one of the first customers I covered was a professional social media company with 1.2B users. I had helped them install and onboard their first system, and a year later they wanted to add another identical platform to enable blue/green deployments.  </p>
+<p>It was a fairly easy sales cycle, with one caveat: Teradata had upgraded the platform design, adding compression cards to reduce CPU burden and improve cost-efficiency. At first glance this was a value-add, since the customer already used CPU-based compression.  </p>
+<p>The problem appeared after replication started—the system was filling too fast, reaching 50% full with only 30% of data loaded. I validated and confirmed with engineers that the compression cards delivered 40% less compression. This undersized the system by 40%.  </p>
+<p>Options were considered: CPU-only compression wasn’t viable due to IO limits, larger drives would upset CPU-per-TB balance, and free nodes would be costly. The compromise: disable cards for CPU compression and add 15% nodes free.  </p>
+<p>I ensured the customer was satisfied with the fix. Then I openly shared the mistake on SE calls, regional calls, and even all-hands—painful but necessary. If repeated, costs could reach tens of millions. Swallowing pride was worth it. The lesson: never skim technical docs on new platforms, and always prioritize transparency to protect customers.</p>
+    </div>
+</section>
+    </main>
+    
+    
+    
+    
+    <script src="/src/cssjs/default.js"></script>
+</body>
+</html>

@@ -14,8 +14,6 @@ sections:
   content: |
     # Stephen's Project Experiences 
     Wins, learnings, experience, and battle scars I've accumulated over my time working in technology with Silicon Valley companies.
-    
-
 
 
 - type: 'pagelist.longtile'   # jinja html template as found in /src/templates/sections/[type].jinja
