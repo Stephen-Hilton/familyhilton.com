@@ -39,21 +39,20 @@
     - Deliver Deck on Monday PM, and deliver to customer (recommended)
 - CEO agreed: allowed report review Monday evening/Tuesday AM
 - Scheduled time with CFO to reconcile on Monday AM
-- Delivered customer integration on time
-- Completed board report on time, high quality maintained
-- Absorbed personal cost (weekend work) to meet both deliverables
-- Raised issue again during 1:1 with CEO, highlighting recurring conflict
-- CEO improved planning over time, giving 2–3 weeks’ notice for board reports
 
 ### Results:
+- Delivered customer integration on time
 - Converted strategic prospect to paying customer
     - Their revenue was small, <1k /mo
     - But also converted 2nd hand customers, via their integration
-- Delivered accurate, reconciled board reports on time
+- Completed accurate, reconciled board report on time, high quality maintained
+- Absorbed personal cost (weekend work) to meet both deliverables
+
+- Raised issue again during 1:1 with CEO, highlighting recurring conflict
+- CEO improved planning over time, giving 2–3 weeks’ notice for board reports
+
 - Strengthened CEO trust through proactive recommendations
-- Improved long-term CEO planning of board report prep (2–3 weeks’ notice)
 - Maintained investor trust in data accuracy and quality
-- Balanced customer and investor demands despite lean resources
 
 ---
 

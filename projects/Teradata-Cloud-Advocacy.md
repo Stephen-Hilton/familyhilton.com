@@ -42,6 +42,8 @@
 - Less than 12mo later, streaming customer terminated Teradata, moved to Druid/Presto/Athena
 - This helped accelerate urgency for cloud strategy “Teradata where you want it”
 - Wasn't until Snowflake that Teradata really became "Cloud first", but 5 years too late
+    - TD Market Cap: 2B
+    - Snowflake Market Cap: 77B (38x)
 
 ---
 

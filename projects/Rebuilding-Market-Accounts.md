@@ -24,28 +24,24 @@
 - SEs lacked clear guidance, confidence, and connection 
 
 ### Tactics:
-- Transitioned enterprise customers before focusing on Market Accounts
-- Developed 3-part plan: get to know team, assess fit/needs, build per-SE plan for success
+- Transitioned enterprise customers
+- Plan: assess fit/needs, mentor SEs, foster the team
 - Work to build a culture of collaboration and mentorship
 
 ### Actions:
-- Held video calls to meet all SEs
 - Organized 3-day in-person HQ meeting:
   - Day 1: introductions, skills/experience sharing, I set expectations and shared resources
   - Day 2: product engineering sessions for learning and excitement (still have pic!)
   - Day 3: account planning and cross-account collaboration
-- Encouraged SEs to help on accounts they didn’t own for redundancy/learning
-- Built mentorship model identifying senior and junior SEs
+  - had lots of fun, learned a lot, 100% more engaged team by end
+- Homework: assigned cross-account backkups / redundancies
 - Established monthly in-person tour across California regions
 - Collected and resolved SE blockers, positioning self as lineman supporting SEs
-- Created team bonding opportunities with social meals/events
 
 ### Results:
 - Market Accounts achieved $22M sales vs $20M quota
 - One of the new SEs won the "New SE of the year" across the whole company! 
-- Transformed team into cohesive, collaborative unit
-- Improved SE skills, engagement, and customer connection
-- Provided mentorship and development for long-term SE growth
+- Transformed team into cohesive, collaborative whole
 - Personal growth: learned to prioritize and say “Yes, if…” with 50+ customers
 
 ---

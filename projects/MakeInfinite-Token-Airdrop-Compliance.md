@@ -20,29 +20,28 @@
 ### Situation:
 - MakeInfinite Labs preparing blockchain token launch requiring airdrop
 - Tokens classified as currency; legal compliance critical
-- Role: authoring pipeline to aggregate data, apply rules, track audit
+- I built data pipeline to aggregate data, apply rules, track audit
 
 ### Tactics:
-- Built rigorous, auditable pipeline aligned with legal requirements
-- Founder requested adding wallets outside established rules
-- Initially created new category, initially prepared to accommodate additions
+- Founder sent me a list of wallets to add, outside established rules
+- Initially prepared to accommodate additions, but thinking again, didn't know if I could
 - Escalated founder’s request to legal counsel for validation
 - Legal counsel confirmed this would be illegal
 
 ### Actions:
-- Informed legal counsel, received “absolutely not” response
+- Texted concern back to founder, who called and demanded I add them
 - Escalated to email including founder and legal counsel
 - Summarized situation, proposed compliant alternatives
-- Refused illegal request politely, preserving professionalism
-- Documented written trail of instructions and responses
+    - Documented written trail of instructions and responses
+- Legal council reinforced we "could not add" outside of defined rules
+    - but we could add if they qualify for existing ruleset
 - Founder later apologized for outburst, though objected to legal inclusion
 
 ### Results:
-- Prevented illegal token distribution
-- Preserved audit trail and company’s compliance posture
+- Preserved audit trail integrity
 - Protected self, company, and community from regulatory risk
 - Reinforced ethical decision-making despite leadership pressure
-- Delivered token airdrop in compliance with U.S. legal standards
+- Had a very smooth airdrop experience otherwise 
 
 ---
 

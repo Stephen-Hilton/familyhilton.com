@@ -24,20 +24,22 @@
 - No guidance on presenting/using findings with customers
 - Result: confusion, inconsistent internal/external reporting, poor customer perception
 
-### Tactics:
-- Built plan and garnered approval from CCO (manager):
-    - Gather best-in-class telemetry metrics/analytics from senior SAs & CSMs
-    - Vet metrics with platform engineers for accuracy/applicability
-    - Partner with product engineering to collect telemetry via support infrastructure
-    - Develop Python POC framework (TDCOA) for automated analytics and PPTX
-- If successful, request engineering investment to scale solution
+### Tactics/ Challenges:
+- Challenge; no-one had been able to solve this in the past
+- No previous executive sponsor to force organizational transformation
+- No system to generate / force consistent metrics or reporting
+- Built plan and garnered approval from CCO (manager)
+    - If successful, request engineering investment to scale solution
 
 ### Actions:
-- Interviewed SE/CSM/Sales leadership for most effective usage analytic metrics / reports
-- Consolidated and de-duplicated,
-- Spend day with product engineering to vet and rationalize all metrics
-- Built POC: automated connection, analytics, visualizations, and PPTX generation
-- In parallel, worked with Product Eng. on centralized telemetry sourcing
+- Execute plan, with executive sponsorship:
+    - Interviewed SE/CSM/Sales leadership for most effective usage analytic metrics / reports
+    - Gather best-in-class telemetry metrics/analytics from senior SAs & CSMs
+    - Dedup, consolidate, & vet with platform engineers for accuracy/applicability
+    - Now have best-of-best metrics
+- In parallel, partner with product engineering to collect telemetry via support infrastructure
+- Develop Python POC framework (TDCOA) for automated analytics and PPTX
+    - Automated connection, analytics, visualizations, and PPTX generation
 - Once done, demo’d to CCO, secured approval and budget to scale
 - Hardened and scaled TDCOA:
     - Allow for edge cases (no outside access, or telemetry over support)
@@ -45,7 +47,7 @@
     - Better UI (still internal tool)
     - Supported extensibility to continue SE innovation / bespoke customer reports 
     - One SE developed graphing network of table joins by schema
-- Rolled out first to senior SAs for UAT and to accelerate adoption
+- Rolled out first to senior SAs for UAT and to accelerate adoption and rally support
 - Provided office hours, training, and regional presentations 
 
 ### Results:

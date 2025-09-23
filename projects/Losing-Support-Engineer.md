@@ -18,9 +18,8 @@
 
 ### Situation:
 - MakeInfinite Labs startup environment, limited resources and global customers
-- Support engineer was OK Eng., providing other support when no tickets
+- C- repurposed Product Engineer, turned into B+ support engineer 
 - CEO looking for cost savings, asked to RIF only IST customer support engineer
-- Solution Engineers (SEs) under pressure to cover support, risking presales focus
 - Wasn't a named-person concern, but role and timezone issue: no support 12hs/day
 
 ### Tactics:
@@ -31,8 +30,14 @@
 - Jointly aligned with Head of Eng. on risks of losing IST support
 - Scheduled call with CEO + Head of Eng. to present case
     - Raised concern to CEO about RIF decision 
-    - Urged retaining resource until replacement could be hired
     - Clarified value of low-cost, pre-trained support resource
+- GMT Value:
+    - almost 100 tickets / questions addressed in the last month
+    - helping another customer with deployment / CSM work
+- Eng. Value
+    - abstract engineer away from customer
+    - will waste Eng. time, slow down roadmap
+- Urged retaining resource until replacement could be hired
 - CEO overruled, executed RIF, assigned support to Eng.
 
 ### Results:

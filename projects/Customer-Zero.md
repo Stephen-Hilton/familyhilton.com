@@ -20,35 +20,35 @@
 ### Situation:
 - MakeInfinite Labs initiative: “Customer Zero” (dogfooding) program
 - Objective: Run SXT internally on its own SXT technology
-- Involved new stakeholders (HR, onboarding/offboarding, employee access)
-- Forced entire org to adopt product as a true customer
-- Product immaturity caused significant internal pain
+- build into operational processes (HR, onboarding/offboarding, employee access)
 - Goal: uncover issues before external customers experienced them
 
 ### Tactics:
-- Built internal data pipelines for telemetry + CRM integration
-- Unified customer master: product usage + CRM interactions in one schema/report
-- Embraced discomfort to expose product weaknesses
-- Positioned program as investment in long-term customer satisfaction
+- Product immaturity caused significant internal pain
+- Many at company didn't have reason to use our own product
 
 ### Actions:
 - Coordinated across HR, engineering, sales, and operations for rollout
 - Established onboarding/offboarding workflows through SXT platform
-- Implemented telemetry pipelines for internal product usage
-- Integrated CRM and product data into unified schema/report
+
+- I forced GTM:
+    - Built internal data pipelines for telemetry + CRM integration
+    - Unified customer master: product usage + CRM interactions in one schema/report
+    - Acknowledged the discomfort, but long-term customer satisfaction worth it
+
+- Implemented telemetry pipelines for internal product usage, to lure Engineering
+    
 - Logged and tracked issues encountered internally
-- Opened 400+ product tickets in 2 years
 - Partnered with engineering teams to prioritize fixes
 - Advocated for internal experiences as proxy for external customers
 - Shared learnings broadly to improve adoption readiness
 
 ### Results:
 - 400+ product issues fixed before reaching customers
-- Significantly reduced friction in customer experience
+- Gamified with Jira reports (and Eng. resolution reports)
 - Improved product maturity and reliability
 - Company-wide alignment with product realities
-- Customer satisfaction improved by eliminating unseen pain points
-- Internal credibility gained for proactive product quality strategy
+- Customer satisfaction improved by experiencing rough-spots early
 
 ---
 

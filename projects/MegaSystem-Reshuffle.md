@@ -18,29 +18,30 @@
 # Overview
 
 ### Situation:
-- Region: San Francisco Bay/Silicon Valley, largest in company (25% global compute)
+- Region: San Francisco Bay/Silicon Valley, largest in company 
+    - 50% of NorAm compute, which was 50% of global compute  
 - Account: $400B revenue, $3.5T market cap consumer hardware/software giant
-- Represented 1/8 of global compute capacity
+    - Represented > 1/8 of global compute capacity
 - Typical deals $40M–$50M/year, highly complex technical roadmaps
+- Directly led SE/CSM team due to deal size/importance
+
+### Tactics:
 - Customer requested major system reshuffle for new use cases + new system
 - Sales had $42M contract pending, support team cautious about risks
 
-### Tactics:
-- Directly led SE/CSM team due to deal size/importance
+### Actions:
 - Facilitated 2x weekly triage calls with Sales, Support, and SEs
 - Facilitated 2x weekly update calls with customer
 - Balanced urgency (sales) with caution (support) for aligned approval
 
-### Actions:
-- Finalized customer’s requested HW movement map, shared with Support leadership
-- Identified critical power shortage in customer’s hall, raised with customer
-- Adjusted plan collaboratively, re-vetted with support
-- Closed $42M deal with signed contract
-- Coordinated successful install, aside from infiniband cable shortage
+- Quickly iterated on and resolved questions, concerns, critical issues, etc.
+    - Hall in DC was under-powered, Customer addressed (they didn't know)
+    - quickly addressed global supplier shortages of infiniband 200gb fiber cables
 - Managed emergency supplier orders to resolve hiccup
 
 ### Results:
 - Closed $42M contract, secured multi-year roadmap continuity
+- Coordinated successful install
 - Built customer trust by proactively identifying infrastructure risks
 - Executed install successfully, enabling new use cases
 - Strengthened relationship with company’s largest global customer

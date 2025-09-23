@@ -19,31 +19,37 @@
 
 ### Situation:
 - Role: SE covering professional social media customer with 1.2B users
-- Installed first system, then sold second system for blue/green deployments
+- Year after first system, sold second system for blue/green deployments
 - New platform included dedicated compression cards vs CPU compression
 
 ### Tactics:
 - Problem discovered after data replication showed storage overfill risk
-- Compression cards reduced efficiency ~40% vs CPUs, leading to undersized system
+    - we've loaded 30% of the data, but system is 50% full
+    - Compression cards reduced efficiency ~40% vs CPUs, leading to undersized system
 - Validated compression differences and escalated to engineering
-- Explored multiple remediation options with Sales and HW Engineering
-- Balanced CPU/IO tradeoffs while minimizing customer impact
-- Proposed hybrid fix: disable compression cards + add extra nodes
+    - Eng., "Yep" 
+    - Buried in the OCI, no training, ordering tool not updated, made it past "config check"
+    - Still, published, I should have caught, this was my responsibility
 
 ### Actions:
-- Confirmed compression card inefficiency with engineers
-- Determined IO limits prevented CPU-only compression without changes
-- Negotiated providing 15% additional nodes free to offset loss
+- Created Warroom to explored multiple remediation options
+    - Remove cards? Can, but IO subsystem is under-plumbed by 15%
+    - Increase disk drives?  Lowers CPU/TB, would be very costly
+- Arrived at: remove cards, increase system by 15% to compensate for IO (free)
+    - removed to keep system simple, no failure risk 
+
 - Delivered custom install: main CPU compression + extra nodes to offset IO shortfall
 - Ensured customer satisfaction with tailored solution
 
 ### Results:
 - Customer received fully functional system with resolved capacity issue
+- At no additional cost
 - Personal lesson: rigorously review technical documentation for new platforms
-- Teradata avoided larger impact of repeated mis-sizing across accounts
-- Built trust internally and externally through transparency
-- Shared error transparently across SE, regional, and all-hands calls
-- Potential tens of millions saved by preventing recurrence
+- I presented this case on local, regional, and SE all-hands calls
+    - try to save others from the same mistake
+
+- Know: Built trust internally and externally through transparency
+- Think: Potential tens of millions saved by preventing recurrence
 
 ---
 

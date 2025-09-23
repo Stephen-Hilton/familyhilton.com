@@ -1,0 +1,14 @@
+- **Customer Obsession** – Leaders start with the customer and work backwards.
+- **Ownership** – Act on behalf of the entire company, not just your own team.
+- **Invent and Simplify** – Seek out new solutions and simplify processes.
+- **Are Right, A Lot** – Exercise strong judgment and good instincts.
+- **Learn and Be Curious** – Never stop learning and always seek to improve.
+- **Hire and Develop the Best** – Raise the performance bar with every hire and promotion.
+- **Insist on the Highest Standards** – Continuously raise the bar for quality and performance.
+- **Think Big** – Create and communicate a bold direction that inspires results.
+- **Bias for Action** – Value calculated risk-taking and speed.
+- **Frugality** – Accomplish more with less; constraints drive innovation.
+- **Earn Trust** – Listen attentively, speak candidly, and treat others with respect.
+- **Dive Deep** – Stay connected to the details, audit frequently, and be skeptical when metrics differ from anecdotes.
+- **Disagree and Commit** – Respectfully challenge decisions when you disagree, then commit fully.
+- **Deliver Results** – Focus on key inputs and deliver them with the right quality and on time.

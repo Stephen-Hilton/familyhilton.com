@@ -17,19 +17,23 @@
 # Overview
 
 ### Situation: 
-- Early prospect of MakeInfinite, $6B/rev Fintech and data firm
-- Wanted AI-SQL Engine, but LT skeptical of migrating off AWS Redshift
-- Trusted AWS uptime over a 1-year-old startup, who knew?  
+- Early prospect of MakeInfinite, Fintech and data firm, $6B/rev and 50k employees
+- Wanted AI-SQL Engine to speed up business analytics
+- Engaged the team, had a mostly successful sales cycle
+
 ### Tactics:
-- As Pragmatic Head of GTM, partnered with Eng. to come up with a new product!
-- Gained CEO approval for roadmap change: decouple AI/embedding model from DB-storage
+- LT skeptical of migrating off AWS Redshift; trusted AWS uptime over a 1-year-old startup, who knew?  
+- As Pragmatic Head of GTM, I felt their objections were not unreasonable
+
 ### Actions:
-- New product! AI-SQL wrapper on any DB
-- Took leadership of AI team, decoupled required LLMs:
+- Gained CEO approval for roadmap change: decouple AI/embedding model from DB-storage
+- Partnered with Eng. to come up with a new product! AI-SQL wrapper on any DB
+- Given leadership of AI team, decoupled required LLMs:
   - embedding model / RAG
   - SQLCoder for authoring SQL
   - Frontier model to try and catch failures
 - Developed training for customer self-maintenance
+
 ### Results
 - Won deal → became our earliest + longest-running AI customer
 - 36k Paid POC + $4k/mo subscription (48k/yr ARR)

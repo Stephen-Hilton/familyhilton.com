@@ -21,21 +21,19 @@
 ### Situation:
 - New customer – $1B/yr manufacturing company
 - Just complted competitive POC of Hadoop + DBMS (load 10M rows < 1sec) 
-- Led migration project as PM + SE
-- Knew systems, CTO, biz use-cases – I could PT techlead / PT PM
-- I did NOT do migration project scoping
-- As project got going, discovered scoped on parent object, not child - 10x difference!
-- Project was time-sensitive (4mo), with dependencies
+- Led migration project as PM + SE -- new systems, biz, CTO
+- I did not do migration project scoping
+- As project got going, migration Eng. raised concern about project scope
+  - scoped on Plan object, not child "Graph" - 10x difference!
 
 ### Tactics:
-- Part 1:  Consistent data model allowed for bespoke automation
-- Ab Initio + Informatica – AB was weird, needed custom help
-- Part 2: Get permission to “Flood the Zone” with consultants
+- Project was time-sensitive (4mo), with dependencies
+- Needed to pull together our plan rapidly 
 
 ### Actions:
 - Morning after discovery, call with head of consulting to “borrow” all benched PS
   - He and I built a plan to automate with experts, disseminate work where we could not
-  - Pulled experts: 2 AB, 1 Infra, 1 PM (I needed to be FT Techlead)
+  - Pulled experts: 2 AB, 1 Infra, 1 PM (freeing me as Techlead)
 - By afternoon, call with Sales LT to co-present with Consulting + SE, got approval (RedHIP)
   - Root-cause could wait (imperative, not time sensitive)
 - By evening, plan was in motion, internal docs, customer preso 
@@ -49,8 +47,8 @@
 
 ### Results:
 -	We delivered 4 weeks late (5mo total, +25%), but delivered 10x the work
--	We were RedHip, but only by -$10k or so, after customer paid additional $50k
 -	We did post-mortem; customer mislabeled, but we didn’t catch (pressure to go fast)
+-	We were RedHip, but customer eventually agreed to pay addition $50k to bring us to break-even
 -	Developed new AB migration automation, for migration team
 -	Customer was happy with result & trusted us to deliver
 

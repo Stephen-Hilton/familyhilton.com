@@ -21,17 +21,16 @@
 - Medium-sized telco ($740M revenue) providing secure video and text/MFA services
 - High MFA costs (~10¢ per message) drove search for alternatives
 - Interested in AI/ZK database and VCON storage for verifiable consumer ID
-- Telco slow-moving, risk-averse; startup needed to demonstrate credibility and ease-of-use
 
 ### Tactics:
-- Partnered with trusted consultancy to build confidence and bridge industry gap
-- Collaborated with VCON creators to integrate technical backend
+- Telco slow-moving, risk-averse; startup needed to demonstrate credibility and ease-of-use
+- We were web3 and media tech; needed to borrow some telco credibility
 
 ### Actions:
 - Partnered with consultancy, supported with technical expertise, co-authored whitepaper
 - Partnered with CTO of VCON framework company, built rapid v0.5 integration
-- Submitted PR to VCON-Server repo, merged into production framework
-- Demonstrated ability to extend backend with minimal effort
+    - Submitted PR to VCON-Server repo, merged into production framework
+    - Demonstrated ability to extend backend with minimal effort
 - Provided pro-bono system access during development phase
 - Built credibility by aligning trusted partners and fast technical execution
 

@@ -22,9 +22,9 @@
 - Supported SEs and sales across all accounts
 - Communication scattered across Telegram, Signal, Slack, Discord, WhatsApp, SMS, email
 - Email least-used except for enterprise accounts and meetings
-- Missed critical enterprise email during $6B account deal, delaying close by 1 week
 
 ### Tactics:
+- Missed critical enterprise email during $6B account deal, delaying close by 1 week
 - Recognized risk of communication overload causing dropped items
 - Determined need to prioritize enterprise communications
 

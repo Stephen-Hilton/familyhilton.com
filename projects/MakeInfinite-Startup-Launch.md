@@ -20,12 +20,15 @@
 ### Situation:
 - Recruited by two founders (CEO, CTO) to join new AI/ZK tech startup
 - First role as Executive Chief of Staff with 4-word mandate: go start the business”
-- CTO overloaded, risk of missing alpha release deadline
-- CEO concerned about product adoption and market objections
 - Startup lacked internal systems, compliance framework, and GTM readiness
 
 ### Tactics:
 - Probing questions to identify leadership pain points
+    - What is your biggest pain-point right now?
+    - What keeps you up at night?
+    - Where are you running out of time?
+- CTO overloaded, risk of missing alpha release deadline
+- CEO concerned about product adoption and market objections
 - Three-part plan: 
     - proxy decision-maker for CTO
     - own internal systems
@@ -33,15 +36,18 @@
 - Prioritized CTO time and focused CEO concerns on adoption
 
 ### Actions:
-- Acted as L1 proxy decision-maker for engineering, escalating only urgent unknowns
-- Largely took over as the technical expert during VC fundraising  
-- Freed CTO for higher-level decisions and product delivery
-- Set up Jira, CMS, customized Notion-CRM integrated with pipeline
-- Managed SOC2 compliance vendor selection and program initiation
-- Conducted competitive pricing research and positioned pricing strategy
-- Collaborated with Marketing on release positioning and buzz generation
-- Initiated Customer Zero: used platform internally, logged 400+ Jira tickets
-- Built Jira dashboards to gamify ticket creation and encourage adoption
+- Scaling the CTO:
+    - Acted as L1 proxy decision-maker for engineering, escalating only urgent unknowns
+    - Largely took over as the technical expert during VC fundraising  
+    - Freed CTO for higher-level decisions and product delivery
+- Scaling the Organization and Operations
+    - Set up Jira, CMS, customized Notion-CRM integrated with pipeline
+    - Managed SOC2 compliance vendor selection and program initiation
+- Prepared for GTM
+    - Conducted competitive pricing research and positioned pricing strategy
+    - Collaborated with Marketing on release positioning and buzz generation
+    - Initiated Customer Zero: used platform internally, logged 400+ Jira tickets
+    - Built Jira dashboards to gamify ticket creation and encourage adoption
 
 ### Results:
 - CTO delivered alpha product on time (Dec 2022)

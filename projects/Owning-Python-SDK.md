@@ -19,16 +19,15 @@
 ### Situation:
 - MakeInfinite Labs developed SXT ZK Proven DB (Spark, Postgres, Ignite, ZK SQL engine)
 - Early customers/prospects struggled with advanced features (e.g., ZK tamperproofing)
-- Engineering assigned SDK creation to consultants, but feedback showed immaturity/missing features
-- Customer questions exposed usability gaps in Python SDK, espeically with advanced cryptography
+- Engineering assigned SDK creation to consultants due to core team constraints
 
 ### Tactics:
+- Customer questions exposed usability gaps all SDKs, but Python SDK was especially popular
 - Started trying to drive consultants to improve, but was time-consuming
-- Finally acquired ownership of Github repo, to shifted ownership to SEs
-- Goal: Dramatically speed up SDK as critical customer-facing product extension
 
 ### Actions:
-- Personally reviewed SDK codebase and identified non-Pythonic design
+- Finally acquired ownership of Github repo, to shifted ownership to SEs
+- Goal: Dramatically speed up SDK as critical customer-facing product extension
 - Took full ownership of Python SDK with SE team backing
 - Removed SDK responsibility from consulting team
 - Used customer feedback/questions as immediate prompts for SDK improvements
@@ -37,7 +36,7 @@
 
 ### Results:
 - Python SDK became most mature, simpliest way to access SXT
-- Repo has 4k stars and 87 forks, 3rd place 
+- Repo has > 4,000 stars and 87 forks, 3rd place 
     - behind only 2 core product repos 
     - ahead of all other SDKs
 - Rapid iteration closed customer pain points quickly

@@ -22,7 +22,7 @@
 - Planned co-host of annual hackathon in 2024
 - Event scope changed suddenly to training/accreditation with only 2 weeks’ notice
 - MakeInfinite had no training program or accreditation framework in place
-- Urgent risk to reputation if unable to deliver
+- Risk to reputation if unable to deliver
 
 ### Tactics:
 - Brainstormed with MKTG: back out, show up with minimal materials, or improvise full program
