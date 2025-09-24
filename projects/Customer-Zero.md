@@ -1,5 +1,5 @@
 ---
-- title: "Customer Zero: Dogfooding for Product Quality -- MakeInfinte Labs"  
+- title: "Customer Zero: Dogfooding for Product Quality"  
 - description: "Launched MakeInfinite Labs’ Customer Zero program, running the company on its own SXT technology. Engaged all departments, built telemetry pipelines, and exposed pain points early. Opened 400+ tickets over 2 years, resolving issues before customers saw them, drastically improving customer experience and product maturity."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

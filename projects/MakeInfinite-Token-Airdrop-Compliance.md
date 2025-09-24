@@ -1,5 +1,5 @@
 ---
-- title: "Token Airdrop Compliance at MakeInfinite Labs"  
+- title: "Token Airdrop Compliance"  
 - description: "As Head of GTM, built data pipeline for token airdrop with legal compliance. Refused founder request to add wallets outside rules, escalated to legal, and documented instructions. Protected company from illegal activity, upheld integrity, and preserved audit trail despite interpersonal conflict."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

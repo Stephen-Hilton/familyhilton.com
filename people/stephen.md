@@ -11,5 +11,3 @@
 Collaborative, hands-on Data, Analytic, and SalesTech leader with success being the innovative “glue” between technology, business, and customers. Able to quickly deliver creative, customer-centric solutions to technical problems and driving real-world business outcomes by using data and a balance of IQ and EQ, deep analytic experience and MBA acumen, and wrapped in clear, concise communications to equally engage all stakeholders. 
 
 Find me on [LinkedIn!](https://www.linkedin.com/in/sahilton/)
-
-Or, for a limited time!  Check out my [project narrative page](/projects.html).

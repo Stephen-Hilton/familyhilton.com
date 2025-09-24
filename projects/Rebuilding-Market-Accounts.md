@@ -1,5 +1,5 @@
 ---
-- title: "Rebuilding Market Accounts -- Teradata"  
+- title: "Rebuilding Market Accounts"  
 - description: "As Director of Solution Engineering, led Teradata’s SMB-focused Market Accounts SE team through transition after turnover. Built custom development plans, hosted training and account planning sessions, instituted mentorship, and ran statewide engagement tours. Result: $22M sales on $20M quota, transformed group into cohesive, high-performing team."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

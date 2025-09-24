@@ -1,5 +1,5 @@
 ---
-- title: "Launching a Startup -- MakeInfinite Labs"  
+- title: "Launching a Startup"  
 - description: "Joined MakeInfinite Labs as Executive Chief of Staff, with a 4-word mandate to ‘go start the business.’ Freed CTO to deliver alpha on time, built internal systems, proactively identified and mitgated sales objections, initiated Customer Zero, and closed first deals. Startup grew from $0 to $14M ARR in 2 years."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

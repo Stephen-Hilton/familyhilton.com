@@ -1,5 +1,5 @@
 ---
-- title: "Advocating Cloud Strategy -- Netflix"  
+- title: "Advocating Cloud Strategy"  
 - description: "As a Solution Engineer embedded at a $40B, 300M-subscriber streaming giant, raised early warnings about cloud migration risk. Advocated cloud strategy despite resistance, delivered stop-gap ‘Teradata Cloud,’ and gave influential keynote urging adoption. Though the customer left, efforts helped push Teradata toward eventual cloud evolution."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

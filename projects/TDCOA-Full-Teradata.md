@@ -1,5 +1,5 @@
 ---
-- title: "TDCOA: Transforming Telemetry and Usage Analytics -- Teradata"  
+- title: "TDCOA: Transforming Telemetry and Usage Analytics"  
 - description: "As Global Director at Teradata, tackled inconsistent telemetry and reporting with POC project: TDCOA. Gathered best in class metrics, simplified and centralized collection, built Python framework for automated analytics and PPTX. Saved $17M annually in time savings, standardized reporting, improved customer perception, and influenced future SaaS evolution."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

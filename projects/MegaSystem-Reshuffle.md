@@ -1,5 +1,5 @@
 ---
-- title: "Multi-MegaSystem Reshuffle -- Apple"  
+- title: "Multi-MegaSystem Reshuffle"  
 - description: "Led $42M multi-year system roadmap reshuffle for $400B, $3.5T market cap consumer hardware/software giant. Balanced customer needs, support constraints, and sales urgency. Coordinated 2x-weekly calls, identified power issue, closed deal, executed install with minimal hiccups—strengthening relationship with largest client representing 1/8 of global compute."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

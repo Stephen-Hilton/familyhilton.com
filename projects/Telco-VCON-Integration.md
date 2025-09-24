@@ -1,5 +1,5 @@
 ---
-- title: "VCONs: Bridging Speed and Trust -- 8x8"  
+- title: "VCONs: Bridging Speed and Trust"  
 - description: "Engaged $740M telco exploring verifiable MFA alternatives. Partnered with trusted consultancy and VCON framework creators, co-authored whitepaper, and delivered rapid backend integration PR in days. Demonstrated credibility and ease-of-use, launching project projected at 1.3B messages/month, worth $3.5M–$7M in revenue monthly."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

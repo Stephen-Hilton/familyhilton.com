@@ -15,6 +15,26 @@ sections:
     # Stephen's Project Experiences 
     Wins, learnings, experience, and battle scars I've accumulated over my time working in technology with Silicon Valley companies.
     
+# Generic to Specific: 
+# - [TDCOA](/projects/TDCOA-Full-Teradata.html) √
+# - [FB 1PB POC](/projects/Historic-1PB-POC.html) √
+# - [Migrate: Sfly](/projects/10x-Migration-Debacle.html) √ √
+# - [AIDB on Redshift: SSC](/projects/AI_on_Redshift.html) √
+# - [Python SDK](/projects/Owning-Python-SDK.html) √
+# - [2690 Miss-Size: Linkedin](/projects/td2690-Compression-Missize.html) √ 
+# - [Cloud Advocacy: Netflix](projects/Teradata-Cloud-Advocacy.html) √
+# - [JIT Accred.: CL](/projects/JIT-Accreditation.html) √
+# - [Token Airdrop Compliance](/projects/MakeInfinite-Token-Airdrop-Compliance.html) √
+# - [Board Rpt vs: Weave](/projects/Board-Reports-vs-Customer-Commitments.html) √
+# - [MegaSys Shuffle: Apple](projects/MegaSystem-Reshuffle.html)  √
+# - [Rebuilding Mkt Accts](projects/Rebuilding-Market-Accounts.html)  √
+# - [Lost Chiliari](/projects/Losing-Support-Engineer.html)  √
+# - [Customer Zero](/projects/Customer-Zero.html) 
+# - [StartUp: SXT](projects/MakeInfinite-Startup-Launch.html) 
+# - [VCON Intgr: 8x8](projects/Telco-VCON-Integration.html) 
+# - [Toxic Ldrship](projects/Toxic_Leadership.html) 
+# - [Missed Email: SXT](projects/Email-Whoops.html)
+
 
 - type: 'pagelist.longtile'   # jinja html template as found in /src/templates/sections/[type].jinja
   heading: "Stories"  # section header

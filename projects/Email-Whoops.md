@@ -1,5 +1,5 @@
 ---
-- title: "Preventing Missed Comms -- MakeInfinite Labs"  
+- title: "Preventing Missed Comms"  
 - description: "As Head of GTM, juggled 20+ prospects across many channels. Missed an email from $6B enterprise, delaying close by a week. Instituted structured enterprise follow-ups twice weekly and prioritized automation for smaller customers. Ensured responsiveness for strategic accounts, improving enterprise deal execution."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

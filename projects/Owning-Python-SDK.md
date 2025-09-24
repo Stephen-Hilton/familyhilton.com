@@ -1,5 +1,5 @@
 ---
-- title: "Owning the Python SDK for Customer Experience -- MakeInfinite Labs"  
+- title: "Owning the Python SDK for Customer Experience"  
 - description: "Identified immaturity in MakeInfinite Labs’ Python SDK for SXT ZK-Proven DB. Took direct ownership, ensuring usability and quality. Rapidly iterated fixes from customer feedback, republishing improvements. Protected customer experience, raised standards, and delivered most mature, easiest way to interact with API layer."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

@@ -1,5 +1,5 @@
 --- 
-- title: "10x Migration Debacle at $1B Manufacturer -- Shutterfly"  
+- title: "10x Migration Debacle at $1B Manufacturer"  
 - description: "Migration after competitive win, scoping error created ×10 workload admidst urgent timelines. Escalated to leadership, secured benched consultants and started automating migration tools. After 5mo of intense execution, delivered 4ks late but 10x scope, making project unprofiable but preserved customer trust, and developed new internal automation framework."  
 - image: "bizstory-generic.png" # image file, as found in /src/images/ folder
 - author: "Stephen Hilton" # author of the page, if applicable (should appear in footer)

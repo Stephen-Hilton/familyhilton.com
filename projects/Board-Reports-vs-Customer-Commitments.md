@@ -1,5 +1,5 @@
 ---
-- title: "Balancing Board Reports and Customer Commitments -- Weave.Services"  
+- title: "Balancing Board Reports and Customer Commitments"  
 - description: "Owned critical GTM and customer usage sections of quarterly board reports at MakeInfinite Labs. Balanced high-stakes investor reporting with urgent customer projects. Clarified priorities with CEO, recommended timeline adjustment, and delivered both outcomes. Converted prospect to customer, improved CEO planning, reinforced trust in data and delivery."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

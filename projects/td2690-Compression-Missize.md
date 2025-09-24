@@ -1,5 +1,5 @@
 ---
-- title: "Compression Card Mis-Sizing: A Hard Lesson at Teradata"  
+- title: "Compression Card Mis-Sizing: A Hard Lesson"  
 - description: "As SE for a 1.2B user social media customer, discovered compression cards provided 40% less compression savings than CPUs, undersizing my system sizing. Worked with engineering to deliver custom fix (+15% free nodes) and shared mistake widely to prevent recurrence. Lesson: read technical docs carefully, and ask questions frequently."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

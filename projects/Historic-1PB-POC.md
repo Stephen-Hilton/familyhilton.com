@@ -1,5 +1,5 @@
 --- 
-- title: "Historic 1PB POC -- Facebook"  
+- title: "Historic 1PB POC"  
 - description: "Led Teradata’s largest prospect POC: a 1PB data system. Coordinated engineering, sales, delivery, and customer teams. Selected IO-heavy system for complex workloads, hedged with CPU-heavy backup. Ran dual POCs—IO (+70%) and CPU (+700%) — delivering benchmark wins. Lost deal due to late OpenCompute hardware requirement shift. Lessons in pushing for firmer requirements."
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  

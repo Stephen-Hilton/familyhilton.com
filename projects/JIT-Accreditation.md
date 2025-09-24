@@ -1,5 +1,5 @@
 ---
-- title: "JIT Accreditation Programs -- Chainlink Labs"  
+- title: "JIT Accreditation Programs"  
 - description: "With 2 weeks’ notice, transformed MakeInfinite’s hackathon plan into a full training and accreditation program for a critical partner and investor's flagship event. Built telemetry-verified training paths, delivered 3-phase accreditation, supported 200+ participants, generated 28 prospects, and strengthened key partner relationship. Program endured as ongoing entry path for new users."  
 - image: "bizstory-generic.png"  
 - author: "Stephen Hilton"  
