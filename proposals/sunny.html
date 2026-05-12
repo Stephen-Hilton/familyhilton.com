@@ -66,6 +66,19 @@
   .scatter{position:relative;margin:30px 0;}
   .scrap{display:inline-block;background:#fff7d9;border:1px solid #e7d99c;padding:14px 16px;margin:8px 12px 8px 0;font-family:'Gloria Hallelujah';font-size:14px;color:#5a4a26;box-shadow:3px 4px 0 rgba(0,0,0,.12);max-width:300px;}
   .scrap.n1{transform:rotate(-4deg);} .scrap.n2{transform:rotate(3deg);background:#ffe6e0;border-color:#f0b9ad;} .scrap.n3{transform:rotate(-2deg);background:#e3f0d8;border-color:#bcd6a6;}
+  /* the torn-off "do NOT chew the" note — bottom is destroyed */
+  .scrap.ripped{transform:rotate(2deg);background:#ffe6e0;border:none;padding:14px 16px 52px;
+    box-shadow:none;filter:drop-shadow(2px 4px 3px rgba(0,0,0,.18));position:relative;
+    clip-path:polygon(
+      1% 1%, 22% 0, 48% 2%, 73% 0, 99% 1%,
+      100% 34%, 100% 58%, 100% 78%,
+      96% 96%, 91% 72%, 86% 100%, 79% 78%, 71% 99%, 64% 70%, 56% 95%, 49% 64%,
+      42% 100%, 35% 76%, 28% 98%, 21% 72%, 13% 100%, 6% 80%, 1% 95%,
+      0 62%, 0 36%, 1% 14%);}
+  .scrap.ripped .pin{color:#a86b5c;}
+  .scrap.ripped .frag{display:inline-block;max-height:.42em;overflow:hidden;color:#cb9e93;vertical-align:top;line-height:1;}
+  .scrap.ripped::after{content:"";position:absolute;left:34%;bottom:36px;width:7px;height:7px;border-radius:50%;
+    background:rgba(58,30,20,.22);box-shadow:16px 7px 0 -1px rgba(58,30,20,.18), 33px -5px 0 -2px rgba(58,30,20,.15);}
   .scrap .pin{display:block;font-size:11px;color:#9a8a64;margin-bottom:4px;font-family:'JetBrains Mono';}
 
   /* a knocked-over "window" */
@@ -193,7 +206,7 @@
 
   <div class="scatter">
     <div class="scrap n1"><span class="pin">// TODO (sunny)</span>1. ball<br>2. ball<br>3. the small ball<br>4. nap<br>5. ball</div>
-    <div class="scrap n2"><span class="pin">// from: the hooman</span>"do NOT chew the — "<br><em>(message ends here. there is a bite mark.)</em></div>
+    <div class="scrap n2 ripped"><span class="pin">// from: the hooman</span>"do NOT chew the<span class="frag"> cou</span></div>
     <div class="scrap n3"><span class="pin">// commit msg</span>"fix: refactored the rug. removed several pages. added 7 tennis balls. LGTM &#128054;"</div>
     <div class="scrap n1"><span class="pin">// readme.txt</span>this used to say something important.<br>now it is mostly drool.<br>sorry.</div>
   </div>
