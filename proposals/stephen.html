@@ -159,6 +159,8 @@
   var z=50, opened={}, offset=0;
   function openApp(key){
     var a=APPS[key]; if(!a) return;
+    // sites that block embedding (GitHub, LinkedIn) just open straight in a new tab — no intermediate window
+    if(a.noframe){ window.open(a.url, '_blank', 'noopener'); return; }
     var id='win-'+key, w=document.getElementById(id);
     if(!w){
       w=document.createElement('div'); w.className='window'; w.id=id;
@@ -169,14 +171,7 @@
       var titlebar='<div class="titlebar"><span class="traffic"><i class="t-close"></i><i class="t-min"></i><i class="t-zoom"></i></span>'+
           '<span class="tt"><b>'+a.emoji+' '+a.title+'</b></span>'+
           '<a class="ext" href="'+a.url+'" target="_blank" rel="noopener">Open in new tab ↗</a></div>';
-      var body = a.noframe
-        ? '<div class="frameshell"><div class="framewrap launchpad"><div class="ph">'+
-            '<div class="bigemoji">'+a.emoji+'</div><b>'+a.title+'</b><div>'+(a.blurb||'')+'</div>'+
-            '<div class="urlline mono">'+a.url+'</div>'+
-            '<a href="'+a.url+'" target="_blank" rel="noopener">Open in a new tab ↗</a>'+
-            '<div class="why">'+(a.shortname||'This site')+' doesn’t allow being embedded inside other sites — that’s a setting on their end, not a login wall — so it opens in its own tab.</div>'+
-          '</div></div></div>'
-        : '<div class="frameshell"><div class="hintbar"><span class="mono">'+a.url+'</span><span>loading live…</span></div>'+
+      var body = '<div class="frameshell"><div class="hintbar"><span class="mono">'+a.url+'</span><span>loading live…</span></div>'+
           '<div class="framewrap"><div class="ph"><b>'+a.title+'</b><div>If this stays blank, it didn’t load — open it directly:</div>'+
             '<a href="'+a.url+'" target="_blank" rel="noopener">Open '+a.url.replace(/^https?:\/\//,'')+' ↗</a></div>'+
             '<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>';
