@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposals — familyhilton.com/stephen redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0e0f14; --soft:#5b5f6c; --paper:#f6f4ee; --card:#ffffff;
+    --edge:rgba(14,15,20,.12); --edge-soft:rgba(14,15,20,.07);
+    --accent:#2f6df0; --warm:#e8843c; --green:#11b886;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.10;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.5'/></svg>");}
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  header{max-width:1320px;margin:0 auto;padding:30px 26px 18px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--edge);}
+  header .brand{font-family:'Fraunces';font-style:italic;font-size:21px;}
+  header .brand b{font-style:normal;font-weight:600;letter-spacing:-.01em;}
+  header .meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft);letter-spacing:.03em;}
+  header .meta span{margin-left:18px;}
+
+  .intro{max-width:1320px;margin:0 auto;padding:54px 26px 30px;display:grid;grid-template-columns:1.55fr 1fr;gap:42px;align-items:end;}
+  @media (max-width:920px){.intro{grid-template-columns:1fr;gap:18px;}}
+  .intro h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(46px,7.5vw,96px);line-height:.95;letter-spacing:-.03em;margin:0;}
+  .intro h1 em{font-style:italic;background:linear-gradient(92deg,var(--accent),var(--green) 55%,var(--warm));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .intro .deck{font-size:16.5px;line-height:1.6;color:var(--soft);max-width:520px;margin:0;}
+  .intro .deck b{color:var(--ink);}
+  .intro .deck code{font-family:'JetBrains Mono',monospace;font-size:13.5px;background:#ecebe4;padding:1px 6px;border-radius:5px;}
+
+  .note{max-width:1320px;margin:8px auto 0;padding:14px 26px;}
+  .note .box{background:#fff;border:1px solid var(--edge);border-left:4px solid var(--green);border-radius:8px;padding:14px 18px;font-size:14px;line-height:1.6;color:#3a3e49;}
+  .note .box b{color:var(--ink);}
+
+  .secthead{max-width:1320px;margin:46px auto 0;padding:0 26px 12px;border-bottom:1px solid var(--edge);display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;}
+  .secthead h2{font-family:'Fraunces';font-style:italic;font-weight:400;font-size:30px;margin:0;}
+  .secthead .tag{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);}
+
+  .grid{max-width:1320px;margin:26px auto 0;padding:0 26px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  @media (max-width:920px){.grid{grid-template-columns:1fr;}}
+
+  .card{position:relative;background:var(--card);border:1px solid var(--edge);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);
+    display:flex;flex-direction:column;transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s;}
+  .card:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(10,12,30,.16);}
+  .card .strip{height:6px;background:var(--accent);}
+  .card .preview{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0b1020;border-bottom:1px solid var(--edge);}
+  .card .preview iframe{width:250%;height:250%;transform:scale(.4);transform-origin:0 0;border:0;display:block;pointer-events:none;background:#fff;}
+  .card .preview .num{position:absolute;top:12px;left:14px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.12em;color:#1a1d27;background:rgba(255,255,255,.92);padding:4px 8px;border-radius:5px;z-index:2;}
+  .card .preview .open{position:absolute;top:12px;right:14px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#0e0f14;padding:6px 12px;border-radius:5px;z-index:2;transition:background .18s;}
+  .card:hover .preview .open{background:var(--accent);}
+  .card .preview::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 58%,rgba(0,0,0,.32));opacity:0;transition:opacity .28s;}
+  .card:hover .preview::after{opacity:1;}
+  .card .body{padding:20px 22px 22px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;}
+  .card .body h3{font-family:'Fraunces';font-weight:400;font-size:28px;letter-spacing:-.015em;margin:0 0 6px;line-height:1.05;}
+  .card .body h3 em{font-style:italic;color:var(--accent);}
+  .card .body p{font-size:14px;line-height:1.55;color:var(--soft);margin:0;max-width:430px;}
+  .card .vibe{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:150px;}
+  .card .vibe span{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.08em;padding:3px 8px;border-radius:999px;border:1px solid var(--edge);color:var(--soft);white-space:nowrap;}
+  .card .url{grid-column:1/-1;font-family:'JetBrains Mono';font-size:10.5px;color:#9aa0ad;margin-top:10px;word-break:break-all;}
+
+  .card[data-k="famos"]     .strip{background:linear-gradient(90deg,#173a2e,#2f7d5b,#8fd0aa);}
+  .card[data-k="os"]        .strip{background:linear-gradient(90deg,#1b2a4a,#3a6ea5,#7fb5d6);}
+  .card[data-k="split"]     .strip{background:linear-gradient(90deg,#e8843c 0 50%,#11151f 50% 100%);}
+  .card[data-k="keynote"]   .strip{background:linear-gradient(90deg,#2f6df0,#7c4dff,#ff5fa2);}
+  .card[data-k="timeline"]  .strip{background:linear-gradient(90deg,#2f6df0,#e8843c);}
+  .card[data-k="cardflip"]  .strip{background:linear-gradient(90deg,#11b886,#2f6df0);}
+  .card[data-k="feature"]   .strip{background:linear-gradient(90deg,#b7472b,#141210,#f3ede2);}
+  .card[data-k="dashboard"] .strip{background:linear-gradient(90deg,#2f6df0,#11b886,#9aa6ff);}
+  .card[data-k="letter"]    .strip{background:linear-gradient(90deg,#c9b48a,#7a6a4a,#efe7d6);}
+  .card[data-k="blueprint"] .strip{background:linear-gradient(90deg,#0b3a8f,#2f6df0,#bcd2ff);}
+  .card[data-k="gallery"]   .strip{background:linear-gradient(90deg,#222,#888,#ddd);}
+  .card.legacy .strip{background:linear-gradient(90deg,#9aa0ad,#c9ced8);}
+
+  footer{max-width:1320px;margin:60px auto 0;padding:26px;border-top:1px solid var(--edge);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--soft);}
+  footer a{color:var(--ink);text-decoration:none;margin-left:14px;}
+  footer a:hover{color:var(--accent);}
+  .cta{max-width:1320px;margin:14px auto 0;padding:20px 26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:var(--ink);color:var(--paper);border-radius:10px;}
+  .cta .t{font-family:'Fraunces';font-style:italic;font-size:21px;}
+  .cta a{color:var(--paper);text-decoration:none;font-family:'JetBrains Mono';font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--paper);border-radius:6px;transition:all .18s;}
+  .cta a:hover{background:var(--paper);color:var(--ink);}
+  .wrap-pad{height:50px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><b>Family Hilton</b> · <em>redesign proposals</em></div>
+  <div class="meta"><span id="count">10 + 7 directions</span><span>self-contained · GitHub Pages ready</span><span id="dt"></span></div>
+</header>
+
+<section class="intro">
+  <h1>Ten ways to be<br>both <em>Dad and the résumé.</em></h1>
+  <p class="deck">
+    Ten fresh takes on <code>familyhilton.com/stephen</code> — each one warm and family-forward, but
+    each also a credible professional profile you can hand a hiring manager: the SkillSnap story, the
+    AI work, the career timeline, the stack, contact. <b>Hover a card to preview; click to open it
+    full-screen.</b> Below those, the seven whole-site directions from the earlier round.
+  </p>
+</section>
+
+<div class="note"><div class="box">
+  <b>Opening this file directly?</b> Good — it's built for that. All links below are fully-resolved
+  <span class="mono">file://</span> paths under <span class="mono">…/familyhilton.com/proposals/</span>, so they work from
+  <span class="mono">file://</span>, a local server, or once this folder is deployed. <b>One catch with
+  <span class="mono">file://</span>:</b> the little live previews inside the cards may show blank because
+  some browsers won't let one local file embed another — that's only the thumbnail; the
+  <i>links</i> always work. Run <span class="mono">python3 -m http.server</span> in this folder if
+  you want the previews to render too.
+</div></div>
+
+<div class="secthead">
+  <h2>The /stephen page — 10 directions</h2>
+  <span class="tag">family-forward · employer-ready · click any card →</span>
+</div>
+<div class="grid" id="grid-new"></div>
+
+<div class="secthead" style="margin-top:64px;">
+  <h2>Earlier round — whole-site skins</h2>
+  <span class="tag">same family content, 7 very different sites</span>
+</div>
+<div class="grid" id="grid-legacy"></div>
+
+<div class="cta">
+  <span class="t">Mix &amp; match — none of these are precious. They're starting points.</span>
+  <a id="cur-site" href="#">View the current site →</a>
+</div>
+
+<footer>
+  <span>© 2026 Family Hilton · proposals, generated for review.</span>
+  <span id="footlinks"></span>
+</footer>
+<div class="wrap-pad"></div>
+
+<script>
+  // Resolve everything against THIS file's own location, so links are fully-qualified
+  // even when opened straight off disk (file://) — and still correct on a server.
+  var BASE = location.href.replace(/[?#].*$/, '').replace(/\/[^\/]*$/, '/');   // .../proposals/
+  var SITE = BASE.replace(/proposals\/$/, '');                                  // .../familyhilton.com/
+
+  var NEW = [
+    {k:'famos',     file:'familyhiltonv2.html', name:'<em>FamilyHiltonOS</em> &nbsp;v2.', vibe:['desktop','family-first','per-person'],
+     desc:'The Workstation idea, refit: the desktop is now all about the <b>family</b> — boots as <span class="mono">FamilyHiltonOS</span> with a Travel app, working top-bar menus (File / View / People / Help), a lightbox for photos, and a per-person picker. <span class="mono">Stephen</span> opens his desktop (apps that frame his résumé, blog, GitHub, LinkedIn, SkillSnap, MakeInfinite); <span class="mono">Joy</span> opens hers (résumé, LinkedIn, the Parks Foundation, the Napa River Ecology Center); and <span class="mono">Sunny</span>… well, the golden retriever got to that one.'},
+    {k:'os',        file:'stephen-resume-os.html', name:'The <em>Workstation</em>.', vibe:['desktop','playful','interactive'],
+     desc:'The original: Stephen&apos;s page as a tiny operating system. The wallpaper is the family; a Résumé app, an AI&nbsp;Lab, a Projects finder, a Photos app and a Contact card open in draggable windows. Nerdy, charming, memorable. (FamilyHiltonOS v2, above, is the family-first evolution of this.)'},
+    {k:'split',     file:'stephen-split.html', name:'Two <em>Modes</em>.', vibe:['split-screen','draggable','dual'],
+     desc:'Literally split down the middle — warm "Family" side on the left, dark "Work" side on the right. Drag the divider toward whichever one a visitor came for; or snap it to Family / Both / Work.'},
+    {k:'keynote',   file:'stephen-keynote.html', name:'The <em>Keynote</em>.', vibe:['slides','bold','confident'],
+     desc:'A full-screen conference deck. One idea per slide — "Hi, I&apos;m Stephen" &rarr; the SkillSnap story &rarr; "$0&nbsp;&rarr;&nbsp;$14M ARR" &rarr; the family &rarr; "let&apos;s talk." Arrow keys, swipe, or scroll. Presentation-grade.'},
+    {k:'timeline',  file:'stephen-timeline.html', name:'One <em>Thread</em>.', vibe:['timeline','chronological','human'],
+     desc:'A single vertical line that weaves the career and the family together in order — Best Buy, Teradata, Europe trips, $14M ARR, school plays, SkillSnap, now. Because he&apos;s a whole person, not a résumé.'},
+    {k:'cardflip',  file:'stephen-card.html', name:'The <em>Card</em>.', vibe:['flip card','product-y','clean'],
+     desc:'A big, polished "trading card" hero that flips in 3D: family portrait on the front, the professional pitch on the back. Below it, the full story expands — Work section, Family section, photo grid.'},
+    {k:'feature',   file:'stephen-feature.html', name:'The <em>Feature</em>.', vibe:['editorial','serif','glossy'],
+     desc:'Styled like a founder profile in a tech magazine — big headline, drop cap, pull quotes, a "How I built SkillSnap" breakdown, a sidebar of stats and stack, a family photo-essay, an "if you&apos;re hiring" box.'},
+    {k:'dashboard', file:'stephen-dashboard.html', name:'The <em>Dashboard</em>.', vibe:['SaaS','panels','modern'],
+     desc:'A clean status board — "Now," "Currently shipping," "Stack," "Experience," "AI work," "Family" (Sunny the dog gets a service row: <i>Sunny&nbsp;&mdash;&nbsp;napping&nbsp;&#10003;</i>), "Travel," "Contact." The aesthetic itself says &ldquo;ships modern software.&rdquo;'},
+    {k:'letter',    file:'stephen-letter.html', name:'The <em>Letter</em>.', vibe:['long-form','warm','typeset'],
+     desc:'The page reads like a warm personal letter that happens to be a cover letter — family photos in the margins, a "short version" box for skimmers, a compact timeline, a signature, and a P.S. with the résumé link.'},
+    {k:'blueprint', file:'stephen-blueprint.html', name:'The <em>Blueprint</em>.', vibe:['schematic','technical','diagram'],
+     desc:'The whole page drawn as a system-architecture diagram — <span class="mono">family-cluster</span>, <span class="mono">ai-pipeline</span>, <span class="mono">career-history</span>, <span class="mono">contact-api</span> — with a plain-language TL;DR up top. Catnip for technical hiring managers.'},
+    {k:'gallery',   file:'stephen-gallery.html', name:'The <em>Gallery</em>.', vibe:['photo-first','full-bleed','portfolio'],
+     desc:'A photographer&apos;s-portfolio site where the subject is the family — full-bleed photos, a lightbox, scroll-snap slides — with a serious résumé tucked into the chrome and a sticky "Hire me" button.'}
+  ];
+
+  var LEGACY = [
+    {k:'terminal',  file:'terminal.html',  name:'The <em>terminal</em>.', vibe:['retro','interactive','nerdy'], desc:'Green-phosphor CRT with an interactive prompt — <span class="mono">help</span>, <span class="mono">whoami</span>, <span class="mono">ls pets/</span>, <span class="mono">sudo hug</span>.'},
+    {k:'aurora',    file:'aurora.html',    name:'The <em>aurora</em>.',   vibe:['glass','elegant','modern'], desc:'Glassmorphism over a slow aurora; mouse-reactive gradient blobs, an orbital hero, tasteful serif type.'},
+    {k:'brutalist', file:'brutalist.html', name:'The <em>brutalist</em>.', vibe:['bold','chunky','fun'], desc:'Thick borders, hard offset shadows, primary colors — a unit spec sheet and a family manifesto.'},
+    {k:'parallax',  file:'parallax.html',  name:'The <em>universe</em>.',  vibe:['cinematic','3D','moody'], desc:'Deep-space sky with a live starfield; portrait frames that parallax with the cursor, cards that tilt in 3D.'},
+    {k:'synthwave', file:'synthwave.html', name:'The <em>neon</em>.',      vibe:['neon','80s','loud'], desc:'Synthwave sunset, animated grid horizon, chrome glow, a ticker-tape marquee. The family arcade attract mode.'},
+    {k:'magazine',  file:'magazine.html',  name:'The <em>magazine</em>.',  vibe:['editorial','serif','quiet'], desc:'Masthead, drop caps, a table of contents, a horizontal photo reel — an editorial spread for the household.'},
+    {k:'scrapbook', file:'scrapbook.html', name:'The <em>scrapbook</em>.', vibe:['playful','draggable','tactile'], desc:'A corkboard of polaroids, sticky notes, ticket stubs and blog clippings — everything drags. Warm, a little chaotic.'}
+  ];
+
+  function render(list, mountId, legacy){
+    var html = '';
+    list.forEach(function(p, i){
+      var url = BASE + p.file;
+      var n = legacy ? '' : (('0'+(i+1)).slice(-2) + ' · ');
+      html +=
+        '<a class="card'+(legacy?' legacy':'')+'" data-k="'+p.k+'" href="'+url+'">'+
+          '<div class="strip"></div>'+
+          '<div class="preview">'+
+            '<span class="num">'+n+p.file+'</span>'+
+            '<span class="open">Open &#8599;</span>'+
+            '<iframe src="'+url+'" loading="lazy" tabindex="-1" title="'+p.file+' preview"></iframe>'+
+          '</div>'+
+          '<div class="body">'+
+            '<div><h3>'+p.name+'</h3><p>'+p.desc+'</p></div>'+
+            '<div class="vibe">'+p.vibe.map(function(v){return '<span>'+v+'</span>';}).join('')+'</div>'+
+            '<div class="url">'+url+'</div>'+
+          '</div>'+
+        '</a>';
+    });
+    document.getElementById(mountId).innerHTML = html;
+  }
+  render(NEW, 'grid-new', false);
+  render(LEGACY, 'grid-legacy', true);
+
+  document.getElementById('cur-site').href = SITE + 'index.html';
+  document.getElementById('footlinks').innerHTML =
+    ['index.html|Current site','about.html|About','people.html|People','pets.html|Pets','blogs.html|Blogs','projects.html|Projects']
+    .map(function(x){var a=x.split('|'); return '<a href="'+SITE+a[0]+'">'+a[1]+'</a>';}).join('');
+
+  var d=new Date();
+  document.getElementById('dt').textContent = d.toLocaleDateString([], {year:'numeric', month:'short', day:'2-digit'});
+  document.getElementById('count').textContent = NEW.length + ' + ' + LEGACY.length + ' directions';
+</script>
+</body>
+</html>

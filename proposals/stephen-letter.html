@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephen Hilton — The Letter</title>
+<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Caveat:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#22201c;
+    --ink-soft:#6a655c;
+    --paper:#f7f3e9;
+    --paper-2:#efe9da;
+    --rule:rgba(34,32,28,0.16);
+    --accent:#9c4221;
+    --accent-soft:#b6633a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Fraunces',Georgia,'Times New Roman',serif;
+    font-optical-sizing:auto;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:0.06;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(156,66,33,0.35);}
+  a:hover{border-bottom-color:var(--accent);}
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    max-width:1180px;margin:0 auto;padding:18px 28px;
+    font-family:'Inter',system-ui,sans-serif;font-size:13px;letter-spacing:.02em;
+  }
+  .topbar a{border-bottom:none;color:var(--ink-soft);}
+  .topbar a:hover{color:var(--accent);}
+  .topbar .status{color:var(--ink-soft);}
+  .sheet{
+    max-width:1180px;margin:0 auto;padding:0 28px 90px;
+  }
+  .letterhead{
+    text-align:center;padding:34px 0 22px;border-bottom:1px solid var(--rule);
+    margin-bottom:48px;
+  }
+  .letterhead .crest{
+    width:70px;height:70px;border-radius:50%;object-fit:cover;border:1px solid var(--rule);
+    margin-bottom:14px;filter:saturate(0.95);
+  }
+  .letterhead h1{
+    font-size:clamp(28px,4vw,42px);font-weight:500;margin:0;letter-spacing:.01em;
+  }
+  .letterhead .sub{
+    font-family:'Inter',system-ui,sans-serif;font-size:13.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-soft);margin-top:10px;
+  }
+  /* layout: prose column + margin figures */
+  .body-wrap{
+    display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:54px;align-items:start;
+    max-width:1080px;margin:0 auto;
+  }
+  .prose{font-size:clamp(18px,1.35vw,21px);}
+  .prose .greeting{
+    font-size:clamp(30px,4.6vw,52px);font-weight:400;line-height:1.18;margin:0 0 6px;
+    min-height:1.2em;
+  }
+  .cursor{display:inline-block;width:.06em;background:var(--accent);animation:blink 1s steps(1) infinite;margin-left:.04em;}
+  @keyframes blink{50%{opacity:0;}}
+  .prose .dateline{
+    font-family:'Inter',system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 0 30px;
+  }
+  .prose p{margin:0 0 1.25em;}
+  .prose p.lead::first-letter{
+    font-size:3.4em;line-height:.86;float:left;padding:.05em .09em 0 0;font-weight:500;color:var(--accent);
+  }
+  .prose h2{
+    font-family:'Inter',system-ui,sans-serif;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;margin:2.4em 0 .7em;
+  }
+  .prose em.term{font-style:italic;color:var(--accent-soft);}
+  .prose strong{font-weight:600;}
+  .pull{
+    font-size:clamp(22px,2.3vw,30px);line-height:1.4;font-style:italic;font-weight:400;
+    color:var(--ink);border-left:3px solid var(--accent);padding:.1em 0 .1em 1em;margin:1.8em 0;
+  }
+  /* short version box */
+  .shortbox{
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;
+    margin:0 0 38px;font-family:'Inter',system-ui,sans-serif;
+  }
+  .shortbox summary{
+    cursor:pointer;list-style:none;padding:16px 20px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-soft);display:flex;justify-content:space-between;align-items:center;font-weight:600;
+  }
+  .shortbox summary::-webkit-details-marker{display:none;}
+  .shortbox summary .chev{transition:transform .25s;font-size:18px;}
+  .shortbox[open] summary .chev{transform:rotate(45deg);}
+  .shortbox .inner{padding:4px 22px 22px;font-size:14.5px;line-height:1.62;color:var(--ink);}
+  .shortbox .inner h3{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:18px 0 7px;}
+  .shortbox .inner h3:first-child{margin-top:6px;}
+  .shortbox ul{margin:0;padding-left:18px;}
+  .shortbox li{margin:0 0 5px;}
+  .chiprow{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+  .chip{
+    font-size:11.5px;font-family:'Inter',system-ui,sans-serif;background:var(--paper);border:1px solid var(--rule);
+    border-radius:999px;padding:3px 9px;color:var(--ink-soft);white-space:nowrap;
+  }
+  /* margin figures */
+  .figs{display:flex;flex-direction:column;gap:42px;position:sticky;top:24px;}
+  figure{margin:0;}
+  figure img{
+    width:100%;display:block;border:6px solid #fff;
+    box-shadow:0 8px 24px rgba(34,32,28,.16);transform:rotate(var(--rot,-1.4deg));
+  }
+  figure:nth-child(even) img{--rot:1.6deg;}
+  figcaption{
+    font-family:'Caveat',cursive;font-size:21px;line-height:1.25;color:var(--ink-soft);
+    margin-top:10px;padding-left:6px;transform:rotate(var(--rot,-1.4deg));
+  }
+  /* inline breakout figures inside prose for narrow screens / variety */
+  .breakout{
+    margin:2.2em 0;
+  }
+  .breakout img{width:100%;display:block;border:6px solid #fff;box-shadow:0 8px 24px rgba(34,32,28,.16);transform:rotate(-.8deg);}
+  .breakout figcaption{font-family:'Caveat',cursive;font-size:22px;color:var(--ink-soft);margin-top:10px;}
+  /* timeline */
+  .timeline{
+    max-width:1080px;margin:64px auto 0;padding-top:34px;border-top:1px solid var(--rule);
+  }
+  .timeline h2{
+    font-family:'Inter',system-ui,sans-serif;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;margin:0 0 22px;
+  }
+  .tl-item{
+    display:grid;grid-template-columns:130px minmax(0,1fr);gap:22px;padding:14px 0;border-bottom:1px solid rgba(34,32,28,.08);
+    font-family:'Inter',system-ui,sans-serif;
+  }
+  .tl-item .yr{font-size:13px;letter-spacing:.04em;color:var(--accent);font-weight:600;padding-top:2px;}
+  .tl-item .role{font-size:15px;}
+  .tl-item .role b{font-weight:600;display:block;font-size:15.5px;margin-bottom:2px;color:var(--ink);}
+  .tl-item .role span{color:var(--ink-soft);font-size:13.5px;line-height:1.5;}
+  /* signature */
+  .sig{max-width:1080px;margin:50px auto 0;}
+  .sig .closing{font-size:21px;margin:0 0 4px;}
+  .sig .name{font-family:'Caveat',cursive;font-size:46px;color:var(--accent);line-height:1;margin:6px 0 2px;}
+  .sig .who{font-family:'Inter',system-ui,sans-serif;font-size:13px;letter-spacing:.06em;color:var(--ink-soft);}
+  .ps{
+    max-width:1080px;margin:34px auto 0;font-size:18px;background:var(--paper-2);border:1px solid var(--rule);
+    border-radius:6px;padding:20px 24px;
+  }
+  .ps b{font-weight:600;}
+  /* contact footer */
+  .footer{
+    max-width:1080px;margin:46px auto 0;padding-top:26px;border-top:1px solid var(--rule);
+    font-family:'Inter',system-ui,sans-serif;display:flex;flex-wrap:wrap;gap:10px 26px;
+    font-size:13.5px;color:var(--ink-soft);
+  }
+  .footer a{border-bottom:none;color:var(--accent);}
+  .footer .sp{color:var(--rule);}
+  @media(max-width:880px){
+    .body-wrap{grid-template-columns:1fr;gap:0;}
+    .figs{display:none;}
+    .tl-item{grid-template-columns:1fr;gap:2px;}
+    .tl-item .yr{padding-top:0;}
+  }
+</style>
+</head>
+<body>
+<!-- PROPOSAL: The Letter — a warm, beautifully typeset personal letter that doubles as a cover letter to a hiring manager. -->
+<div class="topbar">
+  <a href="index.html">&larr; all proposals</a>
+  <span class="status">Open to senior AI / solutions / platform roles</span>
+</div>
+
+<div class="sheet">
+
+  <div class="letterhead">
+    <img class="crest" src="../src/images/stephen00.png" alt="Stephen Hilton">
+    <h1>A letter from Stephen Hilton</h1>
+    <div class="sub">Napa County, California &nbsp;·&nbsp; AI &amp; Data &amp; Solutions</div>
+  </div>
+
+  <div class="body-wrap">
+    <div class="prose">
+
+      <p class="greeting" id="greet"><span id="typed"></span><span class="cursor" id="cur">&nbsp;</span></p>
+      <p class="dateline" id="dateline" style="opacity:0;transition:opacity .6s;">May 2026 &nbsp;·&nbsp; written by hand, sent on purpose</p>
+
+      <details class="shortbox" id="shortbox">
+        <summary>The short version (for skimmers) <span class="chev">+</span></summary>
+        <div class="inner">
+          <h3>In one breath</h3>
+          <p>Technical founder &amp; solutions leader — 20+ years in data, the last few all-in on AI. Built <b>SkillSnap</b> solo (concept &rarr; revenue in 8 weeks) on serverless AWS plus a multi-model Bedrock + RAG pipeline. Previously $0&rarr;$14M ARR on a pre-launch AI product at MakeInfinite, an $80M+ Teradata territory (Apple, Netflix, Meta, LinkedIn), and petabyte-scale data platforms before that. Hands-on Python &amp; Rust. AWS Solutions Architect. MBA.</p>
+          <h3>AI highlights</h3>
+          <ul>
+            <li>Built &amp; shipped <b>SkillSnap.me</b> solo — AI résumé/cover-letter SaaS, concept &rarr; revenue-positive in &lt;8 weeks</li>
+            <li>Serverless on AWS: Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito</li>
+            <li>Multi-model AI generation pipeline: LLMs + embedding-based retrieval (RAG) for tailored documents</li>
+            <li>Deep on the modern toolchain: Claude Skills, MCP, RAG; orchestrating teams of Claude Code agents; AI-assisted dev with Cursor</li>
+            <li>$0 &rarr; $3M ARR (12 mo) &rarr; $14M ARR (24 mo) on a pre-launch AI product at MakeInfinite Labs</li>
+            <li>Wrote the public docs, first Rust CLI, and Python SDK for an enterprise AI platform</li>
+            <li>Talks: "Natural Language &rarr; SQL via AI" (EthDenver) · "AI to ZK: New Data Pipelines" (Consensys)</li>
+          </ul>
+          <h3>Stack</h3>
+          <div class="chiprow">
+            <span class="chip">Python</span><span class="chip">Rust</span><span class="chip">SQL</span><span class="chip">AWS Bedrock</span><span class="chip">Lambda</span><span class="chip">DynamoDB</span><span class="chip">SQS</span><span class="chip">S3</span><span class="chip">CloudFront</span><span class="chip">Cognito</span><span class="chip">Azure</span><span class="chip">GCP</span><span class="chip">Kafka</span><span class="chip">Spark</span><span class="chip">serverless</span><span class="chip">event-driven</span><span class="chip">RAG</span><span class="chip">Claude Skills / MCP / Code agents</span><span class="chip">Cursor</span><span class="chip">Stripe</span><span class="chip">Solidity / Move</span>
+          </div>
+          <h3>Creds</h3>
+          <p>AWS Solutions Architect · MBA, U. of Phoenix · BA Communications &amp; English, Minnesota State · Data Science (Coursera) · Kanban · Agile PM</p>
+          <h3>Full résumé</h3>
+          <p><a href="https://stephen.skillsnap.me">stephen.skillsnap.me</a> &nbsp;·&nbsp; built with <a href="https://skillsnap.me">skillsnap.me</a></p>
+        </div>
+      </details>
+
+      <p class="lead">Thanks for opening this. I figured the most honest way to introduce myself wasn't a deck or a one-pager — it was a letter. So here's the real version: who I am, what I've built, what I'm chasing right now, and the six people and three animals who keep the rest of my life loud and good.</p>
+
+      <p>I'm a builder. For twenty-odd years that meant taking messy, sprawling data problems and turning them into things that actually ship — products, platforms, pipelines that people depend on. For the last several years it's meant going all-in on AI: not as a buzzword bolted onto a roadmap, but as the thing I get up early to work on.</p>
+
+      <h2>The thing I'm proudest of right now</h2>
+
+      <div class="breakout" id="bo1">
+        <img src="assets/photos/fam07.jpg" alt="The whole Hilton crew in Glasgow">
+        <figcaption>The whole crew, Glasgow — the kind of trip we plan a year out and talk about for two.</figcaption>
+      </div>
+
+      <p>In early 2026 I built <strong>SkillSnap</strong> (<a href="https://skillsnap.me">skillsnap.me</a>) — solo. Empty repo to revenue-positive in under <strong>eight weeks</strong>. It's an AI résumé-and-cover-letter SaaS, and I owned all of it: a fully serverless AWS stack — <em class="term">Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito</em> — a <strong>multi-model generation pipeline</strong> that pairs LLMs with embedding-based retrieval (RAG) so the documents it produces are actually tailored, not generic mush. And the whole business around it: Stripe billing, the pricing, the automated support. Front to back, infra to invoice.</p>
+
+      <p class="pull">I wanted to know — really know — what it takes to ship an AI product alone in 2026. Now I do. It takes the toolchain, the taste to use it well, and the stubbornness to finish.</p>
+
+      <p>Building it pushed me deep into the modern AI toolchain: <strong>Claude Skills, MCP, and RAG</strong>; orchestrating teams of <strong>Claude Code agents</strong> like a small engineering crew; AI-assisted development with <strong>Cursor</strong>. I'm hands-on in <strong>Python</strong>, increasingly in <strong>Rust</strong>, and I hold an AWS Solutions Architect cert and an MBA — but honestly the cert that matters most this year is the one nobody issues: I sat down and built the whole thing.</p>
+
+      <h2>The arc that got me here</h2>
+
+      <p>Before SkillSnap I spent two years at <strong>MakeInfinite Labs</strong> taking a pre-launch AI product from <strong>$0 to $3M ARR in twelve months</strong>, and <strong>$14M in twenty-four</strong> — as Chief of Staff, then Head of Solutions / GTM, working with 900+ technical stakeholders, giving 20+ conference talks, and writing the platform's first Rust CLI and Python SDK and its public docs.</p>
+
+      <div class="breakout" id="bo2">
+        <img src="assets/photos/fam14.jpg" alt="Family selfie under Edinburgh Castle at night">
+        <figcaption>Under Edinburgh Castle, after dark. Half this family is in a photo; the other half is taking it.</figcaption>
+      </div>
+
+      <p>Before that, twelve years at <strong>Teradata</strong>: I ran an <strong>$80M+ solution-engineering territory</strong> across the Western US — Apple, Netflix, Meta, LinkedIn, eBay, PayPal, EA, Ubisoft, roughly half the US compute capacity — then moved into a global strategy role building a telemetry framework across 2,000+ accounts and ~$2B ARR, with reporting that went to the board. And before <em class="term">that</em> — before "data engineering" was a job title — I was standing up petabyte-scale Hadoop, Spark and Kafka platforms, going back to a decade leading BI and the Innovation Center at Best Buy across 4,000+ stores.</p>
+
+      <p>I lead the way I build: close to the work, allergic to hand-waving, happiest when a thorny problem and a shippable answer are in the same room. Right now I'm also serving as <strong>fractional CTO / CPO</strong> at a stealth fintech — AWS serverless, a Rust + Postgres data platform, AI-agentic auto-healing infrastructure, five-nines transaction systems — and I run their college intern program, which is its own kind of fun.</p>
+
+      <h2>What I'm into lately</h2>
+
+      <p>Claude Skills and MCP and the whole agent-orchestration space — that's where my evenings go. Cursor as a daily driver. Rust, because it makes me a more careful programmer. And the through-line of my whole career: turning the firehose of data and models into something a person can actually use.</p>
+
+      <h2>And then there's the loud, good part</h2>
+
+      <div class="breakout" id="bo3">
+        <img src="assets/photos/fam22.jpg" alt="The family on a beach at dusk in Greece">
+        <figcaption>Greece, beach at dusk. The one thing the whole house agrees on is that we should go somewhere.</figcaption>
+      </div>
+
+      <p>We live in sunny Napa County — two adults, two teenagers, and one lazy golden retriever, <strong>Sunny</strong>, who is fairly sure she owns the rest of us. <strong>Joy</strong>, my wife, is a biologist and the Education Director at the American Canyon Community &amp; Parks Foundation. One teen is deep in theater and K-pop; the other in ecology and biology; both are deep in D&amp;D. Interests in this house run wide — AI and data, ecology, K-pop, theater, video games — and the one thing everyone signs off on is travel: at least one big trip a year, usually Europe (Scotland, France, Greece…), maybe Japan next.</p>
+
+      <p>I'm telling you this not as small talk but because it's load-bearing. The same person who'll obsess over a RAG pipeline at 6am is the one who packs five people and a route through three countries every summer. Same brain. I bring all of it.</p>
+
+      <h2>If you're hiring</h2>
+
+      <p>I'm open to senior AI, solutions, or platform roles — places where the gap between "interesting AI idea" and "thing customers pay for" is the actual job. That gap is where I've spent my whole career, and lately it's narrower and more exciting than it's ever been. If that's the shape of what you need, I'd love to talk.</p>
+
+      <div class="sig">
+        <p class="closing">Warmly,</p>
+        <div class="name">Stephen Hilton</div>
+        <div class="who">Stephen Hilton &nbsp;·&nbsp; Napa County, California</div>
+      </div>
+
+      <div class="ps">
+        <b>P.S.</b> — The full résumé lives at <a href="https://stephen.skillsnap.me">stephen.skillsnap.me</a> (yes, hosted on the thing I built — it seemed only fair). The product itself is at <a href="https://skillsnap.me">skillsnap.me</a> if you want to poke at it.
+      </div>
+
+      <div class="timeline">
+        <h2>The compact timeline</h2>
+        <div class="tl-item"><div class="yr">2001–2009</div><div class="role"><b>Best Buy Corp.</b><span>BI / Innovation Center leadership — 30 BI engineers, 4,000+ stores, 18% labor-efficiency gains in pilot districts.</span></div></div>
+        <div class="tl-item"><div class="yr">2009–2010</div><div class="role"><b>Lunexa Consulting</b><span>Sr. Technical Consultant — EDW for Visa, KPI trees for Yahoo!</span></div></div>
+        <div class="tl-item"><div class="yr">2010–2022</div><div class="role"><b>Teradata</b><span>Sr. Solution Engineer → Director of Solution Engineering, Western US ($80M+ quota, ~50% of US compute; Apple, Netflix, Meta, LinkedIn, eBay, PayPal, EA, Ubisoft) → Global Director of Strategy, Analytics &amp; Automation (telemetry across 2,000+ accounts / $2B ARR; board-level reporting).</span></div></div>
+        <div class="tl-item"><div class="yr">2022–present</div><div class="role"><b>MakeInfinite Labs</b><span>Chief of Staff → Head of Solutions / GTM ($0 → $3M → $14M ARR; 900+ technical stakeholders; 20+ conference talks; first Rust CLI + Python SDK) → Strategic Advisor.</span></div></div>
+        <div class="tl-item"><div class="yr">2025–present</div><div class="role"><b>Paydaay (stealth fintech)</b><span>Fractional CTO/CPO — AWS serverless, Rust + Postgres data platform, AI-agentic auto-healing infra, five-9s transaction systems; runs the college intern program.</span></div></div>
+        <div class="tl-item"><div class="yr">2026–present</div><div class="role"><b>SkillSnap.me</b><span>Solo founder — AI SaaS, concept → revenue in &lt;8 weeks.</span></div></div>
+      </div>
+
+      <div class="footer">
+        <span><b style="color:var(--ink);">Stephen Hilton</b></span>
+        <span class="sp">·</span>
+        <span><a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a></span>
+        <span class="sp">·</span>
+        <span>707-877-6679</span>
+        <span class="sp">·</span>
+        <span><a href="https://www.linkedin.com/in/sahilton/">linkedin.com/in/sahilton</a></span>
+        <span class="sp">·</span>
+        <span><a href="https://github.com/stephen-hilton">github.com/stephen-hilton</a></span>
+        <span class="sp">·</span>
+        <span><a href="https://stephen.skillsnap.me">résumé →</a></span>
+      </div>
+
+    </div>
+
+    <aside class="figs" aria-hidden="true">
+      <figure><img src="assets/photos/fam10.jpg" alt="Bundled up at an Edinburgh Christmas market"><figcaption>Edinburgh Christmas market — bundled up, slightly frozen, fully happy.</figcaption></figure>
+      <figure><img src="assets/photos/fam24.jpg" alt="Stephen, Joy and a daughter at the Legion of Honor, San Francisco"><figcaption>Legion of Honor, San Francisco. We do museums like other families do amusement parks.</figcaption></figure>
+      <figure><img src="assets/photos/fam06.jpg" alt="Sunny in the yard"><figcaption>Sunny — golden retriever, professional napper, terrible guard dog.</figcaption></figure>
+      <figure><img src="assets/photos/fam11.jpg" alt="Stephen with both daughters, a train-station hug"><figcaption>A train-station hug. Most of parenting, it turns out, is logistics and these.</figcaption></figure>
+      <figure><img src="assets/photos/fam50.jpg" alt="Joy and Stephen hamming it up with dragon wings"><figcaption>Joy and me, dignified as ever.</figcaption></figure>
+      <figure><img src="assets/photos/fam19.jpg" alt="The family at San Diego Comic-Con"><figcaption>Comic-Con. Yes, all of us. Yes, on purpose.</figcaption></figure>
+      <figure><img src="assets/photos/fam05.jpg" alt="Stephen and a daughter, lunch in France"><figcaption>Lunch in France. The trip everyone agrees on, every year.</figcaption></figure>
+      <figure><img src="assets/photos/fam04.jpg" alt="Sunset down the coast road"><figcaption>Sunset down the coast road — home, more or less.</figcaption></figure>
+    </aside>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var text = "Hi, I'm Stephen —";
+  var el = document.getElementById('typed');
+  var cur = document.getElementById('cur');
+  var dl = document.getElementById('dateline');
+  var i = 0;
+  function step(){
+    if(i <= text.length){
+      el.textContent = text.slice(0,i);
+      i++;
+      setTimeout(step, 70 + Math.random()*55);
+    } else {
+      setTimeout(function(){ dl.style.opacity = 1; }, 300);
+      setTimeout(function(){ cur.style.display = 'none'; }, 2600);
+    }
+  }
+  // small delay so it feels intentional
+  setTimeout(step, 450);
+})();
+</script>
+</body>
+</html>

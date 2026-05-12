@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephen Hilton — The Keynote</title>
+<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0b10;
+    --bg2: #11131c;
+    --ink: #f3f5fa;
+    --soft: #9aa2b4;
+    --accent: #ff5d3b;
+    --accent2: #5ad1ff;
+    --paper: #f6f1e6;
+    --paper-ink: #2d2517;
+  }
+  html, body { height: 100%; overflow: hidden; background: var(--bg); }
+  body { font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--ink); }
+  a { color: inherit; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* deck */
+  #deck {
+    position: fixed; inset: 0; display: flex;
+    transition: transform .7s cubic-bezier(.65,.02,.18,1);
+    will-change: transform;
+  }
+  .slide {
+    position: relative; flex: 0 0 100vw; width: 100vw; height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(40px, 7vw, 110px);
+    overflow: hidden;
+  }
+  .slide .num {
+    position: absolute; top: clamp(20px,3vw,40px); right: clamp(20px,3vw,44px);
+    font-family:'JetBrains Mono',monospace; font-size: 12px; letter-spacing: .2em; color: var(--soft);
+  }
+  .kick {
+    font-family:'JetBrains Mono',monospace; font-size: clamp(11px,1.2vw,13px);
+    letter-spacing: .28em; text-transform: uppercase; color: var(--accent2); margin-bottom: 22px;
+  }
+  .big {
+    font-weight: 700; line-height: .98; letter-spacing: -.02em;
+    font-size: clamp(38px, 7.5vw, 110px);
+  }
+  .big .hl { color: var(--accent); }
+  .big .hl2 { color: var(--accent2); }
+  .sub {
+    margin-top: clamp(18px,2.4vw,30px); font-size: clamp(16px, 2vw, 26px);
+    line-height: 1.5; color: var(--soft); max-width: 22ch;
+  }
+  .sub.wide { max-width: 40ch; }
+  .body-list { margin-top: 28px; max-width: 60ch; }
+  .body-list li { list-style: none; font-size: clamp(14px,1.7vw,21px); line-height: 1.55; padding: 9px 0 9px 24px; position: relative; color: #cdd2dd; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .body-list li::before { content: "▸"; position: absolute; left: 0; color: var(--accent2); }
+  .body-list li b { color: #fff; }
+
+  /* photo slides */
+  .slide.photo { padding: 0; }
+  .slide.photo .imgwrap { position: absolute; inset: 0; }
+  .slide.photo img { width: 100%; height: 100%; object-fit: cover; }
+  .slide.photo .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,9,14,.15) 0%, rgba(8,9,14,.05) 40%, rgba(8,9,14,.78) 100%); }
+  .slide.photo .cap {
+    position: absolute; left: clamp(40px,7vw,110px); bottom: clamp(40px,7vw,100px); right: clamp(40px,7vw,110px);
+  }
+  .slide.photo .cap .t { font-weight: 700; font-size: clamp(28px,5vw,68px); line-height: 1; letter-spacing: -.02em; }
+  .slide.photo .cap .c { margin-top: 14px; font-family:'Fraunces',serif; font-style: italic; font-size: clamp(15px,1.8vw,22px); color: #dfe3ea; }
+
+  .slide.photo .strip { position: absolute; top: 0; left: 0; right: 0; height: 30vh; display: flex; }
+  .slide.photo .strip img { flex: 1; height: 100%; object-fit: cover; border-right: 2px solid var(--bg); }
+  .slide.photo.gallery .imgwrap { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2,1fr); }
+  .slide.photo.gallery .imgwrap img { width: 100%; height: 100%; }
+
+  /* warm slide */
+  .slide.warm { background: var(--paper); color: var(--paper-ink); }
+  .slide.warm .kick { color: var(--accent); }
+  .slide.warm .big { font-family:'Fraunces',serif; font-weight: 400; }
+  .slide.warm .sub { color: #6a5c43; }
+  .slide.warm .num { color: #9c8d70; }
+  .slide.warm .body-list li { color: #4d4231; border-bottom-color: rgba(45,37,23,.16); }
+  .slide.warm .body-list li b { color: var(--paper-ink); }
+  .slide.warm .photoRow { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+  .slide.warm .photoRow figure { margin: 0; flex: 1; min-width: 130px; }
+  .slide.warm .photoRow img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 10px; box-shadow: 0 12px 30px rgba(45,37,23,.22); }
+  .slide.warm .photoRow figcaption { font-family:'Fraunces',serif; font-style: italic; font-size: 12.5px; color: #7a6c50; margin-top: 6px; }
+
+  /* stat slide */
+  .stat-big { font-weight: 700; font-size: clamp(60px, 14vw, 220px); line-height: .9; letter-spacing: -.03em; }
+  .stat-big .arrow { color: var(--soft); }
+  .stat-big .to { color: var(--accent); }
+
+  /* timeline slide */
+  .tlrow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 18px; margin-top: 36px; }
+  .tlrow .tlc { border-top: 2px solid rgba(255,255,255,.18); padding-top: 12px; }
+  .tlrow .tlc .y { font-family:'JetBrains Mono',monospace; font-size: 12px; color: var(--accent2); }
+  .tlrow .tlc .h { font-weight: 600; margin: 5px 0; font-size: clamp(13px,1.4vw,16px); }
+  .tlrow .tlc .d { font-size: clamp(11px,1.2vw,13px); color: var(--soft); line-height: 1.45; }
+
+  /* stack slide */
+  .chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 30px; max-width: 70ch; }
+  .chip { font-family:'JetBrains Mono',monospace; font-size: clamp(11px,1.2vw,14px); padding: 6px 12px; border-radius: 7px; background: var(--bg2); border: 1px solid rgba(90,209,255,.28); color: #bfe7fb; }
+  .creds { margin-top: 22px; font-size: clamp(12px,1.3vw,15px); color: var(--soft); max-width: 70ch; line-height: 1.6; }
+
+  /* contact slide */
+  .contact-grid { display: flex; flex-wrap: wrap; gap: 14px 40px; margin-top: 32px; font-family:'JetBrains Mono',monospace; font-size: clamp(13px,1.5vw,18px); }
+  .contact-grid a, .contact-grid span { display: block; }
+  .contact-grid .lbl { color: var(--accent2); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 4px; }
+  .btnrow { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+  .btn { text-decoration: none; font-weight: 600; font-size: clamp(14px,1.5vw,17px); padding: 13px 24px; border-radius: 12px; transition: .15s; }
+  .btn.solid { background: var(--accent); color: #1a0a06; }
+  .btn.solid2 { background: var(--accent2); color: #04141c; }
+  .btn.ghost { border: 1.5px solid rgba(255,255,255,.3); color: #fff; }
+  .btn:hover { transform: translateY(-2px); }
+
+  .headshot { width: clamp(80px,9vw,120px); height: clamp(80px,9vw,120px); border-radius: 50%; object-fit: cover; border: 2px solid var(--accent2); margin-bottom: 26px; }
+
+  /* chrome */
+  #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 50; transition: width .7s cubic-bezier(.65,.02,.18,1); }
+  #chrome {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px clamp(18px,3vw,40px);
+    pointer-events: none;
+  }
+  #chrome > * { pointer-events: auto; }
+  .navbtns { display: flex; gap: 8px; }
+  .navbtns button {
+    font: inherit; cursor: pointer; width: 42px; height: 42px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.22); background: rgba(15,17,24,.7); backdrop-filter: blur(6px);
+    color: #fff; font-size: 18px; transition: .15s; display: flex; align-items: center; justify-content: center;
+  }
+  .navbtns button:hover { background: rgba(255,255,255,.14); }
+  .navbtns button:disabled { opacity: .3; cursor: default; }
+  #counter { font-family:'JetBrains Mono',monospace; font-size: 13px; color: var(--soft); background: rgba(15,17,24,.7); backdrop-filter: blur(6px); padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.15); }
+  #allproposals { position: fixed; top: 14px; left: clamp(18px,3vw,40px); z-index: 50; font-family:'JetBrains Mono',monospace; font-size: 12px; text-decoration: none; color: var(--soft); background: rgba(15,17,24,.6); backdrop-filter: blur(6px); padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); }
+  #allproposals:hover { color: #fff; }
+  #hint { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); font-family:'JetBrains Mono',monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); z-index: 49; transition: opacity .5s; }
+  .dots { position: fixed; right: clamp(14px,2vw,26px); top: 50%; transform: translateY(-50%); z-index: 50; display: flex; flex-direction: column; gap: 9px; }
+  .dots button { width: 8px; height: 8px; border-radius: 50%; border: none; background: rgba(255,255,255,.25); cursor: pointer; padding: 0; transition: .2s; }
+  .dots button.on { background: var(--accent); transform: scale(1.5); }
+
+  @media (max-width: 680px){
+    .dots { display: none; }
+    .slide.photo .strip { height: 22vh; }
+    .slide.warm .photoRow { gap: 8px; }
+    .sub { max-width: none; }
+  }
+</style>
+</head>
+<body>
+<!-- PROPOSAL: The Keynote — Stephen's career and family as a confident, full-screen conference deck: one idea per slide, arrow keys / swipe / scroll. -->
+
+<a id="allproposals" href="index.html">&larr; all proposals</a>
+<div id="progress"></div>
+
+<div id="deck">
+
+  <!-- 1 — Hi -->
+  <section class="slide">
+    <div class="num">01</div>
+    <div class="kick">stephen hilton · keynote</div>
+    <h1 class="big">Hi — I'm<br>Stephen.</h1>
+    <p class="sub wide">Technical founder, AI builder, solutions leader. Dad of two. Wrangler of three pets. Based in Napa County, California.</p>
+  </section>
+
+  <!-- 2 — family photo hero -->
+  <section class="slide photo">
+    <div class="imgwrap"><img src="assets/photos/fam07.jpg" alt="The whole Hilton crew in Glasgow"></div>
+    <div class="scrim"></div>
+    <div class="cap">
+      <div class="t">This is the rest of the team.</div>
+      <div class="c">The whole crew, Glasgow — one of the trips that doesn't go on a résumé.</div>
+    </div>
+  </section>
+
+  <!-- 3 — I build AI products -->
+  <section class="slide">
+    <div class="num">03</div>
+    <div class="kick">what I do</div>
+    <h1 class="big">I build<br><span class="hl">AI products.</span></h1>
+    <p class="sub wide">20+ years turning messy data into things that ship. The last few — all-in on AI, hands on the keyboard.</p>
+  </section>
+
+  <!-- 4 — SkillSnap story -->
+  <section class="slide">
+    <div class="num">04</div>
+    <div class="kick">case study · skillsnap.me</div>
+    <h1 class="big">Empty repo →<br><span class="hl2">revenue,</span> in<br>under 8 weeks.</h1>
+    <ul class="body-list">
+      <li>Solo build: an <b>AI résumé &amp; cover-letter SaaS</b> — and the whole business around it (Stripe billing, pricing, automated support)</li>
+      <li>Fully <b>serverless on AWS</b>: Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito</li>
+      <li>A <b>multi-model generation pipeline</b> pairing LLMs with embedding-based retrieval (RAG) to produce tailored documents</li>
+      <li>Built using the modern toolchain it preaches: Claude Skills, MCP, teams of <b>Claude Code agents</b>, AI-assisted dev with Cursor</li>
+    </ul>
+  </section>
+
+  <!-- 5 — $0 -> $14M -->
+  <section class="slide">
+    <div class="num">05</div>
+    <div class="kick">before that · makeinfinite labs</div>
+    <div class="stat-big">$0 <span class="arrow">→</span> <span class="to">$14M</span></div>
+    <p class="sub wide" style="margin-top:36px;">ARR on a pre-launch AI product — $3M in 12 months, $14M in 24. 900+ technical stakeholders. 20+ conference talks. Wrote the first Rust CLI and Python SDK.</p>
+  </section>
+
+  <!-- 6 — career timeline -->
+  <section class="slide">
+    <div class="num">06</div>
+    <div class="kick">the through-line</div>
+    <h1 class="big" style="font-size:clamp(32px,5.5vw,72px);">Twenty years of<br>shipping data &amp; AI.</h1>
+    <div class="tlrow">
+      <div class="tlc"><div class="y">2001–2009</div><div class="h">Best Buy Corp.</div><div class="d">BI / Innovation Center leadership — 30 engineers, 4,000+ stores, 18% labor-efficiency gains in pilots.</div></div>
+      <div class="tlc"><div class="y">2009–2010</div><div class="h">Lunexa Consulting</div><div class="d">Sr. Technical Consultant — EDW for Visa, KPI trees for Yahoo!.</div></div>
+      <div class="tlc"><div class="y">2010–2022</div><div class="h">Teradata</div><div class="d">Sr. SE → Director, Solution Engineering (Western US, $80M+ quota; Apple, Netflix, Meta, LinkedIn, eBay, PayPal) → Global Director, Strategy/Analytics/Automation — telemetry across 2,000+ accounts / $2B ARR.</div></div>
+      <div class="tlc"><div class="y">2022–now</div><div class="h">MakeInfinite Labs</div><div class="d">Chief of Staff → Head of Solutions / GTM → Strategic Advisor — $0 → $3M → $14M ARR.</div></div>
+      <div class="tlc"><div class="y">2025–now</div><div class="h">Paydaay (stealth fintech)</div><div class="d">Fractional CTO/CPO — AWS serverless, Rust + Postgres platform, AI-agentic auto-healing infra, five-9s transaction systems; runs the intern program.</div></div>
+      <div class="tlc"><div class="y">2026–now</div><div class="h">SkillSnap.me</div><div class="d">Solo founder — concept → revenue in &lt; 8 weeks.</div></div>
+    </div>
+  </section>
+
+  <!-- 7 — I also coach two teenagers and three pets -->
+  <section class="slide warm">
+    <div class="num">07</div>
+    <div class="kick">the other job</div>
+    <h1 class="big">I also coach two<br>teenagers and<br>a golden retriever.</h1>
+    <div class="photoRow">
+      <figure><img src="assets/photos/fam11.jpg" alt="Stephen and both daughters in a train-station hug" loading="lazy"><figcaption>Train-station hug.</figcaption></figure>
+      <figure><img src="assets/photos/fam52.jpg" alt="A daughter's school musical" loading="lazy"><figcaption>School musical.</figcaption></figure>
+      <figure><img src="assets/photos/fam42.jpg" alt="A daughter buried under a happy golden retriever" loading="lazy"><figcaption>Buried under a golden.</figcaption></figure>
+      <figure><img src="assets/photos/fam06.jpg" alt="Sunny in the yard" loading="lazy"><figcaption>Sunny.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 8 — family blurb / who -->
+  <section class="slide warm">
+    <div class="num">08</div>
+    <div class="kick">the hiltons</div>
+    <h1 class="big" style="font-size:clamp(28px,4.6vw,58px);">Two adults, two teens,<br>and one golden<br>who runs the place.</h1>
+    <ul class="body-list">
+      <li><b>Joy Hilton</b> — biologist; Education Director at the American Canyon Community &amp; Parks Foundation</li>
+      <li><b>Stephen</b> — the one with the résumé</li>
+      <li><b>Two teens</b> — one deep in theater &amp; K-pop, one deep in ecology &amp; biology; both deep in D&amp;D</li>
+      <li><b>Sunny</b> — golden retriever, professional napper</li>
+    </ul>
+    <p class="sub" style="max-width:46ch;">Interests run wide — AI &amp; data, ecology, K-pop, D&amp;D, theater, games — but the one thing everyone agrees on is travel: a big trip a year, usually Europe. Maybe Japan next.</p>
+  </section>
+
+  <!-- 9 — travel gallery -->
+  <section class="slide photo gallery">
+    <div class="imgwrap">
+      <img src="assets/photos/fam14.jpg" alt="Family selfie under Edinburgh Castle at night" loading="lazy">
+      <img src="assets/photos/fam05.jpg" alt="Stephen and a daughter at lunch in France" loading="lazy">
+      <img src="assets/photos/fam22.jpg" alt="Beach at dusk in Greece" loading="lazy">
+      <img src="assets/photos/fam16.jpg" alt="A daughter in a Paris galerie" loading="lazy">
+      <img src="assets/photos/fam19.jpg" alt="The family at San Diego Comic-Con" loading="lazy">
+      <img src="assets/photos/fam10.jpg" alt="Bundled up at an Edinburgh Christmas market" loading="lazy">
+    </div>
+    <div class="scrim"></div>
+    <div class="cap">
+      <div class="t">One big trip a year.</div>
+      <div class="c">Scotland · France · Greece · Comic-Con · and wherever's next.</div>
+    </div>
+  </section>
+
+  <!-- 10 — AI highlights -->
+  <section class="slide">
+    <div class="num">10</div>
+    <div class="kick">what's on the AI résumé</div>
+    <h1 class="big" style="font-size:clamp(32px,5.5vw,72px);">AI highlights.</h1>
+    <ul class="body-list">
+      <li>Built &amp; shipped <b>SkillSnap.me</b> solo — concept → revenue-positive in &lt; 8 weeks</li>
+      <li>Serverless on AWS: <b>Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito</b></li>
+      <li>Multi-model AI generation pipeline: LLMs + embedding-based retrieval (<b>RAG</b>)</li>
+      <li>Deep on the toolchain: <b>Claude Skills, MCP, RAG</b>; orchestrating teams of Claude Code agents; AI-assisted dev with Cursor</li>
+      <li><b>$0 → $3M → $14M ARR</b> on a pre-launch AI product at MakeInfinite Labs</li>
+      <li>Wrote the public docs, first <b>Rust CLI</b>, and <b>Python SDK</b> for an enterprise AI platform</li>
+      <li>Talks: "Natural Language → SQL via AI" (EthDenver) · "AI to ZK: New Data Pipelines" (Consensys)</li>
+    </ul>
+  </section>
+
+  <!-- 11 — stack -->
+  <section class="slide">
+    <div class="num">11</div>
+    <div class="kick">the toolkit</div>
+    <h1 class="big" style="font-size:clamp(32px,5.5vw,72px);">Stack &amp; creds.</h1>
+    <div class="chips">
+      <span class="chip">Python</span><span class="chip">Rust</span><span class="chip">SQL</span><span class="chip">AWS · Bedrock</span><span class="chip">Lambda</span><span class="chip">DynamoDB</span><span class="chip">SQS</span><span class="chip">S3</span><span class="chip">CloudFront</span><span class="chip">Cognito</span><span class="chip">Azure</span><span class="chip">GCP</span><span class="chip">Kafka</span><span class="chip">Spark</span><span class="chip">serverless</span><span class="chip">event-driven</span><span class="chip">RAG</span><span class="chip">Claude · Skills / MCP / Code agents</span><span class="chip">Cursor</span><span class="chip">Stripe</span><span class="chip">Solidity / Move</span>
+    </div>
+    <p class="creds">AWS Solutions Architect · MBA, U. of Phoenix · BA Communications &amp; English, Minnesota State · Data Science (Coursera) · Kanban · Agile PM</p>
+  </section>
+
+  <!-- 12 — Let's talk -->
+  <section class="slide">
+    <div class="num">12</div>
+    <img class="headshot" src="../src/images/stephen00.png" alt="Stephen Hilton">
+    <div class="kick">open to senior AI / solutions / platform roles</div>
+    <h1 class="big">Let's talk.</h1>
+    <p class="sub wide">If you're building something where messy data has to become a shipping AI product — I'd love to hear about it.</p>
+    <div class="contact-grid">
+      <div><div class="lbl">email</div><a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a></div>
+      <div><div class="lbl">phone</div><a href="tel:+17078776679">707-877-6679</a></div>
+      <div><div class="lbl">linkedin</div><a href="https://www.linkedin.com/in/sahilton/" target="_blank" rel="noopener">/in/sahilton</a></div>
+      <div><div class="lbl">github</div><a href="https://github.com/stephen-hilton" target="_blank" rel="noopener">@stephen-hilton</a></div>
+    </div>
+    <div class="btnrow">
+      <a class="btn solid" href="https://stephen.skillsnap.me" target="_blank" rel="noopener">Full résumé →</a>
+      <a class="btn solid2" href="https://skillsnap.me" target="_blank" rel="noopener">See SkillSnap</a>
+      <a class="btn ghost" href="index.html">← all proposals</a>
+    </div>
+  </section>
+
+</div>
+
+<div class="dots" id="dots"></div>
+<div id="hint">← → · scroll · swipe</div>
+
+<div id="chrome">
+  <div class="navbtns">
+    <button id="prev" aria-label="Previous slide">‹</button>
+    <button id="next" aria-label="Next slide">›</button>
+  </div>
+  <div id="counter">01 / 12</div>
+</div>
+
+<script>
+(function(){
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var n = slides.length;
+  var i = 0;
+  var prevBtn = document.getElementById('prev');
+  var nextBtn = document.getElementById('next');
+  var counter = document.getElementById('counter');
+  var progress = document.getElementById('progress');
+  var hint = document.getElementById('hint');
+  var dotsWrap = document.getElementById('dots');
+  var locked = false;
+
+  // build dots
+  slides.forEach(function(_, idx){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label', 'Go to slide ' + (idx+1));
+    b.addEventListener('click', function(){ go(idx); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function pad(x){ return (x<9?'0':'') + (x+1); }
+  function render(){
+    deck.style.transform = 'translateX(' + (-i * 100) + 'vw)';
+    counter.textContent = pad(i) + ' / ' + n;
+    progress.style.width = ((i+1)/n*100) + '%';
+    prevBtn.disabled = (i === 0);
+    nextBtn.disabled = (i === n-1);
+    dots.forEach(function(d, idx){ d.classList.toggle('on', idx === i); });
+  }
+  function go(idx){
+    var t = Math.max(0, Math.min(n-1, idx));
+    if (t === i) return;
+    i = t;
+    locked = true;
+    render();
+    setTimeout(function(){ locked = false; }, 720);
+  }
+  function next(){ go(i+1); }
+  function prev(){ go(i-1); }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); prev(); }
+    else if (e.key === 'Home'){ go(0); }
+    else if (e.key === 'End'){ go(n-1); }
+  });
+
+  // wheel / scroll paging
+  var wheelAccum = 0, wheelTimer = null;
+  window.addEventListener('wheel', function(e){
+    if (locked) { e.preventDefault(); return; }
+    var d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    wheelAccum += d;
+    if (Math.abs(wheelAccum) > 60){
+      if (wheelAccum > 0) next(); else prev();
+      wheelAccum = 0;
+    }
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(function(){ wheelAccum = 0; }, 200);
+    e.preventDefault();
+  }, {passive:false});
+
+  // touch swipe
+  var tx = 0, ty = 0, touching = false;
+  window.addEventListener('touchstart', function(e){
+    var t = e.touches[0]; tx = t.clientX; ty = t.clientY; touching = true;
+  }, {passive:true});
+  window.addEventListener('touchend', function(e){
+    if (!touching) return; touching = false;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - tx, dy = t.clientY - ty;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){
+      if (dx < 0) next(); else prev();
+    } else if (Math.abs(dy) > 45){
+      if (dy < 0) next(); else prev();
+    }
+  }, {passive:true});
+
+  // hide hint after first move
+  function killHint(){ if (hint){ hint.style.opacity = '0'; } }
+  ['keydown','wheel','touchstart','click'].forEach(function(ev){ window.addEventListener(ev, killHint, {once:true}); });
+  setTimeout(killHint, 7000);
+
+  render();
+})();
+</script>
+</body>
+</html>

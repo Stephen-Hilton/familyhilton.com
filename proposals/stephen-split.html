@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephen Hilton — Two Modes</title>
+<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #f4ede0;
+    --cream-2: #ece1cd;
+    --cream-ink: #3a3024;
+    --cream-soft: #6f6048;
+    --cream-accent: #b3552d;
+    --dark: #0c0e14;
+    --dark-2: #14171f;
+    --dark-ink: #e8ecf2;
+    --dark-soft: #8b93a3;
+    --dark-accent: #4cc2ff;
+  }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    background: var(--dark);
+  }
+  a { color: inherit; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .serif { font-family: 'Fraunces', Georgia, serif; }
+
+  /* ---- top bar ---- */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 44px; z-index: 60;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px;
+    background: rgba(8,9,13,0.78); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px; color: #cdd3de;
+  }
+  .topbar a { text-decoration: none; opacity: .85; }
+  .topbar a:hover { opacity: 1; }
+  .modebtns { display: flex; gap: 6px; }
+  .modebtns button {
+    font: inherit; font-size: 12px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.25); background: transparent; color: #cdd3de;
+    padding: 4px 10px; border-radius: 999px; transition: .15s;
+  }
+  .modebtns button:hover { background: rgba(255,255,255,0.1); }
+  .modebtns button.active { background: #cdd3de; color: #0c0e14; border-color: #cdd3de; }
+
+  /* ---- split layout ---- */
+  .stage {
+    position: relative; width: 100%; min-height: 100vh; padding-top: 44px;
+  }
+  .pane {
+    position: absolute; top: 44px; bottom: 0; overflow-y: auto; overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  #famPane {
+    left: 0; background: var(--cream); color: var(--cream-ink);
+    width: 50%;
+  }
+  #workPane {
+    right: 0; background: var(--dark); color: var(--dark-ink);
+    width: 50%;
+  }
+  .paneInner { padding: clamp(28px, 4vw, 64px) clamp(20px, 3.5vw, 56px) 80px; max-width: 760px; margin: 0 auto; }
+
+  /* divider */
+  #divider {
+    position: absolute; top: 44px; bottom: 0; width: 18px; margin-left: -9px;
+    z-index: 50; cursor: col-resize; left: 50%;
+    display: flex; align-items: center; justify-content: center;
+    touch-action: none;
+  }
+  #divider::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; transform: translateX(-50%);
+    background: linear-gradient(var(--cream-accent), var(--dark-accent));
+    opacity: .8;
+  }
+  .grip {
+    position: relative; z-index: 2; width: 30px; height: 64px; border-radius: 999px;
+    background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    display: flex; align-items: center; justify-content: center; gap: 3px;
+  }
+  .grip i { display: block; width: 2px; height: 22px; border-radius: 2px; background: #b9b1a2; }
+  .gripHint {
+    position: absolute; top: 50%; transform: translateY(-50%); white-space: nowrap;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #fff;
+    background: rgba(0,0,0,.55); padding: 4px 8px; border-radius: 6px;
+    left: 50%; margin-top: 56px; transform: translate(-50%, -50%);
+    pointer-events: none; transition: opacity .4s;
+  }
+
+  /* ---- headers within panes ---- */
+  .kicker { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
+  #famPane .kicker { color: var(--cream-accent); }
+  #workPane .kicker { color: var(--dark-accent); }
+  .modeTitle { font-weight: 700; line-height: 1; margin: 10px 0 6px; }
+  #famPane .modeTitle { font-family:'Fraunces',serif; font-size: clamp(40px, 6vw, 64px); color: var(--cream-ink); }
+  #workPane .modeTitle { font-size: clamp(38px, 5.5vw, 58px); letter-spacing: -.02em; color: #fff; }
+  .lede { font-size: clamp(15px, 1.5vw, 18px); line-height: 1.6; margin-top: 14px; }
+  #famPane .lede { color: var(--cream-soft); }
+  #workPane .lede { color: var(--dark-soft); }
+
+  h2.sec { margin-top: 44px; margin-bottom: 14px; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; }
+  #famPane h2.sec { color: var(--cream-accent); border-bottom: 1px solid rgba(58,48,36,.18); padding-bottom: 8px; }
+  #workPane h2.sec { color: var(--dark-accent); border-bottom: 1px solid rgba(255,255,255,.12); padding-bottom: 8px; font-family:'JetBrains Mono',monospace; font-size: 12px; }
+
+  p { line-height: 1.65; }
+  #famPane p { color: #4d4233; margin: 0 0 12px; }
+  #workPane p { color: #c2c8d2; margin: 0 0 12px; }
+
+  /* family photos */
+  .photoGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
+  .photoGrid img, .heroPhoto img { width: 100%; display: block; border-radius: 10px; object-fit: cover; }
+  .heroPhoto { margin: 16px 0; }
+  .heroPhoto img { aspect-ratio: 16/10; box-shadow: 0 10px 30px rgba(58,48,36,.18); }
+  .photoGrid figure { margin: 0; }
+  .photoGrid img { aspect-ratio: 4/3; box-shadow: 0 6px 16px rgba(58,48,36,.15); }
+  figcaption { font-family:'Fraunces',serif; font-style: italic; font-size: 12.5px; color: var(--cream-soft); margin-top: 5px; }
+
+  /* family members list */
+  .fam-list { list-style: none; margin: 8px 0; }
+  .fam-list li { padding: 9px 0; border-bottom: 1px dashed rgba(58,48,36,.2); font-size: 15px; color:#4d4233; }
+  .fam-list li b { color: var(--cream-ink); }
+  .pillrow { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+  #famPane .pill { background: var(--cream-2); color: var(--cream-soft); border-radius: 999px; padding: 5px 11px; font-size: 12.5px; }
+
+  /* work: AI highlights */
+  ul.bullets { list-style: none; margin: 8px 0; }
+  ul.bullets li { position: relative; padding: 7px 0 7px 18px; font-size: 14.5px; color: #c2c8d2; line-height: 1.55; border-bottom: 1px solid rgba(255,255,255,.06); }
+  ul.bullets li::before { content: "▸"; position: absolute; left: 0; color: var(--dark-accent); }
+  ul.bullets li b { color: #fff; }
+
+  /* stats */
+  .stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin: 16px 0; }
+  .stat { padding: 12px 14px; border-radius: 10px; }
+  #famPane .stat { background: var(--cream-2); }
+  #workPane .stat { background: var(--dark-2); border: 1px solid rgba(255,255,255,.08); }
+  .stat .n { font-weight: 700; font-size: 22px; }
+  #famPane .stat .n { font-family:'Fraunces',serif; color: var(--cream-accent); }
+  #workPane .stat .n { font-family:'JetBrains Mono',monospace; color: var(--dark-accent); }
+  .stat .l { font-size: 12px; margin-top: 2px; }
+  #famPane .stat .l { color: var(--cream-soft); }
+  #workPane .stat .l { color: var(--dark-soft); }
+
+  /* timeline */
+  .tl { margin: 14px 0; }
+  .tl .item { padding: 12px 0 12px 18px; border-left: 2px solid rgba(255,255,255,.14); position: relative; }
+  .tl .item::before { content: ""; position: absolute; left: -6px; top: 17px; width: 10px; height: 10px; border-radius: 50%; background: var(--dark-accent); }
+  .tl .yr { font-family:'JetBrains Mono',monospace; font-size: 12px; color: var(--dark-accent); }
+  .tl .ttl { font-weight: 600; color: #fff; margin: 2px 0; font-size: 15px; }
+  .tl .desc { font-size: 13.5px; color: #aab1bd; line-height: 1.5; }
+
+  /* stack chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+  #workPane .chip { font-family:'JetBrains Mono',monospace; font-size: 12px; background: var(--dark-2); border: 1px solid rgba(76,194,255,.25); color: #b8e5ff; border-radius: 6px; padding: 4px 9px; }
+
+  /* CTAs */
+  .ctaRow { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-weight: 600; font-size: 14px; padding: 11px 18px; border-radius: 10px; transition: .15s; }
+  #famPane .btn { background: var(--cream-accent); color: #fff; }
+  #famPane .btn.ghost { background: transparent; color: var(--cream-accent); border: 1.5px solid var(--cream-accent); }
+  #workPane .btn { background: var(--dark-accent); color: #06121a; }
+  #workPane .btn.ghost { background: transparent; color: var(--dark-accent); border: 1.5px solid rgba(76,194,255,.45); }
+  .btn:hover { transform: translateY(-1px); }
+
+  .contact { font-size: 14px; line-height: 1.9; }
+  #famPane .contact a { color: var(--cream-accent); }
+  #workPane .contact { font-family:'JetBrains Mono',monospace; font-size: 13px; }
+  #workPane .contact a { color: var(--dark-accent); }
+
+  .headshotRow { display: flex; align-items: center; gap: 14px; margin: 16px 0; }
+  .headshotRow img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.2); }
+  #famPane .headshotRow img { border-color: var(--cream-accent); }
+
+  .footnote { margin-top: 40px; font-size: 12px; }
+  #famPane .footnote { color: var(--cream-soft); }
+  #workPane .footnote { color: var(--dark-soft); font-family:'JetBrains Mono',monospace; }
+
+  /* ---- responsive: stack ---- */
+  @media (max-width: 760px) {
+    #divider { display: none !important; }
+    .pane { position: static; width: 100% !important; top: auto; bottom: auto; overflow: visible; }
+    .stage { padding-top: 44px; }
+    #famPane, #workPane { min-height: auto; }
+    .photoGrid, .stats { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+<!-- PROPOSAL: Two Modes — a draggable split-screen that puts Family and Work side by side; wipe the divider toward whichever one you came for. -->
+
+<div class="topbar">
+  <a href="index.html">&larr; all proposals</a>
+  <div class="modebtns" id="modebtns">
+    <button data-split="78">Family</button>
+    <button data-split="50" class="active">Both</button>
+    <button data-split="22">Work</button>
+  </div>
+  <a href="https://stephen.skillsnap.me" target="_blank" rel="noopener">résumé&nbsp;&rarr;</a>
+</div>
+
+<div class="stage" id="stage">
+
+  <!-- ===================== FAMILY PANE ===================== -->
+  <section class="pane" id="famPane">
+    <div class="paneInner">
+      <div class="kicker">Family mode</div>
+      <h1 class="modeTitle">The Hiltons</h1>
+      <p class="lede">Dad of two. Wrangler of three pets. The one who packs the family for Europe every year — and writes the code on the plane.</p>
+
+      <div class="heroPhoto">
+        <figure>
+          <img src="assets/photos/fam07.jpg" alt="The whole Hilton crew in Glasgow" loading="lazy">
+          <figcaption>The whole crew, Glasgow.</figcaption>
+        </figure>
+      </div>
+
+      <p>The Hiltons live in sunny Napa County, California — two adults, two teenagers, and one lazy golden retriever (<b>Sunny</b>) who is fairly sure she owns the rest of us. Interests run wide: AI and data, ecology and biology, K-pop, D&amp;D, theater, video games. The one thing everyone agrees on is travel — at least one big trip a year, usually Europe (Scotland, France, Greece…), maybe Japan next.</p>
+
+      <h2 class="sec">Who's who</h2>
+      <ul class="fam-list">
+        <li><b>Joy Hilton</b> — biologist; Education Director at the American Canyon Community &amp; Parks Foundation</li>
+        <li><b>Stephen Hilton</b> — the one with the résumé (see: the other side)</li>
+        <li><b>Two teens</b> — one deep in theater &amp; K-pop, one deep in ecology &amp; biology; both deep in D&amp;D</li>
+        <li><b>Sunny</b> — golden retriever, professional napper</li>
+      </ul>
+
+      <h2 class="sec">The pets</h2>
+      <div class="photoGrid">
+        <figure><img src="assets/photos/fam06.jpg" alt="Sunny in the yard" loading="lazy"><figcaption>Sunny, yard duty.</figcaption></figure>
+        <figure><img src="assets/photos/fam42.jpg" alt="A daughter buried under a happy golden retriever" loading="lazy"><figcaption>Buried under a happy golden.</figcaption></figure>
+        <figure><img src="assets/photos/fam43.jpg" alt="Golden retriever by the water" loading="lazy"><figcaption>By the water.</figcaption></figure>
+        <figure><img src="assets/photos/fam51.jpg" alt="Golden retriever road-trip co-pilot mid-yawn" loading="lazy"><figcaption>Road-trip co-pilot, mid-yawn.</figcaption></figure>
+      </div>
+
+      <h2 class="sec">Travel — the family sport</h2>
+      <div class="photoGrid">
+        <figure><img src="assets/photos/fam14.jpg" alt="Family selfie under Edinburgh Castle at night" loading="lazy"><figcaption>Edinburgh Castle, after dark.</figcaption></figure>
+        <figure><img src="assets/photos/fam10.jpg" alt="Bundled up at an Edinburgh Christmas market" loading="lazy"><figcaption>Edinburgh Christmas market.</figcaption></figure>
+        <figure><img src="assets/photos/fam05.jpg" alt="Stephen and a daughter at lunch in France" loading="lazy"><figcaption>Lunch in France.</figcaption></figure>
+        <figure><img src="assets/photos/fam22.jpg" alt="Beach at dusk in Greece" loading="lazy"><figcaption>Greece, beach at dusk.</figcaption></figure>
+        <figure><img src="assets/photos/fam19.jpg" alt="The family at San Diego Comic-Con" loading="lazy"><figcaption>San Diego Comic-Con.</figcaption></figure>
+        <figure><img src="assets/photos/fam11.jpg" alt="Stephen and both daughters in a train-station hug" loading="lazy"><figcaption>Train-station hug.</figcaption></figure>
+      </div>
+
+      <h2 class="sec">Around the house</h2>
+      <div class="photoGrid">
+        <figure><img src="assets/photos/fam52.jpg" alt="A daughter's school musical" loading="lazy"><figcaption>School musical, under the lights.</figcaption></figure>
+        <figure><img src="assets/photos/fam02.jpg" alt="A very K-pop birthday cake" loading="lazy"><figcaption>A very K-pop birthday cake.</figcaption></figure>
+        <figure><img src="assets/photos/fam17.jpg" alt="The kids on tablets at the kitchen island" loading="lazy"><figcaption>Kitchen-island screen time.</figcaption></figure>
+        <figure><img src="assets/photos/fam50.jpg" alt="Joy and Stephen hamming it up with dragon wings" loading="lazy"><figcaption>Dragon wings, no regrets.</figcaption></figure>
+      </div>
+
+      <div class="pillrow">
+        <span class="pill">AI &amp; data</span><span class="pill">ecology</span><span class="pill">K-pop</span><span class="pill">D&amp;D</span><span class="pill">theater</span><span class="pill">video games</span><span class="pill">two goldens + one cat</span><span class="pill">Scotland</span><span class="pill">France</span><span class="pill">Greece</span><span class="pill">Japan, next?</span>
+      </div>
+
+      <h2 class="sec">Say hi</h2>
+      <p class="contact">
+        <a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a><br>
+        <a href="tel:+17078776679">707-877-6679</a> · Napa County, California
+      </p>
+      <p style="font-size:13px;color:var(--cream-soft);margin-top:14px;">Pull the divider →&nbsp; to give the work side more room — or hit <em>Work</em> up top.</p>
+
+      <div class="footnote">familyhilton.com · the Hiltons, since a while ago</div>
+    </div>
+  </section>
+
+  <!-- ===================== WORK PANE ===================== -->
+  <section class="pane" id="workPane">
+    <div class="paneInner">
+      <div class="kicker">// work mode</div>
+      <h1 class="modeTitle">Stephen Hilton</h1>
+      <div class="headshotRow">
+        <img src="../src/images/stephen00.png" alt="Stephen Hilton">
+        <div>
+          <div class="mono" style="font-size:13px;color:var(--dark-accent);">Technical founder · AI builder · solutions leader</div>
+          <div style="font-size:13px;color:var(--dark-soft);margin-top:3px;">Napa County, CA · Open to senior AI / solutions / platform roles</div>
+        </div>
+      </div>
+      <p class="lede">Technical founder &amp; solutions leader — 20+ years in data, the last few all-in on AI. Built <b style="color:#fff">SkillSnap</b> solo (concept → revenue in 8 weeks) on serverless AWS plus a multi-model Bedrock + RAG pipeline. Previously $0→$14M ARR on a pre-launch AI product at MakeInfinite, an $80M+ Teradata territory (Apple, Netflix, Meta, LinkedIn), and petabyte-scale data platforms before that. Hands-on Python &amp; Rust. AWS Solutions Architect. MBA.</p>
+
+      <div class="ctaRow">
+        <a class="btn" href="https://stephen.skillsnap.me" target="_blank" rel="noopener">Full résumé →</a>
+        <a class="btn ghost" href="https://skillsnap.me" target="_blank" rel="noopener">See SkillSnap</a>
+      </div>
+
+      <h2 class="sec">AI highlights</h2>
+      <ul class="bullets">
+        <li>Built &amp; shipped <b>SkillSnap.me</b> solo — AI résumé/cover-letter SaaS, concept → revenue-positive in <b>&lt; 8 weeks</b></li>
+        <li>Serverless on AWS: <b>Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito</b></li>
+        <li>Multi-model AI generation pipeline: LLMs + embedding-based retrieval (<b>RAG</b>) for tailored documents</li>
+        <li>Deep on the modern toolchain: Claude Skills, MCP, RAG; orchestrating teams of <b>Claude Code agents</b>; AI-assisted dev with Cursor</li>
+        <li><b>$0 → $3M ARR</b> (12 mo) → <b>$14M ARR</b> (24 mo) on a pre-launch AI product at MakeInfinite Labs</li>
+        <li>Wrote the public docs, first Rust CLI, and Python SDK for an enterprise AI platform</li>
+        <li>Talks: "Natural Language → SQL via AI" (EthDenver) · "AI to ZK: New Data Pipelines" (Consensys)</li>
+      </ul>
+
+      <div class="stats">
+        <div class="stat"><div class="n">20+ yrs</div><div class="l">in tech · 5 building AI</div></div>
+        <div class="stat"><div class="n">$0→$14M</div><div class="l">ARR built</div></div>
+        <div class="stat"><div class="n">$80M+</div><div class="l">territory run</div></div>
+        <div class="stat"><div class="n">&lt;8 wks</div><div class="l">concept → revenue, solo</div></div>
+      </div>
+
+      <h2 class="sec">Career timeline</h2>
+      <div class="tl">
+        <div class="item"><div class="yr">2001–2009</div><div class="ttl">Best Buy Corp. — BI / Innovation Center leadership</div><div class="desc">Led 30 BI engineers across 4,000+ stores; 18% labor-efficiency gains in pilot districts.</div></div>
+        <div class="item"><div class="yr">2009–2010</div><div class="ttl">Lunexa Consulting — Sr. Technical Consultant</div><div class="desc">EDW for Visa; KPI trees for Yahoo!.</div></div>
+        <div class="item"><div class="yr">2010–2022</div><div class="ttl">Teradata — Sr. Solution Engineer → Director, Solution Engineering (Western US) → Global Director, Strategy / Analytics / Automation</div><div class="desc">$80M+ quota, ~50% of US compute capacity (Apple, Netflix, Meta, LinkedIn, eBay, PayPal, EA, Ubisoft); built a telemetry framework across 2,000+ accounts / $2B ARR with board-level reporting.</div></div>
+        <div class="item"><div class="yr">2022–present</div><div class="ttl">MakeInfinite Labs — Chief of Staff → Head of Solutions / GTM → Strategic Advisor</div><div class="desc">$0 → $3M → $14M ARR; 900+ technical stakeholders; 20+ conference talks; first Rust CLI + Python SDK.</div></div>
+        <div class="item"><div class="yr">2025–present</div><div class="ttl">Paydaay (stealth fintech) — Fractional CTO / CPO</div><div class="desc">AWS serverless; Rust + Postgres data platform; AI-agentic auto-healing infra; five-9s transaction systems; runs the college intern program.</div></div>
+        <div class="item"><div class="yr">2026–present</div><div class="ttl">SkillSnap.me — Solo founder</div><div class="desc">AI SaaS; concept → revenue in &lt; 8 weeks.</div></div>
+      </div>
+
+      <h2 class="sec">Stack &amp; creds</h2>
+      <div class="chips">
+        <span class="chip">Python</span><span class="chip">Rust</span><span class="chip">SQL</span><span class="chip">AWS / Bedrock</span><span class="chip">Lambda</span><span class="chip">DynamoDB</span><span class="chip">SQS</span><span class="chip">S3</span><span class="chip">CloudFront</span><span class="chip">Cognito</span><span class="chip">Azure</span><span class="chip">GCP</span><span class="chip">Kafka</span><span class="chip">Spark</span><span class="chip">serverless</span><span class="chip">event-driven</span><span class="chip">RAG</span><span class="chip">Claude · Skills / MCP / Code agents</span><span class="chip">Cursor</span><span class="chip">Stripe</span><span class="chip">Solidity / Move</span>
+      </div>
+      <p style="font-size:13.5px;color:#aab1bd;">AWS Solutions Architect · MBA, U. of Phoenix · BA Communications &amp; English, Minnesota State · Data Science (Coursera) · Kanban · Agile PM</p>
+
+      <h2 class="sec">Contact</h2>
+      <p class="contact">
+        email&nbsp;&nbsp;<a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a><br>
+        phone&nbsp;&nbsp;<a href="tel:+17078776679">707-877-6679</a><br>
+        linkedin&nbsp;&nbsp;<a href="https://www.linkedin.com/in/sahilton/" target="_blank" rel="noopener">/in/sahilton</a><br>
+        github&nbsp;&nbsp;<a href="https://github.com/stephen-hilton" target="_blank" rel="noopener">@stephen-hilton</a><br>
+        résumé&nbsp;&nbsp;<a href="https://stephen.skillsnap.me" target="_blank" rel="noopener">stephen.skillsnap.me</a>
+      </p>
+      <p style="font-size:13px;color:var(--dark-soft);margin-top:14px;">← Pull the divider the other way for the family side.</p>
+
+      <div class="footnote">// stephen hilton — built solo, mostly between flights</div>
+    </div>
+  </section>
+
+  <div id="divider" aria-label="Drag to resize" role="separator">
+    <div class="grip"><i></i><i></i><i></i></div>
+    <div class="gripHint" id="gripHint">drag · or use Family / Both / Work</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var stage = document.getElementById('stage');
+  var fam = document.getElementById('famPane');
+  var work = document.getElementById('workPane');
+  var divider = document.getElementById('divider');
+  var btns = document.querySelectorAll('#modebtns button');
+  var hint = document.getElementById('gripHint');
+  var pct = 50; // percent given to family pane
+  var dragging = false;
+
+  function isStacked(){ return window.matchMedia('(max-width: 760px)').matches; }
+
+  function apply(p, animate){
+    pct = Math.max(8, Math.min(92, p));
+    if (isStacked()){
+      fam.style.width = ''; work.style.width = ''; divider.style.left = '';
+      return;
+    }
+    var trans = animate ? 'width .45s cubic-bezier(.4,0,.2,1), left .45s cubic-bezier(.4,0,.2,1)' : 'none';
+    fam.style.transition = trans; work.style.transition = trans; divider.style.transition = animate ? 'left .45s cubic-bezier(.4,0,.2,1)' : 'none';
+    fam.style.width = pct + '%';
+    work.style.width = (100 - pct) + '%';
+    divider.style.left = pct + '%';
+    // active button
+    btns.forEach(function(b){
+      var v = +b.getAttribute('data-split');
+      b.classList.toggle('active', Math.abs(v - pct) < 4);
+    });
+  }
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ apply(+b.getAttribute('data-split'), true); });
+  });
+
+  function pointerToPct(clientX){
+    var rect = stage.getBoundingClientRect();
+    return ((clientX - rect.left) / rect.width) * 100;
+  }
+  function startDrag(e){
+    if (isStacked()) return;
+    dragging = true;
+    document.body.style.userSelect = 'none';
+    if (hint) hint.style.opacity = '0';
+    e.preventDefault();
+  }
+  function moveDrag(e){
+    if (!dragging) return;
+    var x = e.touches ? e.touches[0].clientX : e.clientX;
+    apply(pointerToPct(x), false);
+  }
+  function endDrag(){ dragging = false; document.body.style.userSelect = ''; }
+
+  divider.addEventListener('mousedown', startDrag);
+  divider.addEventListener('touchstart', startDrag, {passive:false});
+  window.addEventListener('mousemove', moveDrag);
+  window.addEventListener('touchmove', moveDrag, {passive:false});
+  window.addEventListener('mouseup', endDrag);
+  window.addEventListener('touchend', endDrag);
+
+  // keyboard
+  window.addEventListener('keydown', function(e){
+    if (isStacked()) return;
+    if (e.key === 'ArrowLeft'){ apply(pct - 6, false); }
+    if (e.key === 'ArrowRight'){ apply(pct + 6, false); }
+  });
+
+  window.addEventListener('resize', function(){ apply(pct, false); });
+  apply(50, false);
+  setTimeout(function(){ if(hint) hint.style.opacity = '0'; }, 6000);
+})();
+</script>
+</body>
+</html>

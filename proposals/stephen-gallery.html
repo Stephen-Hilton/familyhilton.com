@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephen Hilton — The Gallery</title>
+<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c0d;
+    --bg-soft:#161617;
+    --ink:#f3f1ec;
+    --ink-soft:#a8a49c;
+    --ink-dim:#6c6962;
+    --line:rgba(243,241,236,0.14);
+    --accent:#c8a063;
+    --paper:#1c1c1d;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .serif{font-family:'Cormorant Garamond',Georgia,serif;}
+
+  /* sticky top chrome */
+  .chrome{
+    position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+    padding:14px 24px;background:linear-gradient(to bottom,rgba(12,12,13,0.85),rgba(12,12,13,0));
+    backdrop-filter:blur(4px);transition:background .3s;
+  }
+  .chrome.solid{background:rgba(12,12,13,0.92);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);}
+  .chrome .brand{display:flex;align-items:baseline;gap:12px;}
+  .chrome .brand .nm{font-family:'Cormorant Garamond',serif;font-size:21px;letter-spacing:.04em;}
+  .chrome .brand .sub{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);}
+  .chrome .nav{display:flex;align-items:center;gap:20px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
+  .chrome .nav a:hover{color:var(--ink);}
+  .chrome .nav .hire{
+    border:1px solid var(--accent);color:var(--accent);padding:7px 14px;border-radius:2px;letter-spacing:.18em;
+  }
+  .chrome .nav .hire:hover{background:var(--accent);color:#0c0c0d;}
+  .backlink{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);}
+  .backlink:hover{color:var(--ink-soft);}
+  @media(max-width:680px){.chrome .nav a:not(.hire):not(.backlink){display:none;}}
+
+  /* HERO — full bleed */
+  .hero{
+    position:relative;height:100vh;min-height:560px;width:100%;overflow:hidden;
+  }
+  .hero img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;
+    filter:brightness(0.62) saturate(1.02);
+  }
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(12,12,13,0.35),rgba(12,12,13,0.15) 40%,rgba(12,12,13,0.85));}
+  .hero .htext{
+    position:absolute;left:0;right:0;bottom:9vh;padding:0 8vw;
+  }
+  .hero .eyebrow{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;}
+  .hero h1{
+    font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,8.5vw,108px);line-height:.98;margin:0;letter-spacing:.005em;
+  }
+  .hero .tagline{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.6vw,28px);color:var(--ink-soft);margin-top:18px;max-width:640px;
+  }
+  .hero .scrollcue{
+    position:absolute;left:50%;bottom:24px;transform:translateX(-50%);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-dim);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .hero .scrollcue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--ink-dim),transparent);}
+
+  /* section heads */
+  .band{padding:90px 8vw;}
+  .band .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  .band h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,4.5vw,52px);margin:0 0 8px;line-height:1.05;}
+  .band .dek{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,2vw,22px);color:var(--ink-soft);max-width:680px;}
+
+  /* full-bleed scroll-snap slides interleaved */
+  .slide{
+    position:relative;height:96vh;min-height:520px;width:100%;overflow:hidden;
+  }
+  .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.82);}
+  .slide .cap{
+    position:absolute;left:0;right:0;bottom:0;padding:40px 8vw;
+    background:linear-gradient(to top,rgba(12,12,13,0.8),transparent);
+  }
+  .slide .cap .ttl{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,34px);}
+  .slide .cap .loc{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-top:8px;}
+
+  /* masonry block */
+  .masonry{columns:3;column-gap:14px;padding:40px 5vw 10px;}
+  @media(max-width:900px){.masonry{columns:2;}}
+  @media(max-width:540px){.masonry{columns:1;}}
+  .masonry figure{margin:0 0 14px;break-inside:avoid;position:relative;overflow:hidden;border-radius:2px;cursor:zoom-in;}
+  .masonry figure img{width:100%;transition:transform .6s ease,filter .4s;filter:brightness(0.92);}
+  .masonry figure:hover img{transform:scale(1.04);filter:brightness(1.05);}
+  .masonry figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:26px 16px 12px;font-size:12px;color:var(--ink);
+    background:linear-gradient(to top,rgba(12,12,13,0.82),transparent);opacity:0;transition:opacity .35s;
+  }
+  .masonry figure:hover figcaption{opacity:1;}
+
+  /* About Stephen — recurring professional bands */
+  .about{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .about .grid{display:grid;grid-template-columns:280px 1fr;gap:50px;align-items:start;}
+  @media(max-width:820px){.about .grid{grid-template-columns:1fr;gap:30px;}}
+  .about .portrait{width:100%;border-radius:2px;filter:grayscale(0.1) brightness(0.95);border:1px solid var(--line);}
+  .about .portrait-cap{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);margin-top:10px;}
+  .about .lead-copy{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.1vw,24px);line-height:1.6;color:var(--ink);}
+  .about .lead-copy b{font-weight:600;}
+  .about .meta-row{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:24px;font-size:12px;letter-spacing:.04em;color:var(--ink-soft);}
+  .about .meta-row a{color:var(--accent);border-bottom:1px solid rgba(200,160,99,.35);}
+  .about .meta-row a:hover{border-bottom-color:var(--accent);}
+  .about .resume-btn{
+    display:inline-block;margin-top:24px;border:1px solid var(--accent);color:var(--accent);padding:11px 22px;border-radius:2px;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  }
+  .about .resume-btn:hover{background:var(--accent);color:#0c0c0d;}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin-top:50px;}
+  @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stats .st{background:var(--bg-soft);padding:24px 18px;text-align:center;}
+  .stats .st .big{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,40px);color:var(--accent);line-height:1;}
+  .stats .st .lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px;}
+
+  /* AI highlights */
+  .hl-list{list-style:none;margin:0;padding:0;max-width:820px;}
+  .hl-list li{
+    padding:16px 0 16px 30px;position:relative;border-bottom:1px solid var(--line);font-size:15px;line-height:1.55;color:var(--ink-soft);
+  }
+  .hl-list li b{color:var(--ink);}
+  .hl-list li::before{content:"—";position:absolute;left:0;color:var(--accent);}
+
+  /* timeline strip */
+  .tl-strip{display:flex;flex-direction:column;}
+  .tl-row{
+    display:grid;grid-template-columns:140px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--line);
+  }
+  .tl-row:last-child{border-bottom:none;}
+  .tl-row .yr{font-size:12px;letter-spacing:.1em;color:var(--accent);padding-top:3px;}
+  .tl-row .org{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--ink);}
+  .tl-row .d{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-top:4px;}
+  @media(max-width:680px){.tl-row{grid-template-columns:1fr;gap:4px;}}
+
+  /* stack */
+  .stack-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;}
+  @media(max-width:680px){.stack-cols{grid-template-columns:1fr;gap:24px;}}
+  .stack-cols h4{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 12px;}
+  .stack-cols .tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .stack-cols .tags span{
+    font-size:12.5px;border:1px solid var(--line);border-radius:2px;padding:5px 10px;color:var(--ink-soft);
+  }
+  .stack-cols p.creds{font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+
+  /* footer */
+  footer{padding:70px 8vw 90px;border-top:1px solid var(--line);background:#0a0a0b;}
+  footer .f-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;}
+  @media(max-width:680px){footer .f-grid{grid-template-columns:1fr;}}
+  footer .f-name{font-family:'Cormorant Garamond',serif;font-size:30px;}
+  footer .f-line{font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.8;}
+  footer .f-line a{color:var(--accent);}
+  footer .f-back{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);}
+  footer .f-back:hover{color:var(--ink-soft);}
+  footer .f-resume{
+    display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:14px 26px;border-radius:2px;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  }
+  footer .f-resume:hover{background:var(--accent);color:#0c0c0d;}
+
+  /* lightbox */
+  .lb{
+    position:fixed;inset:0;z-index:200;background:rgba(8,8,9,0.96);display:none;align-items:center;justify-content:center;
+    flex-direction:column;padding:30px;cursor:zoom-out;
+  }
+  .lb.open{display:flex;}
+  .lb img{max-width:92vw;max-height:82vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+  .lb .lb-cap{margin-top:18px;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink-soft);text-align:center;max-width:700px;}
+  .lb .lb-x{position:absolute;top:20px;right:26px;font-size:24px;color:var(--ink-soft);cursor:pointer;line-height:1;}
+  .lb .lb-x:hover{color:var(--ink);}
+  .lb .lb-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;color:var(--ink-soft);cursor:pointer;padding:20px;user-select:none;}
+  .lb .lb-prev{left:8px;}.lb .lb-next{right:8px;}
+  .lb .lb-nav:hover{color:var(--ink);}
+
+  .fadein{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;}
+  .fadein.in{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+<!-- PROPOSAL: The Gallery — a photographer's-portfolio site where the subject is the family, with a serious résumé tucked into the chrome. -->
+
+<div class="chrome" id="chrome">
+  <div class="brand">
+    <span class="nm serif">Stephen Hilton</span>
+    <span class="sub">Napa, California</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html" class="backlink">&larr; all proposals</a>
+    <a href="#family">Family</a>
+    <a href="#work">Work</a>
+    <a href="https://stephen.skillsnap.me" class="hire">Résumé / Hire me</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="assets/photos/fam07.jpg" alt="The whole Hilton crew in Glasgow">
+  <div class="veil"></div>
+  <div class="htext">
+    <div class="eyebrow">A family in Napa &nbsp;·&nbsp; and the résumé tucked inside</div>
+    <h1 class="serif">The&nbsp;Hiltons</h1>
+    <p class="tagline serif">Technical founder, AI builder — and the one who packs the family for Europe every year.</p>
+  </div>
+  <div class="scrollcue">Scroll</div>
+</section>
+
+<!-- intro band -->
+<section class="band" id="family">
+  <div class="kicker">Portfolio · 01</div>
+  <h2 class="serif">Two adults, two teenagers,<br>two golden retrievers, one cat in charge.</h2>
+  <p class="dek serif">The Hiltons live in sunny Napa County, California. Interests run wide — AI and data, ecology and biology, K-pop, D&amp;D, theater, video games — and the one thing everyone agrees on is travel: at least one big trip a year, usually Europe (Scotland, France, Greece…), maybe Japan next.</p>
+</section>
+
+<!-- slide 1 -->
+<section class="slide">
+  <img src="assets/photos/fam14.jpg" alt="Family selfie under Edinburgh Castle at night">
+  <div class="cap"><div class="ttl serif">Under Edinburgh Castle, after dark.</div><div class="loc">Edinburgh, Scotland</div></div>
+</section>
+
+<!-- masonry block A -->
+<section class="masonry" id="m1">
+  <figure data-full="assets/photos/fam10.jpg" data-cap="Bundled up at an Edinburgh Christmas market."><img src="assets/photos/fam10.jpg" alt="Bundled up at an Edinburgh Christmas market"><figcaption>Edinburgh Christmas market</figcaption></figure>
+  <figure data-full="assets/photos/fam24.jpg" data-cap="Stephen, Joy and a daughter at the Legion of Honor, San Francisco."><img src="assets/photos/fam24.jpg" alt="Legion of Honor, San Francisco"><figcaption>Legion of Honor, San Francisco</figcaption></figure>
+  <figure data-full="assets/photos/fam11.jpg" data-cap="Stephen and both daughters — a train-station hug."><img src="assets/photos/fam11.jpg" alt="A train-station hug"><figcaption>A train-station hug</figcaption></figure>
+  <figure data-full="assets/photos/fam19.jpg" data-cap="The family at San Diego Comic-Con."><img src="assets/photos/fam19.jpg" alt="The family at San Diego Comic-Con"><figcaption>San Diego Comic-Con</figcaption></figure>
+  <figure data-full="assets/photos/fam50.jpg" data-cap="Joy and Stephen hamming it up with dragon wings."><img src="assets/photos/fam50.jpg" alt="Joy and Stephen with dragon wings"><figcaption>Dignified as ever</figcaption></figure>
+  <figure data-full="assets/photos/fam05.jpg" data-cap="Stephen and a daughter — lunch in France."><img src="assets/photos/fam05.jpg" alt="Lunch in France"><figcaption>Lunch in France</figcaption></figure>
+  <figure data-full="assets/photos/fam20.jpg" data-cap="The family at San Diego Comic-Con."><img src="assets/photos/fam20.jpg" alt="The family at Comic-Con"><figcaption>Comic-Con, take two</figcaption></figure>
+  <figure data-full="assets/photos/fam16.jpg" data-cap="A daughter in a Paris galerie."><img src="assets/photos/fam16.jpg" alt="A daughter in a Paris galerie"><figcaption>A Paris galerie</figcaption></figure>
+  <figure data-full="assets/photos/fam41.jpg" data-cap="A daughter at Versailles."><img src="assets/photos/fam41.jpg" alt="A daughter at Versailles"><figcaption>Versailles</figcaption></figure>
+</section>
+
+<!-- ABOUT STEPHEN — band 1 (the professional rail) -->
+<section class="band about" id="about">
+  <div class="kicker">About Stephen</div>
+  <h2 class="serif" style="margin-bottom:30px;">The one with the résumé.</h2>
+  <div class="grid">
+    <div>
+      <img class="portrait" src="../src/images/stephen00.png" alt="Stephen Hilton">
+      <div class="portrait-cap">Stephen Hilton · open to senior AI / solutions / platform roles</div>
+      <a class="resume-btn" href="https://stephen.skillsnap.me">View full résumé →</a>
+    </div>
+    <div>
+      <p class="lead-copy serif">Technical founder &amp; solutions leader — <b>20+ years in data, the last few all-in on AI</b>. Built <b>SkillSnap</b> solo (concept → revenue in 8 weeks) on serverless AWS plus a multi-model Bedrock + RAG pipeline. Previously <b>$0→$14M ARR</b> on a pre-launch AI product at MakeInfinite, an <b>$80M+ Teradata territory</b> (Apple, Netflix, Meta, LinkedIn), and petabyte-scale data platforms before that. Hands-on Python &amp; Rust. AWS Solutions Architect. MBA.</p>
+      <div class="meta-row">
+        <span>Napa County, California</span>
+        <a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a>
+        <span>707-877-6679</span>
+        <a href="https://www.linkedin.com/in/sahilton/">linkedin.com/in/sahilton</a>
+        <a href="https://github.com/stephen-hilton">github.com/stephen-hilton</a>
+        <a href="https://skillsnap.me">skillsnap.me</a>
+      </div>
+      <div class="stats">
+        <div class="st"><div class="big serif">20+</div><div class="lbl">years in tech</div></div>
+        <div class="st"><div class="big serif">$14M</div><div class="lbl">ARR built ($0→)</div></div>
+        <div class="st"><div class="big serif">$80M+</div><div class="lbl">territory run</div></div>
+        <div class="st"><div class="big serif">&lt;8 wk</div><div class="lbl">AI SaaS shipped solo</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- slide 2 -->
+<section class="slide">
+  <img src="assets/photos/fam22.jpg" alt="The family on a beach at dusk in Greece">
+  <div class="cap"><div class="ttl serif">Beach at dusk — the one thing the whole house agrees on.</div><div class="loc">Greece</div></div>
+</section>
+
+<!-- masonry block B — dogs / home / kids -->
+<section class="masonry" id="m2">
+  <figure data-full="assets/photos/fam06.jpg" data-cap="Sunny in the yard — golden retriever, professional napper."><img src="assets/photos/fam06.jpg" alt="Sunny in the yard"><figcaption>Sunny</figcaption></figure>
+  <figure data-full="assets/photos/fam42.jpg" data-cap="A daughter buried under a happy golden retriever."><img src="assets/photos/fam42.jpg" alt="A daughter under a golden retriever"><figcaption>Buried in retriever</figcaption></figure>
+  <figure data-full="assets/photos/fam43.jpg" data-cap="A golden retriever by the water."><img src="assets/photos/fam43.jpg" alt="Golden retriever by the water"><figcaption>By the water</figcaption></figure>
+  <figure data-full="assets/photos/fam51.jpg" data-cap="Golden retriever, road-trip co-pilot, mid-yawn."><img src="assets/photos/fam51.jpg" alt="Golden retriever co-pilot"><figcaption>Road-trip co-pilot</figcaption></figure>
+  <figure data-full="assets/photos/fam49.jpg" data-cap="Joy getting a kiss from the dog."><img src="assets/photos/fam49.jpg" alt="Joy getting a kiss from the dog"><figcaption>A kiss from the dog</figcaption></figure>
+  <figure data-full="assets/photos/fam46.jpg" data-cap="A daughter buried under a happy golden retriever."><img src="assets/photos/fam46.jpg" alt="A daughter under a retriever"><figcaption>More retriever</figcaption></figure>
+  <figure data-full="assets/photos/fam17.jpg" data-cap="The kids on tablets at the kitchen island."><img src="assets/photos/fam17.jpg" alt="Kids on tablets at the kitchen island"><figcaption>Idle state, kitchen island</figcaption></figure>
+  <figure data-full="assets/photos/fam21.jpg" data-cap="Teenagers in camp chairs, snacks deployed."><img src="assets/photos/fam21.jpg" alt="Teenagers in camp chairs"><figcaption>Snacks deployed</figcaption></figure>
+  <figure data-full="assets/photos/fam02.jpg" data-cap="A very K-pop birthday cake."><img src="assets/photos/fam02.jpg" alt="A K-pop birthday cake"><figcaption>A very K-pop cake</figcaption></figure>
+  <figure data-full="assets/photos/fam01.jpg" data-cap="A daughter at the dragon-hedge waterfall garden."><img src="assets/photos/fam01.jpg" alt="A daughter at the dragon-hedge waterfall garden"><figcaption>Dragon-hedge garden</figcaption></figure>
+  <figure data-full="assets/photos/fam52.jpg" data-cap="A daughter's school musical."><img src="assets/photos/fam52.jpg" alt="A daughter's school musical"><figcaption>School musical</figcaption></figure>
+  <figure data-full="assets/photos/fam53.jpg" data-cap="A daughter's school musical."><img src="assets/photos/fam53.jpg" alt="A daughter's school musical"><figcaption>Under the lights</figcaption></figure>
+</section>
+
+<!-- ABOUT band 2 — AI highlights -->
+<section class="band about">
+  <div class="kicker">About Stephen · the AI work</div>
+  <h2 class="serif" style="margin-bottom:24px;">All-in on AI.</h2>
+  <p class="dek serif" style="margin-bottom:30px;">In early 2026 Stephen built SkillSnap solo — an AI résumé-and-cover-letter SaaS — from an empty repo to revenue-positive in under eight weeks: a fully serverless AWS stack, a multi-model generation pipeline pairing LLMs with embedding-based retrieval (RAG), and the whole business around it — Stripe billing, pricing, automated support.</p>
+  <ul class="hl-list">
+    <li>Built &amp; shipped <b>SkillSnap.me</b> solo — AI résumé/cover-letter SaaS, concept → revenue-positive in &lt;8 weeks</li>
+    <li>Serverless on AWS: <b>Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito</b></li>
+    <li>Multi-model AI generation pipeline: <b>LLMs + embedding-based retrieval (RAG)</b> for tailored documents</li>
+    <li>Deep on the modern toolchain: <b>Claude Skills, MCP, RAG</b>; orchestrating teams of <b>Claude Code agents</b>; AI-assisted dev with <b>Cursor</b></li>
+    <li><b>$0 → $3M ARR (12 mo) → $14M ARR (24 mo)</b> on a pre-launch AI product at MakeInfinite Labs</li>
+    <li>Wrote the public docs, first <b>Rust CLI</b>, and <b>Python SDK</b> for an enterprise AI platform</li>
+    <li>Talks: "Natural Language → SQL via AI" (EthDenver) · "AI to ZK: New Data Pipelines" (Consensys)</li>
+  </ul>
+</section>
+
+<!-- slide 3 -->
+<section class="slide">
+  <img src="assets/photos/fam32.jpg" alt="Kids out in the surf under a big sky">
+  <div class="cap"><div class="ttl serif">Kids out in the surf, big sky.</div><div class="loc">Pacific coast</div></div>
+</section>
+
+<!-- masonry block C — travel / Seattle / Tokyo / Greece -->
+<section class="masonry" id="m3">
+  <figure data-full="assets/photos/fam09.jpg" data-cap="Edinburgh Castle lit blue."><img src="assets/photos/fam09.jpg" alt="Edinburgh Castle lit blue"><figcaption>Edinburgh Castle, blue</figcaption></figure>
+  <figure data-full="assets/photos/fam13.jpg" data-cap="Edinburgh's Victoria Street at night, holiday lights."><img src="assets/photos/fam13.jpg" alt="Victoria Street at night"><figcaption>Victoria Street, Edinburgh</figcaption></figure>
+  <figure data-full="assets/photos/fam08.jpg" data-cap="Joy and a teen on Edinburgh's Royal Mile at night."><img src="assets/photos/fam08.jpg" alt="Joy and a teen on the Royal Mile"><figcaption>Royal Mile, after dark</figcaption></figure>
+  <figure data-full="assets/photos/fam25.jpg" data-cap="A daughter on the Oregon coast."><img src="assets/photos/fam25.jpg" alt="A daughter on the Oregon coast"><figcaption>Oregon coast</figcaption></figure>
+  <figure data-full="assets/photos/fam33.jpg" data-cap="Bodyboards, the Pacific."><img src="assets/photos/fam33.jpg" alt="Bodyboards, the Pacific"><figcaption>Bodyboards</figcaption></figure>
+  <figure data-full="assets/photos/fam34.jpg" data-cap="A daughter, salt-water grin."><img src="assets/photos/fam34.jpg" alt="A daughter, salt-water grin"><figcaption>Salt-water grin</figcaption></figure>
+  <figure data-full="assets/photos/fam28.jpg" data-cap="Joy at Pike Place Market with an armful of flowers."><img src="assets/photos/fam28.jpg" alt="Joy at Pike Place Market"><figcaption>Pike Place flowers</figcaption></figure>
+  <figure data-full="assets/photos/fam57.jpg" data-cap="Joy at Pike Place Market with an armful of flowers."><img src="assets/photos/fam57.jpg" alt="Joy at Pike Place Market"><figcaption>An armful of stems</figcaption></figure>
+  <figure data-full="assets/photos/fam59.jpg" data-cap="A daughter with a daffodil bouquet, Seattle waterfront."><img src="assets/photos/fam59.jpg" alt="A daughter with daffodils, Seattle"><figcaption>Daffodils, Seattle</figcaption></figure>
+  <figure data-full="assets/photos/fam55.jpg" data-cap="A daughter under the lights, Tokyo."><img src="assets/photos/fam55.jpg" alt="A daughter under the lights, Tokyo"><figcaption>Tokyo lights</figcaption></figure>
+  <figure data-full="assets/photos/fam47.jpg" data-cap="Palms on the Santa Barbara waterfront."><img src="assets/photos/fam47.jpg" alt="Palms, Santa Barbara"><figcaption>Santa Barbara palms</figcaption></figure>
+  <figure data-full="assets/photos/fam04.jpg" data-cap="Sunset down the coast road."><img src="assets/photos/fam04.jpg" alt="Sunset down the coast road"><figcaption>Coast road, sunset</figcaption></figure>
+  <figure data-full="assets/photos/fam18.jpg" data-cap="Joy and a daughter at Comic-Con."><img src="assets/photos/fam18.jpg" alt="Joy and a daughter at Comic-Con"><figcaption>Comic-Con, the two of them</figcaption></figure>
+</section>
+
+<!-- WORK — full professional section -->
+<section class="band about" id="work">
+  <div class="kicker">Work · the full picture</div>
+  <h2 class="serif" style="margin-bottom:10px;">Career, in order.</h2>
+  <p class="dek serif" style="margin-bottom:36px;">20 years turning messy data into shipping products. The last few, all-in on AI.</p>
+  <div class="tl-strip">
+    <div class="tl-row"><div class="yr">2001–2009</div><div><div class="org serif">Best Buy Corp.</div><div class="d">BI / Innovation Center leadership — 30 BI engineers, 4,000+ stores, 18% labor-efficiency gains in pilot districts.</div></div></div>
+    <div class="tl-row"><div class="yr">2009–2010</div><div><div class="org serif">Lunexa Consulting</div><div class="d">Sr. Technical Consultant — EDW for Visa, KPI trees for Yahoo!</div></div></div>
+    <div class="tl-row"><div class="yr">2010–2022</div><div><div class="org serif">Teradata</div><div class="d">Sr. Solution Engineer → Director of Solution Engineering, Western US ($80M+ quota, ~50% of US compute capacity; Apple, Netflix, Meta, LinkedIn, eBay, PayPal, EA, Ubisoft) → Global Director of Strategy, Analytics &amp; Automation (telemetry framework across 2,000+ accounts / $2B ARR; board-level reporting).</div></div></div>
+    <div class="tl-row"><div class="yr">2022–present</div><div><div class="org serif">MakeInfinite Labs</div><div class="d">Chief of Staff → Head of Solutions / GTM ($0 → $3M → $14M ARR; 900+ technical stakeholders; 20+ conference talks; first Rust CLI + Python SDK) → Strategic Advisor.</div></div></div>
+    <div class="tl-row"><div class="yr">2025–present</div><div><div class="org serif">Paydaay (stealth fintech)</div><div class="d">Fractional CTO/CPO — AWS serverless, Rust + Postgres data platform, AI-agentic auto-healing infra, five-9s transaction systems; runs the college intern program.</div></div></div>
+    <div class="tl-row"><div class="yr">2026–present</div><div><div class="org serif">SkillSnap.me</div><div class="d">Solo founder — AI SaaS, concept → revenue in &lt;8 weeks.</div></div></div>
+  </div>
+
+  <div style="margin-top:50px;">
+    <div class="stack-cols">
+      <div>
+        <h4>Build</h4>
+        <div class="tags">
+          <span>Python</span><span>Rust</span><span>SQL</span><span>AWS Bedrock</span><span>Lambda</span><span>DynamoDB</span><span>SQS</span><span>S3</span><span>CloudFront</span><span>Cognito</span><span>Azure</span><span>GCP</span><span>Kafka</span><span>Spark</span><span>serverless</span><span>event-driven</span><span>RAG</span><span>Claude (Skills / MCP / Code agents)</span><span>Cursor</span><span>Stripe</span><span>Solidity / Move</span>
+        </div>
+      </div>
+      <div>
+        <h4>Creds</h4>
+        <p class="creds">AWS Solutions Architect · MBA, U. of Phoenix · BA Communications &amp; English, Minnesota State · Data Science (Coursera) · Kanban · Agile PM.</p>
+        <a class="resume-btn" href="https://stephen.skillsnap.me">Full résumé — stephen.skillsnap.me →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- the family roster band -->
+<section class="band" style="background:var(--bg-soft);border-top:1px solid var(--line);">
+  <div class="kicker">The roster</div>
+  <h2 class="serif" style="margin-bottom:24px;">Who's in the photos.</h2>
+  <div class="tl-strip" style="max-width:760px;">
+    <div class="tl-row"><div class="yr">Joy</div><div><div class="org serif">Joy Hilton</div><div class="d">Biologist; Education Director at the American Canyon Community &amp; Parks Foundation.</div></div></div>
+    <div class="tl-row"><div class="yr">Stephen</div><div><div class="org serif">Stephen Hilton</div><div class="d">The one with the résumé. AI / data / solutions.</div></div></div>
+    <div class="tl-row"><div class="yr">The teens</div><div><div class="org serif">Two teenagers</div><div class="d">One deep in theater &amp; K-pop, one deep in ecology &amp; biology; both deep in D&amp;D.</div></div></div>
+    <div class="tl-row"><div class="yr">Sunny</div><div><div class="org serif">The golden retriever</div><div class="d">Professional napper, terrible guard dog. Fairly sure she owns the rest of us.</div></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-grid">
+    <div>
+      <div class="f-name serif">Stephen Hilton</div>
+      <div class="f-line">
+        Napa County, California · open to senior AI / solutions / platform roles<br>
+        <a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a> · 707-877-6679<br>
+        <a href="https://www.linkedin.com/in/sahilton/">linkedin.com/in/sahilton</a> · <a href="https://github.com/stephen-hilton">github.com/stephen-hilton</a> · <a href="https://skillsnap.me">skillsnap.me</a>
+      </div>
+      <div style="margin-top:20px;"><a href="index.html" class="f-back">&larr; all proposals</a></div>
+    </div>
+    <div>
+      <a class="f-resume" href="https://stephen.skillsnap.me">Résumé / Hire me →</a>
+    </div>
+  </div>
+</footer>
+
+<!-- lightbox -->
+<div class="lb" id="lb">
+  <span class="lb-x" id="lbX">&times;</span>
+  <span class="lb-nav lb-prev" id="lbPrev">&#8249;</span>
+  <span class="lb-nav lb-next" id="lbNext">&#8250;</span>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap serif" id="lbCap"></div>
+</div>
+
+<script>
+(function(){
+  // sticky chrome state
+  var chrome = document.getElementById('chrome');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 80) chrome.classList.add('solid'); else chrome.classList.remove('solid');
+  });
+
+  // fade-in on scroll for bands
+  var faders = document.querySelectorAll('.band, .slide');
+  faders.forEach(function(el){ el.classList.add('fadein'); });
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:0.12});
+    faders.forEach(function(el){ io.observe(el); });
+  } else {
+    faders.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // lightbox
+  var figs = Array.prototype.slice.call(document.querySelectorAll('.masonry figure'));
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+  var idx = 0;
+  function open(i){
+    idx = (i + figs.length) % figs.length;
+    var f = figs[idx];
+    lbImg.src = f.getAttribute('data-full');
+    lbImg.alt = f.querySelector('img').alt;
+    lbCap.textContent = f.getAttribute('data-cap') || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figs.forEach(function(f,i){ f.addEventListener('click', function(){ open(i); }); });
+  document.getElementById('lbX').addEventListener('click', function(e){ e.stopPropagation(); close(); });
+  document.getElementById('lbPrev').addEventListener('click', function(e){ e.stopPropagation(); open(idx-1); });
+  document.getElementById('lbNext').addEventListener('click', function(e){ e.stopPropagation(); open(idx+1); });
+  lb.addEventListener('click', close);
+  lbImg.addEventListener('click', function(e){ e.stopPropagation(); open(idx+1); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') close();
+    else if(e.key === 'ArrowRight') open(idx+1);
+    else if(e.key === 'ArrowLeft') open(idx-1);
+  });
+})();
+</script>
+</body>
+</html>

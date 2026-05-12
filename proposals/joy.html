@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joy Hilton — FamilyHiltonOS</title>
+<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wall1:#234524; --wall2:#4f8b3e; --wall3:#bcd98a;
+    --win:#f8faf6; --win-edge:#cdd6c6; --bar:#eaf0e6; --bar2:#dde6d6;
+    --ink:#1d241a; --soft:#5d6655; --line:#e4eadd; --accent:#3f8f3a; --warm:#e8a13c;
+    --shadow:0 18px 50px rgba(18,36,16,.28), 0 3px 10px rgba(18,36,16,.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;font-family:'Inter',system-ui,sans-serif;color:var(--ink);overflow:hidden;}
+  body{background:radial-gradient(1200px 700px at 78% -10%, rgba(188,217,138,.55), transparent 60%),radial-gradient(900px 600px at 8% 110%, rgba(232,161,60,.20), transparent 60%),linear-gradient(160deg, var(--wall1), var(--wall2) 55%, var(--wall3));}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  .topbar{position:fixed;top:0;left:0;right:0;height:30px;z-index:9000;background:rgba(20,36,18,.55);backdrop-filter:blur(14px);display:flex;align-items:center;gap:18px;padding:0 14px;color:#eef6e9;font-size:13px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .topbar b{font-weight:700;} .topbar .menu{opacity:.82;font-weight:500;}
+  .topbar .crumbnav{opacity:.85;} .topbar .crumbnav a{color:#eef6e9;text-decoration:none;} .topbar .crumbnav a:hover{text-decoration:underline;}
+  .topbar .right{margin-left:auto;display:flex;gap:16px;align-items:center;opacity:.92;}
+  .topbar .right a{color:#eef6e9;text-decoration:none;font-weight:600;} .topbar .right a:hover{text-decoration:underline;}
+
+  .icons{position:fixed;top:48px;right:16px;display:flex;flex-direction:column;gap:15px;z-index:10;}
+  .dicon{width:104px;text-align:center;color:#fff;cursor:pointer;user-select:none;text-shadow:0 1px 4px rgba(0,0,0,.45);}
+  .dicon .gl{width:54px;height:54px;margin:0 auto 5px;border-radius:13px;display:grid;place-items:center;font-size:23px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);box-shadow:0 6px 18px rgba(0,0,0,.22);}
+  .dicon span{font-size:12px;font-weight:600;line-height:1.2;display:block;}
+  .dicon:hover .gl{background:rgba(255,255,255,.30);}
+  .dicon.home .gl{background:rgba(63,143,58,.34);border-color:rgba(63,143,58,.6);}
+
+  .wallhero{position:fixed;left:42px;top:88px;color:#fff;max-width:380px;z-index:5;text-shadow:0 2px 12px rgba(0,0,0,.4);}
+  .wallhero .eyebrow{font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.8;}
+  .wallhero h1{font-size:38px;line-height:1.04;margin:6px 0 10px;letter-spacing:-.02em;font-weight:700;}
+  .wallhero p{font-size:14.5px;line-height:1.55;margin:0 0 8px;opacity:.94;}
+  .wallhero .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .wallhero .tags span{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.05em;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:3px 8px;border-radius:999px;}
+  .wallhero .cta{display:inline-block;margin-top:14px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(63,143,58,.95);color:#fff;padding:6px 12px;border-radius:999px;font-weight:700;cursor:pointer;}
+  .wallhero .cta:hover{background:#3f8f3a;}
+  @media (max-width:780px){.wallhero{left:16px;right:16px;top:62px;max-width:none;} .wallhero h1{font-size:28px;} .icons{display:none;}}
+
+  .window{position:fixed;background:var(--win);border:1px solid var(--win-edge);border-radius:12px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;min-width:280px;min-height:200px;}
+  .window.min{display:none;}
+  .titlebar{height:38px;flex:0 0 38px;background:linear-gradient(180deg,var(--bar),var(--bar2));border-bottom:1px solid var(--win-edge);display:flex;align-items:center;gap:9px;padding:0 12px;cursor:grab;user-select:none;}
+  .titlebar:active{cursor:grabbing;}
+  .traffic{display:flex;gap:7px;} .traffic i{width:12px;height:12px;border-radius:50%;display:inline-block;cursor:pointer;}
+  .t-close{background:#ff5f57;} .t-min{background:#febc2e;} .t-zoom{background:#28c840;}
+  .titlebar .tt{font-size:13px;font-weight:600;color:var(--soft);margin-left:6px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} .titlebar .tt b{color:var(--ink);}
+  .titlebar .ext{font-size:11.5px;font-weight:600;text-decoration:none;color:var(--accent);white-space:nowrap;} .titlebar .ext:hover{text-decoration:underline;}
+
+  .frameshell{flex:1;position:relative;background:#fff;display:flex;flex-direction:column;}
+  .hintbar{flex:0 0 auto;font-family:'JetBrains Mono';font-size:11px;color:#6b7560;background:#f0f5ec;border-bottom:1px solid var(--line);padding:5px 12px;display:flex;justify-content:space-between;gap:10px;}
+  .hintbar a{color:var(--accent);text-decoration:none;} .hintbar a:hover{text-decoration:underline;}
+  .framewrap{flex:1;position:relative;}
+  .framewrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#fff;}
+  .framewrap .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:30px;color:var(--soft);font-size:13.5px;line-height:1.6;}
+  .framewrap .ph b{color:var(--ink);font-size:17px;} .framewrap .ph a{display:inline-block;margin-top:6px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;padding:10px 18px;border-radius:9px;}
+  .framewrap.launchpad{position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#f8faf6,#eef3ec);}
+  .framewrap.launchpad .ph{position:relative;gap:12px;max-width:460px;}
+  .framewrap .ph .bigemoji{font-size:56px;line-height:1;}
+  .framewrap .ph .urlline{font-size:12px;color:#9aa18f;word-break:break-all;}
+  .framewrap .ph .why{font-size:12px;color:#9aa18f;max-width:400px;line-height:1.55;margin-top:2px;}
+
+  .dock{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9000;display:flex;gap:10px;align-items:flex-end;padding:8px 12px;border-radius:18px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(16px);box-shadow:0 10px 30px rgba(0,0,0,.25);}
+  .dock .d{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:21px;cursor:pointer;background:linear-gradient(160deg,#fff,#e3efd9);box-shadow:0 4px 12px rgba(0,0,0,.18);transition:transform .14s ease;position:relative;}
+  .dock .d:hover{transform:translateY(-9px) scale(1.08);}
+  .dock .d.sep{background:transparent;box-shadow:none;width:1px;border-radius:0;border-left:1px solid rgba(255,255,255,.4);height:34px;align-self:center;cursor:default;} .dock .d.sep:hover{transform:none;}
+  .dock .d.run::after{content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:#fff;}
+  .dock .d .lbl{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);background:#1d241a;color:#fff;font-size:11px;padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;} .dock .d:hover .lbl{opacity:1;}
+
+  .backlink{position:fixed;left:14px;bottom:14px;z-index:9500;font-size:12px;color:#eef6e9;text-decoration:none;background:rgba(20,36,18,.45);padding:6px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px);} .backlink:hover{background:rgba(20,36,18,.72);}
+  @media (max-width:780px){.window{left:8px!important;top:46px!important;right:8px;width:auto!important;} .dock{gap:6px;padding:6px 8px;} .dock .d{width:40px;height:40px;font-size:18px;}}
+
+  /* ---- menu bar (People) ---- */
+  .topbar .menu{cursor:default;padding:1px 7px;border-radius:5px;user-select:none;transition:background .12s,opacity .12s;}
+  .topbar .menu:hover,.topbar .menu.open{opacity:1;background:rgba(255,255,255,.20);}
+  .dropdown{position:fixed;top:30px;z-index:99000;display:none;min-width:200px;background:rgba(250,252,248,.98);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.13);border-top:0;border-radius:0 0 9px 9px;
+    box-shadow:0 18px 44px rgba(0,0,0,.24);padding:5px;font-size:13px;color:#1d241a;font-family:'Inter',system-ui,sans-serif;}
+  .dropdown.open{display:block;}
+  .dropdown .mi{padding:7px 12px;border-radius:6px;cursor:pointer;display:flex;justify-content:space-between;gap:24px;align-items:center;white-space:nowrap;}
+  .dropdown .mi:hover{background:var(--accent);color:#fff;}
+  .dropdown .mi .sc{font-family:'JetBrains Mono';font-size:11px;opacity:.45;}
+  .dropdown .mi:hover .sc{opacity:.85;}
+  .dropdown .mi.cur{color:var(--accent);font-weight:600;cursor:default;} .dropdown .mi.cur:hover{background:rgba(0,0,0,.05);color:var(--accent);}
+  .dropdown .mi.cur .sc{opacity:1;}
+  .dropdown .msep{height:1px;background:rgba(0,0,0,.1);margin:5px 8px;}
+  @media (max-width:780px){.dropdown{min-width:0;left:6px!important;right:6px;}}
+</style>
+</head>
+<body>
+<!-- PROPOSAL: JoyOS — Joy's desktop inside FamilyHiltonOS; apps frame her résumé, LinkedIn, the Parks Foundation and the Napa River Ecology Center live. -->
+
+<div class="topbar">
+  <b>FamilyHiltonOS</b>
+  <span class="crumbnav">&nbsp;·&nbsp; Joy</span>
+  <span class="menu" data-menu="m-people">People</span><span class="menu">File</span><span class="menu">View</span><span class="menu">Field&nbsp;notes</span>
+  <div class="right"><a href="https://joyhilton.skillsnap.me" target="_blank" rel="noopener">Résumé ↗</a><span id="clock" class="mono"></span></div>
+</div>
+<div class="dropdown" id="m-people">
+  <div class="mi" onclick="nav('familyhiltonv2.html')">Family Hilton <span class="sc">↗</span></div>
+  <div class="mi" onclick="nav('stephen.html')">Stephen <span class="sc">↗</span></div>
+  <div class="mi cur">Joy <span class="sc">✓</span></div>
+  <div class="mi" onclick="nav('sunny.html')">Sunny <span class="sc">↗</span></div>
+</div>
+
+<div class="wallhero">
+  <div class="eyebrow">familyhilton.com / joy</div>
+  <h1>Joy Hilton</h1>
+  <p>Biologist and educator — Education Director at the <b>American Canyon Community &amp; Parks Foundation</b>, where she runs the Napa River Ecology Center and garden-based, environmental, and food-systems education programs.</p>
+  <p>Experienced in program development, environmental &amp; agriculture education, food policy, farmers' markets, marketing and social media. University of Minnesota–Twin Cities. Happiest outdoors, ideally with a trowel.</p>
+  <div class="tags"><span>Environmental education</span><span>Garden-based learning</span><span>Program development</span><span>Food systems</span><span>Agriculture</span><span>Community parks</span><span>Outreach &amp; marketing</span></div>
+  <span class="cta" onclick="openApp('resume')">▸ open Résumé.app</span>
+</div>
+
+<div class="icons">
+  <div class="dicon" onclick="openApp('resume')"><div class="gl">📄</div><span>Résumé</span></div>
+  <div class="dicon" onclick="openApp('parks')"><div class="gl">🌳</div><span>Parks&nbsp;Foundation</span></div>
+  <div class="dicon" onclick="openApp('eco')"><div class="gl">🌿</div><span>Napa&nbsp;River<br>Ecology&nbsp;Center</span></div>
+  <div class="dicon" onclick="openApp('linkedin')"><div class="gl">💼</div><span>LinkedIn</span></div>
+  <div class="dicon home" onclick="home()"><div class="gl">🏡</div><span>FamilyHilton</span></div>
+</div>
+
+<a class="backlink" href="index.html">← all proposals</a>
+
+<div class="dock">
+  <div class="d" onclick="openApp('resume')"><span class="lbl">Résumé — joyhilton.skillsnap.me</span>📄</div>
+  <div class="d" onclick="openApp('parks')"><span class="lbl">American Canyon Community &amp; Parks Foundation</span>🌳</div>
+  <div class="d" onclick="openApp('eco')"><span class="lbl">Napa River Ecology Center</span>🌿</div>
+  <div class="d" onclick="openApp('linkedin')"><span class="lbl">LinkedIn</span>💼</div>
+  <div class="d sep"></div>
+  <div class="d" onclick="home()"><span class="lbl">Back to FamilyHilton</span>🏡</div>
+</div>
+
+<script>
+  function tick(){var d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});} tick(); setInterval(tick,30000);
+  function home(){document.body.style.transition='opacity .25s';document.body.style.opacity='0';setTimeout(function(){location.href='familyhiltonv2.html';},230);}
+
+  var APPS={
+    resume:   {title:'Résumé — Joy Hilton', url:'https://joyhilton.skillsnap.me', emoji:'📄'},
+    parks:    {title:'American Canyon Community & Parks Foundation', url:'https://www.acparks.org/', emoji:'🌳'},
+    eco:      {title:'Napa River Ecology Center', url:'https://www.acparks.org/napa-river-ecology-center/', emoji:'🌿'},
+    linkedin: {title:'LinkedIn — Joy Hilton', url:'https://www.linkedin.com/in/joy-hilton-a755448a/', emoji:'💼', noframe:true, shortname:'LinkedIn',
+               blurb:'Joy’s full professional profile — biology, environmental & garden-based education, program development, and the work history behind it.'}
+  };
+  var z=50, opened={}, offset=0;
+  function openApp(key){
+    var a=APPS[key]; if(!a) return;
+    var id='win-'+key, w=document.getElementById(id);
+    if(!w){
+      w=document.createElement('div'); w.className='window'; w.id=id;
+      var ww=Math.min(820,innerWidth-60), wh=Math.min(620,innerHeight-130);
+      var cx=Math.max(16,Math.round((innerWidth-ww)/2)), cy=Math.max(48,Math.round((innerHeight-wh)/2-14));
+      var L=Math.max(cx, Math.min(innerWidth-ww-16, 420))+offset*22, T=cy+offset*20; offset=(offset+1)%6;
+      w.style.left=Math.max(12,Math.min(innerWidth-ww-12,L))+"px"; w.style.top=Math.max(46,T)+"px"; w.style.width=ww+"px"; w.style.height=wh+"px";
+      var titlebar='<div class="titlebar"><span class="traffic"><i class="t-close"></i><i class="t-min"></i><i class="t-zoom"></i></span>'+
+          '<span class="tt"><b>'+a.emoji+' '+a.title+'</b></span>'+
+          '<a class="ext" href="'+a.url+'" target="_blank" rel="noopener">Open in new tab ↗</a></div>';
+      var body = a.noframe
+        ? '<div class="frameshell"><div class="framewrap launchpad"><div class="ph">'+
+            '<div class="bigemoji">'+a.emoji+'</div><b>'+a.title+'</b><div>'+(a.blurb||'')+'</div>'+
+            '<div class="urlline mono">'+a.url+'</div>'+
+            '<a href="'+a.url+'" target="_blank" rel="noopener">Open in a new tab ↗</a>'+
+            '<div class="why">'+(a.shortname||'This site')+' doesn’t allow being embedded inside other sites — that’s a setting on their end, not a login wall — so it opens in its own tab.</div>'+
+          '</div></div></div>'
+        : '<div class="frameshell"><div class="hintbar"><span class="mono">'+a.url+'</span><span>loading live…</span></div>'+
+          '<div class="framewrap"><div class="ph"><b>'+a.title+'</b><div>If this stays blank, it didn’t load — open it directly:</div>'+
+            '<a href="'+a.url+'" target="_blank" rel="noopener">Open '+a.url.replace(/^https?:\/\//,'')+' ↗</a></div>'+
+            '<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>';
+      w.innerHTML = titlebar + body;
+      document.body.appendChild(w);
+      w.querySelector('.t-close').onclick=function(){w.classList.add('min');dockMark();};
+      w.querySelector('.t-min').onclick=function(){w.classList.add('min');dockMark();};
+      var zs=null; w.querySelector('.t-zoom').onclick=function(){
+        if(zs){w.style.left=zs.l;w.style.top=zs.t;w.style.width=zs.w;w.style.height=zs.h;zs=null;}
+        else{zs={l:w.style.left,t:w.style.top,w:w.style.width,h:w.style.height};w.style.left='16px';w.style.top='40px';w.style.width=(innerWidth-32)+'px';w.style.height=(innerHeight-110)+'px';}
+        front(w);
+      };
+      makeDraggable(w);
+      var ifr=w.querySelector('iframe'); if(ifr) ifr.src=a.url;
+      opened[key]=true;
+    }
+    w.classList.remove('min'); front(w); dockMark();
+  }
+  function front(el){el.style.zIndex=++z;}
+  function dockMark(){
+    document.querySelectorAll('.dock .d').forEach(function(d){d.classList.remove('run');});
+    Object.keys(opened).forEach(function(k){
+      var w=document.getElementById('win-'+k); if(w&&!w.classList.contains('min')){
+        document.querySelectorAll('.dock .d').forEach(function(d){ if(d.getAttribute('onclick')==="openApp('"+k+"')") d.classList.add('run'); });
+      }
+    });
+  }
+  function makeDraggable(win){
+    win.addEventListener('mousedown',function(){front(win);});
+    var tb=win.querySelector('.titlebar'),drag=false,ox=0,oy=0;
+    tb.addEventListener('mousedown',function(e){if(e.target.tagName==='I'||e.target.tagName==='A')return;drag=true;var r=win.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;e.preventDefault();});
+    addEventListener('mousemove',function(e){if(!drag)return;win.style.left=Math.max(2,Math.min(innerWidth-60,e.clientX-ox))+'px';win.style.top=Math.max(34,Math.min(innerHeight-40,e.clientY-oy))+'px';});
+    addEventListener('mouseup',function(){drag=false;});
+    tb.addEventListener('touchstart',function(e){if(e.target.tagName==='I'||e.target.tagName==='A')return;var t=e.touches[0];var r=win.getBoundingClientRect();ox=t.clientX-r.left;oy=t.clientY-r.top;drag=true;},{passive:true});
+    addEventListener('touchmove',function(e){if(!drag)return;var t=e.touches[0];win.style.left=Math.max(2,Math.min(innerWidth-60,t.clientX-ox))+'px';win.style.top=Math.max(34,Math.min(innerHeight-40,t.clientY-oy))+'px';},{passive:true});
+    addEventListener('touchend',function(){drag=false;});
+  }
+  /* ---- People menu ---- */
+  function nav(u){document.body.style.transition='opacity .25s';document.body.style.opacity='0';setTimeout(function(){location.href=u;},230);}
+  function closeMenus(){document.querySelectorAll('.dropdown.open').forEach(function(d){d.classList.remove('open');});document.querySelectorAll('.topbar .menu.open').forEach(function(m){m.classList.remove('open');});}
+  document.addEventListener('mousedown',function(e){
+    var m=e.target.closest('.topbar .menu[data-menu]');
+    if(m){var dd=document.getElementById(m.getAttribute('data-menu'));var o=dd.classList.contains('open');closeMenus();if(!o){m.classList.add('open');dd.style.left=Math.round(Math.min(m.getBoundingClientRect().left,innerWidth-216))+'px';dd.classList.add('open');}}
+    else if(!e.target.closest('.dropdown')){closeMenus();}
+  });
+  document.addEventListener('click',function(e){if(e.target.closest('.dropdown .mi')) closeMenus();});
+  addEventListener('keydown',function(e){if(e.key==='Escape')closeMenus();});
+
+  window.openApp=openApp; window.home=home; window.nav=nav; window.closeMenus=closeMenus;
+  setTimeout(function(){openApp('resume');},250);
+</script>
+</body>
+</html>

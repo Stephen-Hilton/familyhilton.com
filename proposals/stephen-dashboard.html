@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephen Hilton — The Dashboard</title>
+<link rel="icon" href="../src/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f6fa; --panel:#ffffff; --ink:#0e1726; --muted:#5d6a82; --faint:#8a96ab;
+    --line:#e6eaf1; --line2:#eef1f6; --accent:#3b6ef6; --accent-soft:#eaf0ff;
+    --ok:#16a34a; --ok-soft:#e8f7ee; --warn:#d97706; --warn-soft:#fdf3e3;
+    --radius:16px; --shadow:0 1px 2px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.06);
+  }
+  html[data-theme="dark"]{
+    --bg:#0b1020; --panel:#121a2e; --ink:#eef2fb; --muted:#9aa6bd; --faint:#6c7791;
+    --line:#23304b; --line2:#1c2740; --accent:#5b8bff; --accent-soft:#1a2747;
+    --ok:#39d98a; --ok-soft:#142a20; --warn:#f0a93b; --warn-soft:#2a2114;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+  img{display:block;max-width:100%}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+
+  /* top bar */
+  .appbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .appbar .row{display:flex;align-items:center;gap:14px;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:15px}
+  .brand .avatar{width:34px;height:34px;border-radius:9px;object-fit:cover;border:1px solid var(--line)}
+  .brand small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+  .appbar .spacer{flex:1}
+  .pill-ok{display:inline-flex;align-items:center;gap:7px;background:var(--ok-soft);color:var(--ok);font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px}
+  .pill-ok .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 25%,transparent)}
+  .backlink{font-size:13px;color:var(--muted);font-weight:600}
+  .iconbtn{background:var(--panel);border:1px solid var(--line);border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;color:var(--ink)}
+  .iconbtn:hover{border-color:var(--accent)}
+
+  /* page header */
+  .pagehead{padding:30px 0 18px}
+  .pagehead h1{font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .pagehead .sub{color:var(--muted);font-size:15px;margin-top:6px;max-width:70ch}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+  @media(max-width:780px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+  .kpi .label{font-size:11.5px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+  .kpi .val{font-size:clamp(20px,2.6vw,26px);font-weight:700;letter-spacing:-.01em;margin-top:4px}
+  .kpi .delta{font-size:12px;color:var(--ok);font-weight:600;margin-top:2px}
+
+  /* grid */
+  .board{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;padding:8px 0 50px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 20px 22px;display:flex;flex-direction:column}
+  .card .ch{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+  .card .ch .ico{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .card .ch h2{font-size:14.5px;font-weight:700;letter-spacing:-.01em}
+  .card .ch .meta{margin-left:auto;font-size:11.5px;color:var(--faint);font-weight:600}
+  .card .ch .meta.live{color:var(--ok)}
+  /* spans */
+  .s12{grid-column:span 12}.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}.s3{grid-column:span 3}
+  @media(max-width:1000px){.s8,.s7,.s6,.s5{grid-column:span 12}.s4,.s3{grid-column:span 6}}
+  @media(max-width:600px){.board{gap:14px}.s4,.s3{grid-column:span 12}}
+
+  /* generic bits */
+  .statusrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+  .statusrow:last-child{border-bottom:none}
+  .statusrow .name{font-weight:600}
+  .statusrow .desc{color:var(--muted);flex:1}
+  .badge{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .b-ok{background:var(--ok-soft);color:var(--ok)}
+  .b-active{background:var(--accent-soft);color:var(--accent)}
+  .b-warn{background:var(--warn-soft);color:var(--warn)}
+  .b-mute{background:var(--line2);color:var(--muted)}
+  .check::after{content:" ✅"}
+
+  ul.bullets{list-style:none}
+  ul.bullets li{position:relative;padding-left:20px;margin-bottom:9px;font-size:13.5px;color:var(--muted);line-height:1.5}
+  ul.bullets li::before{content:"›";position:absolute;left:2px;top:0;color:var(--accent);font-weight:700}
+  ul.bullets li b{color:var(--ink);font-weight:600}
+
+  .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;padding:5px 9px;border-radius:7px;background:var(--bg);border:1px solid var(--line);color:var(--ink)}
+  html[data-theme="dark"] .tag{background:#0e1424}
+  .tag.hot{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tag.grp{background:transparent;border:none;color:var(--faint);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:10.5px;padding:5px 0;width:100%;margin-top:6px}
+  .tag.grp:first-child{margin-top:0}
+
+  /* metrics mini */
+  .metricgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+  @media(max-width:480px){.metricgrid{grid-template-columns:repeat(2,1fr)}}
+  .metric{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:11px 12px}
+  html[data-theme="dark"] .metric{background:#0e1424}
+  .metric .m-val{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  .metric .m-lab{font-size:11px;color:var(--faint);font-weight:600;margin-top:2px}
+  .barwrap{margin-top:4px}
+  .barlabel{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px}
+  .barlabel .pct{color:var(--muted)}
+  .bar{height:8px;border-radius:999px;background:var(--line2);overflow:hidden}
+  .bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),#7aa0ff)}
+
+  /* experience feed */
+  .feed{position:relative;padding-left:18px}
+  .feed::before{content:"";position:absolute;left:4px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .fitem{position:relative;padding:0 0 16px}
+  .fitem:last-child{padding-bottom:0}
+  .fitem::before{content:"";position:absolute;left:-17px;top:3px;width:10px;height:10px;border-radius:50%;background:var(--panel);border:2.5px solid var(--accent)}
+  .fitem.muted::before{border-color:var(--faint)}
+  .fitem . when{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--faint);font-weight:500}
+  .fitem .role{font-size:14px;font-weight:700;margin:1px 0 2px}
+  .fitem .org-d{font-size:12.5px;color:var(--muted);line-height:1.45}
+
+  /* carousel */
+  .carousel{position:relative;border-radius:12px;overflow:hidden;background:var(--bg);border:1px solid var(--line)}
+  .slides{display:flex;transition:transform .45s cubic-bezier(.4,.1,.2,1)}
+  .slides figure{min-width:100%;position:relative}
+  .slides img{width:100%;height:230px;object-fit:cover}
+  .slides figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 9px;background:linear-gradient(transparent,rgba(0,0,0,.62));color:#fff;font-size:12px;font-weight:500}
+  .cbtn{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:#111;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  .cbtn:hover{background:#fff}
+  .cbtn.prev{left:8px}.cbtn.next{right:8px}
+  .dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2}
+  .dots button{width:6px;height:6px;border-radius:50%;border:none;background:rgba(255,255,255,.5);cursor:pointer;padding:0}
+  .dots button.on{background:#fff;width:18px;border-radius:999px}
+
+  /* travel */
+  .travel-list .statusrow .name{display:flex;align-items:center;gap:8px}
+  .flag{font-size:15px}
+
+  /* contact card */
+  .ct-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+  .ct-row:last-child{border-bottom:none}
+  .ct-row .k{width:84px;color:var(--faint);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+  .ct-row .v{font-weight:600;word-break:break-word}
+  .resbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;padding:11px 16px;border-radius:11px;font-size:14px;margin-top:14px;width:100%}
+  .resbtn:hover{text-decoration:none;background:color-mix(in srgb,var(--accent) 85%,#000)}
+
+  .summary-text{font-size:13.5px;color:var(--muted);line-height:1.6}
+  .summary-text b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:24px 0 40px;font-size:13px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{font-weight:600}
+  .uptime{display:flex;gap:3px;margin-top:10px}
+  .uptime i{flex:1;height:22px;border-radius:3px;background:var(--ok);opacity:.85}
+  .uptime i.b{background:var(--warn)}
+</style>
+</head>
+<body>
+<!-- PROPOSAL: The Dashboard — Stephen as a clean SaaS status board; the aesthetic itself says "this person ships modern software" -->
+
+<div class="appbar">
+  <div class="wrap row">
+    <div class="brand">
+      <img class="avatar" src="../src/images/stephen.png" alt="Stephen Hilton">
+      <div>Stephen Hilton<small>status · all systems operational</small></div>
+    </div>
+    <div class="spacer"></div>
+    <span class="pill-ok"><span class="dot"></span>Open to senior AI / solutions / platform roles</span>
+    <a class="backlink" href="index.html">&larr; all proposals</a>
+    <button class="iconbtn" id="themeBtn" title="Toggle light/dark" aria-label="Toggle theme">🌙</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="pagehead">
+    <h1>Operations dashboard <span class="pill-ok"><span class="dot"></span>live</span></h1>
+    <p class="sub">Technical founder &amp; solutions leader — 20+ years in data, the last few all-in on AI. Currently building SkillSnap, fractional CTO/CPO at a fintech startup, and open to what's next.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="label">Experience</div><div class="val">20+ yrs</div><div class="delta">5 yrs all-in on AI</div></div>
+      <div class="kpi"><div class="label">ARR built</div><div class="val">$0 → $14M</div><div class="delta">pre-launch AI product</div></div>
+      <div class="kpi"><div class="label">Solo SaaS shipped</div><div class="val">&lt; 8 weeks</div><div class="delta">concept → revenue</div></div>
+      <div class="kpi"><div class="label">Home base</div><div class="val">Napa, CA</div><div class="delta">SF Bay Area</div></div>
+    </div>
+  </div>
+
+  <div class="board">
+
+    <!-- NOW -->
+    <section class="card s4">
+      <div class="ch"><span class="ico">📍</span><h2>Now</h2><span class="meta live">● updated daily</span></div>
+      <div class="statusrow"><span class="name">Open to roles</span><span class="desc">Senior AI / solutions / platform</span><span class="badge b-ok">Available</span></div>
+      <div class="statusrow"><span class="name">Fractional CTO/CPO</span><span class="desc">A stealth fintech startup (Paydaay)</span><span class="badge b-active">Active</span></div>
+      <div class="statusrow"><span class="name">Building SkillSnap</span><span class="desc">AI résumé / cover-letter SaaS</span><span class="badge b-active">Shipping</span></div>
+      <div class="statusrow"><span class="name">Strategic Advisor</span><span class="desc">MakeInfinite Labs</span><span class="badge b-ok">Ongoing</span></div>
+      <div class="statusrow"><span class="name">Hands-on</span><span class="desc">Python · Rust · AWS</span><span class="badge b-mute">Daily</span></div>
+    </section>
+
+    <!-- CURRENTLY SHIPPING -->
+    <section class="card s8">
+      <div class="ch"><span class="ico">🚀</span><h2>Currently shipping — SkillSnap.me</h2><span class="meta live">● revenue-positive</span></div>
+      <p class="summary-text" style="margin-bottom:14px">Built solo in early 2026: an AI résumé-and-cover-letter SaaS, taken from an empty repo to revenue-positive in under eight weeks — a fully serverless AWS stack, a multi-model generation pipeline that pairs LLMs with embedding-based retrieval (RAG), and the whole business around it (Stripe billing, pricing, automated support). <a href="https://skillsnap.me" target="_blank" rel="noopener">skillsnap.me ↗</a></p>
+      <div class="metricgrid">
+        <div class="metric"><div class="m-val">&lt; 8 wks</div><div class="m-lab">concept → revenue</div></div>
+        <div class="metric"><div class="m-val">1</div><div class="m-lab">founder, full stack</div></div>
+        <div class="metric"><div class="m-val">7</div><div class="m-lab">AWS services, serverless</div></div>
+        <div class="metric"><div class="m-val">multi-model</div><div class="m-lab">LLM + RAG pipeline</div></div>
+        <div class="metric"><div class="m-val">Stripe</div><div class="m-lab">billing live</div></div>
+        <div class="metric"><div class="m-val">auto</div><div class="m-lab">support flows</div></div>
+      </div>
+      <div class="barwrap" style="margin-bottom:8px">
+        <div class="barlabel"><span>Backend · serverless AWS</span><span class="pct">shipped</span></div>
+        <div class="bar"><i style="width:100%"></i></div>
+      </div>
+      <div class="barwrap" style="margin-bottom:8px">
+        <div class="barlabel"><span>AI pipeline · Bedrock + RAG</span><span class="pct">shipped</span></div>
+        <div class="bar"><i style="width:100%"></i></div>
+      </div>
+      <div class="barwrap">
+        <div class="barlabel"><span>Roadmap · driven by paying users</span><span class="pct">in progress</span></div>
+        <div class="bar"><i style="width:62%"></i></div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section class="card s5">
+      <div class="ch"><span class="ico">🧰</span><h2>Stack</h2><span class="meta">build &amp; ship</span></div>
+      <div class="pills">
+        <span class="tag grp">Languages</span>
+        <span class="tag hot">Python</span><span class="tag hot">Rust</span><span class="tag">SQL</span><span class="tag">Solidity / Move</span>
+        <span class="tag grp">AWS (serverless)</span>
+        <span class="tag">Bedrock</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">SQS</span><span class="tag">S3</span><span class="tag">CloudFront</span><span class="tag">Cognito</span>
+        <span class="tag grp">Cloud / data</span>
+        <span class="tag">Azure</span><span class="tag">GCP</span><span class="tag">Kafka</span><span class="tag">Spark</span><span class="tag">event-driven</span>
+        <span class="tag grp">AI toolchain</span>
+        <span class="tag">RAG</span><span class="tag">Claude · Skills</span><span class="tag">MCP</span><span class="tag">Claude Code agents</span><span class="tag">Cursor</span>
+        <span class="tag grp">Business</span>
+        <span class="tag">Stripe</span>
+      </div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line2)">
+        <div class="pills">
+          <span class="tag grp">Creds</span>
+          <span class="tag">AWS Solutions Architect</span><span class="tag">MBA · U. of Phoenix</span><span class="tag">BA Comms &amp; English · MN State</span><span class="tag">Data Science · Coursera</span><span class="tag">Kanban</span><span class="tag">Agile PM</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI WORK -->
+    <section class="card s7">
+      <div class="ch"><span class="ico">🤖</span><h2>AI work</h2><span class="meta">highlights</span></div>
+      <ul class="bullets">
+        <li>Built &amp; shipped <b>SkillSnap.me</b> solo — AI résumé/cover-letter SaaS, concept → revenue-positive in &lt;8 weeks</li>
+        <li>Serverless on AWS: <b>Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito</b></li>
+        <li>Multi-model AI generation pipeline: <b>LLMs + embedding-based retrieval (RAG)</b> for tailored documents</li>
+        <li>Deep on the modern toolchain: <b>Claude Skills, MCP, RAG</b>; orchestrating teams of <b>Claude Code agents</b>; AI-assisted dev with <b>Cursor</b></li>
+        <li><b>$0 → $3M ARR (12 mo) → $14M ARR (24 mo)</b> on a pre-launch AI product at MakeInfinite Labs</li>
+        <li>Wrote the public docs, first <b>Rust CLI</b>, and <b>Python SDK</b> for an enterprise AI platform</li>
+        <li>Talks: <b>"Natural Language → SQL via AI"</b> (EthDenver) · <b>"AI to ZK: New Data Pipelines"</b> (Consensys)</li>
+      </ul>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="card s7">
+      <div class="ch"><span class="ico">🗂️</span><h2>Experience</h2><span class="meta">2001 → now</span></div>
+      <div class="feed">
+        <div class="fitem"><div class="when">2026 — present</div><div class="role">Solo Founder · SkillSnap.me</div><div class="org-d">AI SaaS — concept → revenue in &lt;8 weeks. Serverless AWS, multi-model Bedrock + RAG pipeline, Stripe, automated support.</div></div>
+        <div class="fitem"><div class="when">2025 — present</div><div class="role">Fractional CTO/CPO · Paydaay (stealth fintech)</div><div class="org-d">AWS serverless, Rust + Postgres data platform, AI-agentic auto-healing infra, five-9s transaction systems. Runs the college intern program.</div></div>
+        <div class="fitem"><div class="when">2022 — present</div><div class="role">Chief of Staff → Head of Solutions / GTM → Strategic Advisor · MakeInfinite Labs</div><div class="org-d">$0 → $3M → $14M ARR; 900+ technical stakeholders; 20+ conference talks; first Rust CLI + Python SDK.</div></div>
+        <div class="fitem"><div class="when">2010 — 2022</div><div class="role">Sr. Solution Engineer → Director, Solution Engineering (Western US) → Global Director of Strategy, Analytics &amp; Automation · Teradata</div><div class="org-d">$80M+ quota, ~50% of US compute capacity — Apple, Netflix, Meta, LinkedIn, eBay, PayPal, EA, Ubisoft. Telemetry framework across 2,000+ accounts / $2B ARR, board-level reporting.</div></div>
+        <div class="fitem muted"><div class="when">2009 — 2010</div><div class="role">Sr. Technical Consultant · Lunexa Consulting</div><div class="org-d">Enterprise data warehouse for Visa; KPI trees for Yahoo!</div></div>
+        <div class="fitem muted"><div class="when">2001 — 2009</div><div class="role">BI / Innovation Center leadership · Best Buy Corp.</div><div class="org-d">Led 30 BI engineers across 4,000+ stores; 18% labor-efficiency gains in pilot districts.</div></div>
+      </div>
+    </section>
+
+    <!-- FAMILY -->
+    <section class="card s5">
+      <div class="ch"><span class="ico">🏡</span><h2>Family</h2><span class="meta live">● all systems operational</span></div>
+      <div class="carousel" id="famCarousel">
+        <div class="slides" id="famSlides">
+          <figure><img src="assets/photos/fam07.jpg" alt="The whole crew in Glasgow"><figcaption>The whole crew, Glasgow</figcaption></figure>
+          <figure><img src="assets/photos/fam14.jpg" alt="Family selfie under Edinburgh Castle at night"><figcaption>Family selfie under Edinburgh Castle at night</figcaption></figure>
+          <figure><img src="assets/photos/fam10.jpg" alt="Bundled up at an Edinburgh Christmas market"><figcaption>An Edinburgh Christmas market</figcaption></figure>
+          <figure><img src="assets/photos/fam19.jpg" alt="The family at San Diego Comic-Con"><figcaption>San Diego Comic-Con</figcaption></figure>
+          <figure><img src="assets/photos/fam05.jpg" alt="Stephen and a daughter, lunch in France"><figcaption>Lunch in France</figcaption></figure>
+          <figure><img src="assets/photos/fam22.jpg" alt="Beach at dusk, Greece"><figcaption>Beach at dusk, Greece</figcaption></figure>
+          <figure><img src="assets/photos/fam42.jpg" alt="A daughter buried under a happy golden retriever"><figcaption>Buried under a happy golden retriever</figcaption></figure>
+          <figure><img src="assets/photos/fam02.jpg" alt="A very K-pop birthday cake"><figcaption>A very K-pop birthday cake</figcaption></figure>
+        </div>
+        <button class="cbtn prev" id="famPrev" aria-label="Previous photo">‹</button>
+        <button class="cbtn next" id="famNext" aria-label="Next photo">›</button>
+        <div class="dots" id="famDots"></div>
+      </div>
+      <p class="summary-text" style="margin:14px 0">The Hiltons live in sunny Napa County — two adults, two teenagers, and one lazy golden retriever (<b>Sunny</b>) who is fairly sure she owns the rest of us. Interests run wide: AI &amp; data, ecology &amp; biology, K-pop, D&amp;D, theater, video games. <b>Joy Hilton</b> — biologist, Education Director at the American Canyon Community &amp; Parks Foundation.</p>
+      <div style="margin-top:auto">
+        <div class="statusrow"><span class="name">Sunny</span><span class="desc">golden retriever</span><span class="badge b-ok">napping</span></div>
+        <div class="statusrow"><span class="name">Teen #1</span><span class="desc">theater &amp; K-pop · D&amp;D</span><span class="badge b-active">questing</span></div>
+        <div class="statusrow"><span class="name">Teen #2</span><span class="desc">ecology &amp; biology · D&amp;D</span><span class="badge b-active">questing</span></div>
+      </div>
+    </section>
+
+    <!-- TRAVEL -->
+    <section class="card s4">
+      <div class="ch"><span class="ico">✈️</span><h2>Travel</h2><span class="meta">1+ trip a year</span></div>
+      <div class="statusrow travel-list"><span class="name"><span class="flag">🏴</span>Scotland</span><span class="desc">Edinburgh, Glasgow</span><span class="badge b-ok check"></span></div>
+      <div class="statusrow travel-list"><span class="name"><span class="flag">🇫🇷</span>France</span><span class="desc">Paris, Versailles</span><span class="badge b-ok check"></span></div>
+      <div class="statusrow travel-list"><span class="name"><span class="flag">🇬🇷</span>Greece</span><span class="desc">the islands at dusk</span><span class="badge b-ok check"></span></div>
+      <div class="statusrow travel-list"><span class="name"><span class="flag">🇺🇸</span>USA</span><span class="desc">SF, San Diego, Oregon, Seattle, Santa Barbara</span><span class="badge b-ok check"></span></div>
+      <div class="statusrow travel-list"><span class="name"><span class="flag">🇯🇵</span>Japan</span><span class="desc">Tokyo</span><span class="badge b-warn">queued</span></div>
+      <p class="summary-text" style="margin-top:12px">The one thing everyone agrees on is travel — at least one big trip a year, usually Europe. Japan next.</p>
+    </section>
+
+    <!-- SUMMARY / RÉSUMÉ -->
+    <section class="card s8">
+      <div class="ch"><span class="ico">📄</span><h2>Profile summary</h2><span class="meta">tl;dr</span></div>
+      <p class="summary-text">Technical founder &amp; solutions leader — <b>20+ years</b> in data, the last few all-in on AI. Built <b>SkillSnap</b> solo (concept → revenue in 8 weeks) on serverless AWS plus a multi-model Bedrock + RAG pipeline. Previously <b>$0 → $14M ARR</b> on a pre-launch AI product at MakeInfinite, an <b>$80M+</b> Teradata territory (Apple, Netflix, Meta, LinkedIn), and petabyte-scale data platforms before that. Hands-on <b>Python &amp; Rust</b>. <b>AWS Solutions Architect</b>. <b>MBA</b>. Currently fractional CTO/CPO at a fintech startup, and open to senior AI / solutions / platform roles.</p>
+      <div class="metricgrid" style="margin-top:16px;margin-bottom:0">
+        <div class="metric"><div class="m-val">$2B</div><div class="m-lab">ARR reported to a board</div></div>
+        <div class="metric"><div class="m-val">2,000+</div><div class="m-lab">accounts in telemetry framework</div></div>
+        <div class="metric"><div class="m-val">20+</div><div class="m-lab">conference talks given</div></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="card s4">
+      <div class="ch"><span class="ico">📨</span><h2>Contact</h2><span class="meta live">● accepting requests</span></div>
+      <div class="ct-row"><span class="k">Email</span><span class="v"><a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a></span></div>
+      <div class="ct-row"><span class="k">Phone</span><span class="v">707-877-6679</span></div>
+      <div class="ct-row"><span class="k">LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/sahilton/" target="_blank" rel="noopener">in/sahilton</a></span></div>
+      <div class="ct-row"><span class="k">GitHub</span><span class="v"><a href="https://github.com/stephen-hilton" target="_blank" rel="noopener">stephen-hilton</a></span></div>
+      <div class="ct-row"><span class="k">Built</span><span class="v"><a href="https://skillsnap.me" target="_blank" rel="noopener">skillsnap.me</a></span></div>
+      <a class="resbtn" href="https://stephen.skillsnap.me" target="_blank" rel="noopener">📄 Open full résumé ↗</a>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>
+      Stephen Hilton — operations dashboard · a redesign proposal for familyhilton.com/stephen
+      <div class="uptime" title="uptime, last 30 days"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="b"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div style="align-self:flex-end">
+      <a href="index.html">&larr; all proposals</a> &nbsp;·&nbsp;
+      <a href="mailto:stephen@familyhilton.com">Email</a> &nbsp;·&nbsp;
+      <a href="https://stephen.skillsnap.me" target="_blank" rel="noopener">Résumé</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/sahilton/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
+      <a href="https://github.com/stephen-hilton" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // theme toggle
+  (function(){
+    var btn = document.getElementById('themeBtn');
+    var root = document.documentElement;
+    var saved = null;
+    try { saved = localStorage.getItem('sh-dash-theme'); } catch(e){}
+    if(saved){ root.setAttribute('data-theme', saved); btn.textContent = saved==='dark' ? '☀️' : '🌙'; }
+    btn.addEventListener('click', function(){
+      var cur = root.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', cur);
+      btn.textContent = cur==='dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('sh-dash-theme', cur); } catch(e){}
+    });
+  })();
+
+  // carousel
+  (function(){
+    var slides = document.getElementById('famSlides');
+    var n = slides.children.length;
+    var i = 0;
+    var dotsWrap = document.getElementById('famDots');
+    for(var k=0;k<n;k++){
+      var d = document.createElement('button');
+      d.setAttribute('aria-label','Go to photo '+(k+1));
+      (function(idx){ d.addEventListener('click', function(){ go(idx); }); })(k);
+      dotsWrap.appendChild(d);
+    }
+    function render(){
+      slides.style.transform = 'translateX(-'+(i*100)+'%)';
+      var ds = dotsWrap.children;
+      for(var k=0;k<ds.length;k++){ ds[k].className = k===i ? 'on' : ''; }
+    }
+    function go(idx){ i = (idx+n)%n; render(); }
+    document.getElementById('famPrev').addEventListener('click', function(){ go(i-1); });
+    document.getElementById('famNext').addEventListener('click', function(){ go(i+1); });
+    render();
+    var timer = setInterval(function(){ go(i+1); }, 5000);
+    document.getElementById('famCarousel').addEventListener('mouseenter', function(){ clearInterval(timer); });
+  })();
+</script>
+</body>
+</html>

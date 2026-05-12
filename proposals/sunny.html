@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunny's Desktop — *gnaw* — Family Hilton</title>
+<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Gloria+Hallelujah&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --dirt:#6b4f31; --dirt2:#8a6a45; --grass:#5f7a3a; --paper:#efe7d4; --ink:#3a2d1c; --red:#b23b2e; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;min-height:100%;font-family:'Gloria Hallelujah',cursive;color:var(--ink);}
+  body{
+    background:
+      radial-gradient(700px 380px at 20% 8%, rgba(120,150,70,.55), transparent 60%),
+      radial-gradient(600px 360px at 85% 90%, rgba(160,130,80,.5), transparent 60%),
+      repeating-linear-gradient(115deg, #7b5c3a 0 22px, #6e5234 22px 44px),
+      #6b4f31;
+    overflow-x:hidden;
+  }
+  /* drool puddles */
+  body::before{content:"";position:fixed;left:8%;top:62%;width:240px;height:90px;border-radius:50%;background:rgba(220,235,240,.22);filter:blur(10px);transform:rotate(-12deg);pointer-events:none;z-index:0;}
+  body::after{content:"";position:fixed;right:14%;top:18%;width:170px;height:70px;border-radius:50%;background:rgba(220,235,240,.18);filter:blur(9px);transform:rotate(18deg);pointer-events:none;z-index:0;}
+
+  .topbar{position:fixed;top:0;left:0;right:0;height:30px;z-index:50;background:rgba(40,28,16,.7);backdrop-filter:blur(6px);display:flex;align-items:center;gap:14px;padding:0 14px;color:#f3e7cf;font-family:'JetBrains Mono';font-size:12px;border-bottom:2px dashed rgba(243,231,207,.3);transform:rotate(-.4deg);}
+  .topbar b{font-weight:700;letter-spacing:.04em;}
+  .topbar .glitch{color:#f3e7cf;}
+  .topbar .glitch::after{content:" — chewed build · uptime: 4 naps · 0 errors fixed";opacity:.7;}
+  .topbar .right{margin-left:auto;opacity:.7;}
+
+  /* the chewed "page" — a torn sheet sitting on the dirt */
+  .sheet{
+    position:relative;z-index:2;max-width:1080px;margin:64px auto 120px;background:var(--paper);
+    padding:48px 56px 80px;
+    box-shadow:0 30px 70px rgba(0,0,0,.45);
+    transform:rotate(-1.2deg);
+    /* bite marks all the way around */
+    clip-path:polygon(
+      0% 6%, 4% 2%, 9% 7%, 14% 1%, 20% 8%, 27% 2%, 33% 9%, 40% 1%, 47% 7%, 54% 0%, 61% 8%, 68% 2%, 75% 9%, 82% 1%, 89% 8%, 95% 2%, 100% 9%,
+      98% 18%, 100% 28%, 97% 38%, 100% 50%, 96% 60%, 100% 71%, 97% 82%, 100% 92%,
+      94% 100%, 86% 96%, 78% 100%, 70% 95%, 61% 100%, 52% 96%, 44% 100%, 35% 95%, 27% 100%, 18% 96%, 10% 100%, 3% 95%, 0% 100%,
+      2% 90%, 0% 80%, 3% 70%, 0% 58%, 4% 48%, 0% 38%, 3% 28%, 0% 18%
+    );
+    background-image:
+      radial-gradient(circle at 18% 24%, rgba(120,90,50,.18) 0 8px, transparent 9px),
+      radial-gradient(circle at 73% 12%, rgba(120,90,50,.16) 0 11px, transparent 12px),
+      radial-gradient(circle at 88% 64%, rgba(150,40,30,.10) 0 26px, transparent 27px),
+      radial-gradient(circle at 30% 78%, rgba(80,110,50,.12) 0 18px, transparent 19px);
+  }
+  .sheet .tape{position:absolute;width:120px;height:34px;background:rgba(230,220,190,.65);box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .sheet .tape.t1{top:-14px;left:60px;transform:rotate(-8deg);}
+  .sheet .tape.t2{top:-12px;right:90px;transform:rotate(7deg);}
+  .sheet .tape.t3{bottom:40px;left:40%;transform:rotate(3deg);width:160px;}
+
+  h1.broken{font-family:'Shadows Into Light',cursive;font-size:clamp(34px,6vw,68px);line-height:1.05;margin:6px 0 4px;color:var(--ink);transform:rotate(-1deg);}
+  h1.broken s{color:#9a8a6a;text-decoration-thickness:3px;}
+  h1.broken .bite{position:relative;}
+  h1.broken .bite::after{content:"";position:absolute;right:-2px;top:8%;width:.5em;height:.8em;background:var(--paper);border-radius:50% 0 50% 50%;transform:rotate(20deg);}
+  .sub{font-size:16px;color:#6b5a3c;margin:0 0 26px;transform:rotate(.5deg);}
+  .sub .strike{text-decoration:line-through;text-decoration-color:var(--red);}
+
+  .err{font-family:'JetBrains Mono';font-size:13px;background:#241a10;color:#f0c674;border:1px solid #3a2c18;border-radius:6px;padding:14px 16px;margin:18px 0;transform:rotate(.6deg);box-shadow:0 6px 18px rgba(0,0,0,.25);white-space:pre-wrap;line-height:1.6;}
+  .err .e{color:#e07a5f;} .err .w{color:#e9c46a;} .err .ok{color:#9bbf6a;} .err .dim{color:#8a7a5a;}
+
+  .scatter{position:relative;margin:30px 0;}
+  .scrap{display:inline-block;background:#fff7d9;border:1px solid #e7d99c;padding:14px 16px;margin:8px 12px 8px 0;font-family:'Gloria Hallelujah';font-size:14px;color:#5a4a26;box-shadow:3px 4px 0 rgba(0,0,0,.12);max-width:300px;}
+  .scrap.n1{transform:rotate(-4deg);} .scrap.n2{transform:rotate(3deg);background:#ffe6e0;border-color:#f0b9ad;} .scrap.n3{transform:rotate(-2deg);background:#e3f0d8;border-color:#bcd6a6;}
+  .scrap .pin{display:block;font-size:11px;color:#9a8a64;margin-bottom:4px;font-family:'JetBrains Mono';}
+
+  /* a knocked-over "window" */
+  .deadwin{position:relative;margin:34px auto;max-width:520px;background:#f7f8fb;border:1px solid #c9ced8;border-radius:10px;box-shadow:0 16px 40px rgba(0,0,0,.3);transform:rotate(7deg);overflow:hidden;}
+  .deadwin .tb{height:34px;background:linear-gradient(180deg,#e9ecf3,#dde2ec);border-bottom:1px solid #c9ced8;display:flex;align-items:center;gap:7px;padding:0 12px;font-family:'JetBrains Mono';font-size:12px;color:#777;}
+  .deadwin .tb i{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .deadwin .tb .c{background:#ff5f57;} .deadwin .tb .m{background:#febc2e;} .deadwin .tb .z{background:#28c840;}
+  .deadwin .bd{padding:22px 24px 30px;font-family:'Gloria Hallelujah';color:#444;}
+  .deadwin .bd h3{margin:0 0 8px;font-size:18px;color:#b23b2e;}
+  .deadwin .crack{position:absolute;inset:0;pointer-events:none;background:
+    linear-gradient(58deg, transparent 49.6%, rgba(0,0,0,.18) 49.7%, transparent 50%),
+    linear-gradient(-32deg, transparent 49.7%, rgba(0,0,0,.14) 49.8%, transparent 50%),
+    linear-gradient(8deg, transparent 49.8%, rgba(0,0,0,.12) 49.9%, transparent 50%);}
+
+  /* paw print trail */
+  .paws{position:fixed;inset:0;pointer-events:none;z-index:1;}
+  .paw{position:absolute;font-size:30px;opacity:.32;}
+  .ball{position:absolute;font-size:34px;filter:drop-shadow(2px 3px 2px rgba(0,0,0,.3));}
+  .ball.chewed{opacity:.7;transform:scale(.85) rotate(20deg);}
+  .bone{position:absolute;font-size:30px;filter:drop-shadow(2px 3px 2px rgba(0,0,0,.25));}
+
+  .treatbtn{font-family:'Gloria Hallelujah';font-size:15px;background:#caa15a;color:#3a2d1c;border:2px solid #8a6a35;border-radius:10px;padding:10px 18px;cursor:pointer;box-shadow:3px 4px 0 rgba(0,0,0,.2);transform:rotate(-1.5deg);}
+  .treatbtn:active{transform:rotate(-1.5deg) translateY(2px);box-shadow:1px 2px 0 rgba(0,0,0,.2);}
+
+  /* the chewed FamilyHilton tag, hanging crooked */
+  .hometag{
+    position:fixed;top:0;left:54%;z-index:60;transform-origin:top center;transform:translateX(-50%) rotate(-9deg);
+    font-family:'Shadows Into Light',cursive;text-decoration:none;color:#3a2d1c;text-align:center;
+  }
+  .hometag .thread{display:block;width:2px;height:34px;background:#9a8a64;margin:0 auto;}
+  .hometag .card{
+    display:inline-block;background:#d8c79a;border:2px solid #a98f56;padding:12px 22px 16px;font-size:20px;
+    box-shadow:0 8px 18px rgba(0,0,0,.3);position:relative;
+    clip-path:polygon(0 14%, 8% 0, 92% 4%, 100% 22%, 96% 60%, 100% 88%, 78% 100%, 30% 96%, 6% 100%, 0 70%, 4% 40%);
+  }
+  .hometag .card small{display:block;font-family:'JetBrains Mono';font-size:10px;color:#7a6638;margin-top:2px;letter-spacing:.05em;}
+  .hometag .card::after{content:"";position:absolute;right:-3px;top:30%;width:18px;height:22px;background:#6b4f31;border-radius:50% 0 50% 50%;transform:rotate(18deg);} /* a bite */
+  .hometag:hover{transform:translateX(-50%) rotate(-2deg);transition:transform .25s;}
+
+  .allprops{position:fixed;right:14px;bottom:14px;z-index:60;font-family:'JetBrains Mono';font-size:11px;color:#3a2d1c;background:#d8c79a;border:2px solid #a98f56;padding:6px 10px;text-decoration:none;transform:rotate(2deg);box-shadow:0 4px 10px rgba(0,0,0,.25);clip-path:polygon(0 12%,10% 0,100% 6%,96% 90%,86% 100%,0 96%,5% 50%);}
+  .allprops:hover{transform:rotate(-1deg);}
+
+  .footdog{font-family:'JetBrains Mono';font-size:11px;color:#9a8a6a;margin-top:30px;transform:rotate(.4deg);}
+
+  /* a chewed-up polaroid of the dog */
+  .sunnypic{display:block;width:218px;margin:18px 0 18px auto;background:#fff;padding:11px 11px 30px;box-shadow:0 12px 28px rgba(0,0,0,.32);
+    transform:rotate(6deg);position:relative;
+    clip-path:polygon(0 5%,6% 0,28% 6%,46% 1%,68% 7%,88% 2%,100% 8%,97% 30%,100% 52%,96% 74%,100% 92%,82% 100%,55% 96%,30% 100%,8% 96%,0 70%,4% 40%);}
+  .sunnypic img{width:100%;display:block;background:#ddd;}
+  .sunnypic figcaption{font-family:'Shadows Into Light',cursive;font-size:18px;color:#3a2d1c;text-align:center;margin-top:7px;transform:rotate(-1.6deg);line-height:1.2;}
+  .sunnypic::after{content:"";position:absolute;right:-5px;top:33%;width:24px;height:28px;background:var(--dirt);border-radius:50% 0 50% 50%;transform:rotate(20deg);}
+  .sunnypic .puncture{position:absolute;width:7px;height:7px;background:rgba(40,28,16,.28);border-radius:50%;box-shadow:0 0 3px rgba(0,0,0,.2) inset;}
+  .sunnypic .p1{left:30px;top:46px;} .sunnypic .p2{left:43px;top:58px;} .sunnypic .p3{right:34px;bottom:60px;}
+  @media (max-width:680px){.sunnypic{margin:18px auto;transform:rotate(3deg);}}
+
+  /* ---- people menu (chewed) ---- */
+  .topbar .menu{cursor:pointer;font-family:'JetBrains Mono';font-size:12px;padding:1px 7px;border-radius:4px;color:#f3e7cf;transition:background .12s;}
+  .topbar .menu:hover,.topbar .menu.open{background:rgba(243,231,207,.22);}
+  .dropdown{position:fixed;top:30px;z-index:95000;display:none;min-width:214px;background:#efe7d4;border:2px solid #a98f56;border-top:0;
+    border-radius:0 0 9px 3px;box-shadow:0 16px 36px rgba(0,0,0,.42);padding:6px;font-size:15px;color:#3a2d1c;font-family:'Gloria Hallelujah',cursive;transform:rotate(.6deg);}
+  .dropdown.open{display:block;}
+  .dropdown .mi{padding:7px 11px;border-radius:5px;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;white-space:nowrap;}
+  .dropdown .mi:hover{background:#8a6a35;color:#fff7d9;}
+  .dropdown .mi .sc{font-family:'JetBrains Mono';font-size:11px;opacity:.6;}
+  .dropdown .mi.cur{color:#8a6a35;font-weight:bold;cursor:default;} .dropdown .mi.cur:hover{background:rgba(138,106,53,.16);color:#8a6a35;}
+  .dropdown .msep{height:1px;background:rgba(58,45,28,.22);margin:5px 8px;}
+  @media (max-width:680px){.dropdown{min-width:0;left:6px!important;right:6px;transform:none;}}
+</style>
+</head>
+<body>
+
+<!-- PROPOSAL: Sunny's Desktop — what familyhilton.com/sunny looks like after the golden retriever got to it. Chewed edges, tennis balls, bones, paw prints, broken text. The "FamilyHilton" tag hangs crooked and bitten; click it to crawl back to the main desktop. -->
+
+<div class="topbar">
+  <b>FAMILYHILT&#9608;N&#8202;OS</b> <span class="menu" data-menu="m-people">people&hellip;</span> <span class="glitch"></span>
+  <span class="right">battery: chewed</span>
+</div>
+<div class="dropdown" id="m-people">
+  <div class="mi" onclick="nav('familyhiltonv2.html')">Family Hilton <span class="sc">&#8599;</span></div>
+  <div class="mi" onclick="nav('stephen.html')">Stephen <span class="sc">&#8599;</span></div>
+  <div class="mi" onclick="nav('joy.html')">Joy <span class="sc">&#8599;</span></div>
+  <div class="mi cur">Sunny <span class="sc">&#10003; (woof)</span></div>
+</div>
+
+<!-- floating chaos -->
+<div class="paws" id="paws"></div>
+
+<!-- the crooked, bitten home tag -->
+<a class="hometag" href="javascript:home()" title="go back to the people-desktop, i guess">
+  <span class="thread"></span>
+  <span class="card">FamilyHilton<small>&#8592; back &nbsp;·&nbsp; *spit* sorry</small></span>
+</a>
+
+<a class="allprops" href="index.html">../all proposals</a>
+
+<div class="sheet">
+  <span class="tape t1"></span><span class="tape t2"></span><span class="tape t3"></span>
+
+  <h1 class="broken">
+    <s>WELC&#9608;ME&nbsp;T&#9608;</s> <span class="bite">SUNNY</span>'s&nbsp;DESK<s>T</s>OP&nbsp;&#129409;
+  </h1>
+  <p class="sub">
+    a webpage <span class="strike">about a dog</span> <em>BY</em> a dog. i am sunny. i am a g&#9608;&#9608;d boy. the hooman left
+    the laptop &#8202;<span class="strike">on the floor</span>&#8202; &amp; said "watch the page" so i did. with my teeth. it is watched now.
+  </p>
+
+  <figure class="sunnypic">
+    <span class="puncture p1"></span><span class="puncture p2"></span><span class="puncture p3"></span>
+    <img src="../src/images/sunny00.png" alt="Sunny, a golden retriever — slightly chewed photo">
+    <figcaption>exhibit&nbsp;A: me.<br>i am the goodest. &#10003;</figcaption>
+  </figure>
+
+  <div class="err">
+<span class="dim">$ ./familyhilton --serve</span>
+<span class="ok">[ok]</span>   mounted /home/hilton ........... fine i guess
+<span class="w">[warn]</span> /stephen, /joy desktops present <span class="dim">(boring, no balls)</span>
+<span class="e">[err]</span>  ParseError: expected &lt;content&gt;, found <span class="w">tennis ball</span> at line 1
+<span class="e">[err]</span>  ParseError: expected &lt;/div&gt;, found <span class="w">slobber</span>
+<span class="e">[err]</span>  404: BALL NOT FOUND  (it was RIGHT HERE. i SAW it.)
+<span class="e">[err]</span>  EPERM: cannot eat couch — operation not permitted <span class="dim">(tried anyway)</span>
+<span class="w">[warn]</span> Maximum zoomies exceeded; throttling to 1 lap/sec
+<span class="ok">[ok]</span>   page successfully <span class="e">de</span>structured. shipping it.
+<span class="dim">$ _</span> <span class="w">woof</span>
+  </div>
+
+  <div class="scatter">
+    <div class="scrap n1"><span class="pin">// TODO (sunny)</span>1. ball<br>2. ball<br>3. the small ball<br>4. nap<br>5. ball</div>
+    <div class="scrap n2"><span class="pin">// from: the hooman</span>"do NOT chew the — "<br><em>(message ends here. there is a bite mark.)</em></div>
+    <div class="scrap n3"><span class="pin">// commit msg</span>"fix: refactored the rug. removed several pages. added 7 tennis balls. LGTM &#128054;"</div>
+    <div class="scrap n1"><span class="pin">// readme.txt</span>this used to say something important.<br>now it is mostly drool.<br>sorry.</div>
+  </div>
+
+  <div class="deadwin">
+    <div class="tb"><i class="c"></i><i class="m"></i><i class="z"></i> &nbsp; MyHomework_FINAL_v3.docx — <span style="color:#b23b2e">recovered: 0 bytes</span></div>
+    <div class="bd">
+      <h3>file could not be opened &#128064;</h3>
+      it was on the floor.<br>the floor is mine.<br><br><em>(i did this. i would do it again. no notes.)</em>
+      <div class="crack"></div>
+    </div>
+  </div>
+
+  <p style="transform:rotate(-.5deg);font-size:15px;color:#5a4a2c;line-height:1.7;">
+    anyway here are the <s>impor</s> important links the hooman wanted on this page:
+  </p>
+  <p style="font-family:'JetBrains Mono';font-size:14px;line-height:2;color:#5a4a2c;">
+    &#9658; <s>resume.pdf</s> &nbsp;<span style="color:#9a8a6a">(buried. literally. in the yard.)</span><br>
+    &#9658; <s>projects/</s> &nbsp;<span style="color:#9a8a6a">(also buried. different yard.)</span><br>
+    &#9658; ball.gif &nbsp;<span style="color:#9a8a6a">(playing. always playing.)</span><br>
+    &#9658; <a href="javascript:home()" style="color:#b23b2e;">go back to the grown-up desktop &#8599;</a> &nbsp;<span style="color:#9a8a6a">(fine. FINE.)</span>
+  </p>
+
+  <p style="margin-top:24px;"><button class="treatbtn" onclick="treat()">&#127828; press here for a treat (does nothing) (press it again)</button></p>
+
+  <div class="footdog">&copy; 2026 sunny hilton, golden retriever, ceo of this page · this page was supervised by a Very Good Boy · <span id="treatcount">0</span> treats dispensed</div>
+</div>
+
+<script>
+  function home(){document.body.style.transition='opacity .3s';document.body.style.opacity='0';setTimeout(function(){location.href='familyhiltonv2.html';},260);}
+
+  /* scatter paw prints, tennis balls, bones */
+  (function(){
+    var box=document.getElementById('paws');
+    var W=innerWidth, H=innerHeight;
+    // a wandering paw trail
+    var px=40, py=H*0.3, ang=0.5;
+    for(var i=0;i<22;i++){
+      ang += (Math.random()-0.5)*0.7;
+      px += Math.cos(ang)*Math.max(60,W/14); py += Math.sin(ang)*Math.max(50,H/16);
+      if(px>W-30){px=30;ang=Math.random();} if(px<10){px=W-40;}
+      if(py>H-30){py=30;} if(py<40){py=H-50;}
+      var p=document.createElement('div'); p.className='paw'; p.textContent='🐾';
+      p.style.left=px+'px'; p.style.top=py+'px'; p.style.transform='rotate('+(ang*57+90)+'deg)';
+      box.appendChild(p);
+    }
+    var balls=[['🎾',0],['🎾',1],['🎾',0],['🎾',1],['🎾',0]];
+    balls.forEach(function(b){
+      var e=document.createElement('div'); e.className='ball'+(b[1]?' chewed':''); e.textContent=b[0];
+      e.style.left=(Math.random()*(W-60)+10)+'px'; e.style.top=(Math.random()*(H-80)+50)+'px';
+      e.style.transform=(b[1]?'scale(.85) ':'')+'rotate('+(Math.random()*60-30)+'deg)';
+      box.appendChild(e);
+    });
+    for(var k=0;k<3;k++){
+      var bo=document.createElement('div'); bo.className='bone'; bo.textContent='🦴';
+      bo.style.left=(Math.random()*(W-60)+10)+'px'; bo.style.top=(Math.random()*(H-100)+60)+'px';
+      bo.style.transform='rotate('+(Math.random()*120-60)+'deg)';
+      box.appendChild(bo);
+    }
+  })();
+
+  var treats=0;
+  function treat(){
+    treats++; document.getElementById('treatcount').textContent=treats;
+    // throw a tennis ball — fixed-position & top z-order so it's visible falling past everything
+    var e=document.createElement('div'); e.textContent= treats%4===0 ? '🦴' : '🎾';
+    e.style.cssText='position:fixed;z-index:100000;pointer-events:none;font-size:34px;line-height:1;'+
+      'filter:drop-shadow(2px 3px 2px rgba(0,0,0,.3));left:'+(Math.random()*(innerWidth-50)+10)+'px;top:-46px;'+
+      'transition:top 1.15s cubic-bezier(.5,0,.7,1), transform 1.15s linear;';
+    document.body.appendChild(e);
+    requestAnimationFrame(function(){ e.style.top=(innerHeight-48)+'px'; e.style.transform='rotate('+(Math.random()*720-360)+'deg)'; });
+    setTimeout(function(){ if(e.parentNode) e.parentNode.removeChild(e); }, 4200);
+    if(treats===5){ document.querySelectorAll('h1.broken')[0].insertAdjacentHTML('beforeend',' <span style="font-size:.5em;">(ok that one WAS a treat. good hooman.)</span>'); }
+    if(treats>=12){ document.body.style.animation='shake .4s'; setTimeout(function(){document.body.style.animation='';},420); }
+  }
+  // tiny shake keyframes
+  var st=document.createElement('style'); st.textContent='@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}'; document.head.appendChild(st);
+
+  /* ---- people menu ---- */
+  function nav(u){document.body.style.transition='opacity .3s';document.body.style.opacity='0';setTimeout(function(){location.href=u;},260);}
+  function closeMenus(){document.querySelectorAll('.dropdown.open').forEach(function(d){d.classList.remove('open');});document.querySelectorAll('.topbar .menu.open').forEach(function(m){m.classList.remove('open');});}
+  document.addEventListener('mousedown',function(e){
+    var m=e.target.closest('.topbar .menu[data-menu]');
+    if(m){var dd=document.getElementById(m.getAttribute('data-menu'));var o=dd.classList.contains('open');closeMenus();if(!o){m.classList.add('open');dd.style.left=Math.round(Math.min(m.getBoundingClientRect().left,innerWidth-230))+'px';dd.classList.add('open');}}
+    else if(!e.target.closest('.dropdown')){closeMenus();}
+  });
+  document.addEventListener('click',function(e){if(e.target.closest('.dropdown .mi')) closeMenus();});
+  addEventListener('keydown',function(e){if(e.key==='Escape')closeMenus();});
+
+  window.home=home; window.treat=treat; window.nav=nav; window.closeMenus=closeMenus;
+</script>
+</body>
+</html>
