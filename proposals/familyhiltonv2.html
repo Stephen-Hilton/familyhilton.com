@@ -525,8 +525,8 @@
 
   /* ---- Help menu ---- */
   function helpFindHelp(){
-    var z=prompt("Family Hilton Help\n\nWhat's your ZIP code? We'll point you toward some… local resources.");
-    if(z && /\S/.test(z)){ window.open('https://www.google.com/search?q='+encodeURIComponent('good therapists '+z.trim()), '_blank'); }
+    window.open('https://www.google.com/maps/search/cat+cafe', '_blank', 'noopener');
+    toast('🐈 Opening cat cafés near you — honestly, it’s the best help we’ve got.', 4000);
   }
   function dlgShortcuts(){ dialog('Keyboard Shortcuts',
     '<p class="sm" style="margin-bottom:12px">A partial, mostly-aspirational list:</p>'+

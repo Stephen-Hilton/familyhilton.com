@@ -90,6 +90,19 @@
   .dropdown .mi.cur .sc{opacity:1;}
   .dropdown .msep{height:1px;background:rgba(0,0,0,.1);margin:5px 8px;}
   @media (max-width:780px){.dropdown{min-width:0;left:6px!important;right:6px;}}
+
+  /* ---- dialogs & toasts ---- */
+  .window.dlg{min-width:0;min-height:0;}
+  .dlgbody{padding:20px 22px 18px;font-size:14px;line-height:1.6;color:#2c303c;overflow:visible;}
+  .dlgbody p{margin:0 0 10px;} .dlgbody p:last-of-type{margin-bottom:0;}
+  .dlgbody .big{font-size:38px;text-align:center;margin:2px 0 12px;}
+  .dlgbody .sm{font-size:12.5px;color:var(--soft);} .dlgbody a{color:var(--accent);}
+  .dlgbtns{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .dbtn{font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:#eef1f7;color:#2c303c;cursor:pointer;font-family:inherit;}
+  .dbtn.p{background:var(--accent2);color:#fff;border-color:transparent;} .dbtn:active{transform:translateY(1px);}
+  .toast{position:fixed;top:42px;right:16px;z-index:99800;background:rgba(20,28,48,.93);color:#eaf0fb;padding:11px 16px;border-radius:10px;
+    font-size:13px;line-height:1.5;max-width:300px;box-shadow:0 12px 32px rgba(0,0,0,.32);opacity:0;transform:translateY(-8px);transition:opacity .28s,transform .28s;}
+  .toast.on{opacity:1;transform:none;} .toast b{color:#fff;}
 </style>
 </head>
 <body>
@@ -98,14 +111,41 @@
 <div class="topbar">
   <b>FamilyHiltonOS</b>
   <span class="crumbnav">&nbsp;·&nbsp; Stephen</span>
-  <span class="menu" data-menu="m-people">People</span><span class="menu">File</span><span class="menu">View</span><span class="menu">Hire</span>
+  <span class="menu" data-menu="m-file">File</span><span class="menu" data-menu="m-view">View</span><span class="menu" data-menu="m-people">People</span><span class="menu" data-menu="m-hire">Hire</span>
   <div class="right"><a href="https://stephen.skillsnap.me" target="_blank" rel="noopener">Résumé ↗</a><span id="clock" class="mono"></span></div>
+</div>
+<div class="dropdown" id="m-file">
+  <div class="mi" onclick="dlgVisitor()">New Visitor… <span class="sc">⌘N</span></div>
+  <div class="mi" onclick="window.open('https://stephen.skillsnap.me','_blank','noopener')">Print Résumé… <span class="sc">⌘P</span></div>
+  <div class="mi" onclick="dlgUpToDate()">Check for Updates…</div>
+  <div class="msep"></div>
+  <div class="mi" onclick="closeFront()">Close Window <span class="sc">⌘W</span></div>
+  <div class="mi" onclick="nav('familyhiltonv2.html')">Back to Family Hilton <span class="sc">↗</span></div>
+</div>
+<div class="dropdown" id="m-view">
+  <div class="mi" onclick="zoomBy(0.1)">Zoom In <span class="sc">⌘ +</span></div>
+  <div class="mi" onclick="zoomBy(-0.1)">Zoom Out <span class="sc">⌘ −</span></div>
+  <div class="mi" onclick="zoomReset()">Actual Size <span class="sc">⌘ 0</span></div>
+  <div class="msep"></div>
+  <div class="mi" onclick="openApp('resume')">Open Résumé</div>
+  <div class="mi" onclick="openApp('skillsnap')">Open SkillSnap.me</div>
+  <div class="mi" onclick="openApp('blog')">Open Blog</div>
+  <div class="msep"></div>
+  <div class="mi" onclick="location.reload()">Reload Desktop <span class="sc">⌘R</span></div>
 </div>
 <div class="dropdown" id="m-people">
   <div class="mi" onclick="nav('familyhiltonv2.html')">Family Hilton <span class="sc">↗</span></div>
   <div class="mi cur">Stephen <span class="sc">✓</span></div>
   <div class="mi" onclick="nav('joy.html')">Joy <span class="sc">↗</span></div>
   <div class="mi" onclick="nav('sunny.html')">Sunny <span class="sc">↗</span></div>
+</div>
+<div class="dropdown" id="m-hire">
+  <div class="mi" onclick="emailStephen()">Email Stephen <span class="sc">@</span></div>
+  <div class="mi" onclick="window.open('https://stephen.skillsnap.me','_blank','noopener')">Open the full résumé <span class="sc">↗</span></div>
+  <div class="mi" onclick="window.open('https://www.linkedin.com/in/sahilton/','_blank','noopener')">LinkedIn <span class="sc">↗</span></div>
+  <div class="msep"></div>
+  <div class="mi" onclick="dlgAvailable()">Is he available?</div>
+  <div class="mi" onclick="dlgWhatHeDoes()">What does he do?</div>
 </div>
 
 <div class="wallhero">
@@ -220,6 +260,39 @@
   });
   document.addEventListener('click',function(e){if(e.target.closest('.dropdown .mi')) closeMenus();});
   addEventListener('keydown',function(e){if(e.key==='Escape')closeMenus();});
+
+  /* ---- menu infra: dialogs, toasts, zoom ---- */
+  var dlgN=0;
+  function dialog(title,body,btns,onok){
+    var w=document.createElement('div'); w.className='window dlg'; w.id='dlg'+(++dlgN);
+    var ww=Math.min(400,innerWidth-32);
+    w.style.width=ww+'px'; w.style.left=Math.round((innerWidth-ww)/2)+'px'; w.style.top=Math.round(Math.max(50,innerHeight*0.22))+'px';
+    w.innerHTML='<div class="titlebar"><span class="traffic"><i class="t-close"></i></span><span class="tt"><b>'+title+'</b></span></div>'+
+      '<div class="winbody dlgbody">'+body+'<div class="dlgbtns">'+(btns||'<button class="dbtn p" data-ok>OK</button>')+'</div></div>';
+    document.body.appendChild(w); w.addEventListener('mousedown',function(){front(w);}); front(w);
+    function close(){ w.remove(); }
+    w.querySelector('.t-close').onclick=close;
+    w.querySelectorAll('[data-ok]').forEach(function(b){ b.onclick=function(){ close(); if(onok) onok(); }; });
+    w.querySelectorAll('[data-act]').forEach(function(b){ var fn=b.getAttribute('data-act'); b.onclick=function(){ close(); if(typeof window[fn]==='function') window[fn](); }; });
+    return w;
+  }
+  function toast(html,ms){ var t=document.createElement('div'); t.className='toast'; t.innerHTML=html; document.body.appendChild(t);
+    requestAnimationFrame(function(){t.classList.add('on');}); setTimeout(function(){t.classList.remove('on'); setTimeout(function(){t.remove();},320);}, ms||3000); }
+  var dzoom=1;
+  function zoomBy(d){ dzoom=Math.max(0.7,Math.min(1.5,Math.round((dzoom+d)*10)/10)); document.documentElement.style.zoom=(dzoom===1?'':dzoom); toast('Zoom: <b>'+Math.round(dzoom*100)+'%</b>',1400); }
+  function zoomReset(){ dzoom=1; document.documentElement.style.zoom=''; toast('Zoom: <b>100%</b> &middot; actual size',1400); }
+  function closeFront(){
+    var open=[]; for(var k in opened){ if(opened[k]){ var w=document.getElementById('win-'+k); if(w&&!w.classList.contains('min')) open.push(w); } }
+    if(open.length){ open.sort(function(a,b){return (+a.style.zIndex||0)-(+b.style.zIndex||0);}); open[open.length-1].classList.add('min'); dockMark(); }
+    else { toast('No windows open.',2000); }
+  }
+  /* File / Hire menu actions */
+  function dlgVisitor(){ dialog('New Visitor','<div class="big">👋</div><p><b>Welcome.</b> Pull up a chair — this is Stephen’s corner of FamilyHiltonOS. There’s a résumé in that window, a blog, and a few things he’s built. The dog won’t bother you here; she’s on another desktop.</p>'); }
+  function dlgUpToDate(){ dialog('Check for Updates','<div class="big">✅</div><p><b>You’re up to date.</b></p><p class="sm">Most recently shipped: SkillSnap — concept to revenue-positive in under eight weeks. Always taking feature requests.</p>','<button class="dbtn p" data-ok>Nice</button>'); }
+  function dlgAvailable(){ dialog('Is he available?','<div class="big">🟢</div><p><b>Yes</b> — open to senior AI / solutions / platform roles.</p><p class="sm">Currently fractional CTO/CPO at a fintech startup and building SkillSnap on the side, but happy to talk.<br><a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a> &middot; 707-877-6679 &middot; <a href="https://www.linkedin.com/in/sahilton/" target="_blank" rel="noopener">LinkedIn</a></p>','<button class="dbtn" data-ok>Maybe later</button><button class="dbtn p" data-act="emailStephen">Email Stephen</button>'); }
+  function dlgWhatHeDoes(){ dialog('What does he do?','<p>20+ years turning messy data into shipping products; the last few all-in on AI.</p><p class="sm" style="line-height:1.75">• Built SkillSnap solo — serverless AWS (Bedrock / Lambda / DynamoDB / SQS / S3 / CloudFront / Cognito) + a multi-model LLM&nbsp;+&nbsp;RAG pipeline<br>• $0 → $14M ARR on a pre-launch AI product at MakeInfinite<br>• $80M+ Teradata territory (Apple, Netflix, Meta, LinkedIn); petabyte data platforms before that<br>• Hands-on Python &amp; Rust &middot; AWS Solutions Architect &middot; MBA</p>','<button class="dbtn" data-ok>Close</button><button class="dbtn p" data-act="openResumeApp">Open the résumé</button>'); }
+  function emailStephen(){ location.href='mailto:stephen@familyhilton.com?subject=Hello%20Stephen'; }
+  function openResumeApp(){ openApp('resume'); }
 
   window.openApp=openApp; window.home=home; window.nav=nav; window.closeMenus=closeMenus;
   /* open the résumé on arrival */

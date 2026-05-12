@@ -89,6 +89,19 @@
   .dropdown .mi.cur .sc{opacity:1;}
   .dropdown .msep{height:1px;background:rgba(0,0,0,.1);margin:5px 8px;}
   @media (max-width:780px){.dropdown{min-width:0;left:6px!important;right:6px;}}
+
+  /* ---- dialogs & toasts ---- */
+  .window.dlg{min-width:0;min-height:0;}
+  .dlgbody{padding:20px 22px 18px;font-size:14px;line-height:1.6;color:#2c303c;overflow:visible;}
+  .dlgbody p{margin:0 0 10px;} .dlgbody p:last-of-type{margin-bottom:0;}
+  .dlgbody .big{font-size:38px;text-align:center;margin:2px 0 12px;}
+  .dlgbody .sm{font-size:12.5px;color:var(--soft);} .dlgbody a{color:var(--accent);}
+  .dlgbtns{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .dbtn{font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:#eef2ec;color:#2c302a;cursor:pointer;font-family:inherit;}
+  .dbtn.p{background:var(--accent);color:#fff;border-color:transparent;} .dbtn:active{transform:translateY(1px);}
+  .toast{position:fixed;top:42px;right:16px;z-index:99800;background:rgba(20,36,18,.93);color:#eef6e9;padding:11px 16px;border-radius:10px;
+    font-size:13px;line-height:1.5;max-width:300px;box-shadow:0 12px 32px rgba(0,0,0,.32);opacity:0;transform:translateY(-8px);transition:opacity .28s,transform .28s;}
+  .toast.on{opacity:1;transform:none;} .toast b{color:#fff;}
 </style>
 </head>
 <body>
@@ -97,14 +110,41 @@
 <div class="topbar">
   <b>FamilyHiltonOS</b>
   <span class="crumbnav">&nbsp;·&nbsp; Joy</span>
-  <span class="menu" data-menu="m-people">People</span><span class="menu">File</span><span class="menu">View</span><span class="menu">Field&nbsp;notes</span>
+  <span class="menu" data-menu="m-file">File</span><span class="menu" data-menu="m-view">View</span><span class="menu" data-menu="m-people">People</span><span class="menu" data-menu="m-fieldnotes">Field&nbsp;notes</span>
   <div class="right"><a href="https://joyhilton.skillsnap.me" target="_blank" rel="noopener">Résumé ↗</a><span id="clock" class="mono"></span></div>
+</div>
+<div class="dropdown" id="m-file">
+  <div class="mi" onclick="dlgVisitor()">New Visitor… <span class="sc">⌘N</span></div>
+  <div class="mi" onclick="window.open('https://joyhilton.skillsnap.me','_blank','noopener')">Print Résumé… <span class="sc">⌘P</span></div>
+  <div class="mi" onclick="dlgUpToDate()">Check for Updates…</div>
+  <div class="msep"></div>
+  <div class="mi" onclick="closeFront()">Close Window <span class="sc">⌘W</span></div>
+  <div class="mi" onclick="nav('familyhiltonv2.html')">Back to Family Hilton <span class="sc">↗</span></div>
+</div>
+<div class="dropdown" id="m-view">
+  <div class="mi" onclick="zoomBy(0.1)">Zoom In <span class="sc">⌘ +</span></div>
+  <div class="mi" onclick="zoomBy(-0.1)">Zoom Out <span class="sc">⌘ −</span></div>
+  <div class="mi" onclick="zoomReset()">Actual Size <span class="sc">⌘ 0</span></div>
+  <div class="msep"></div>
+  <div class="mi" onclick="openApp('resume')">Open Résumé</div>
+  <div class="mi" onclick="openApp('parks')">Open Parks Foundation</div>
+  <div class="mi" onclick="openApp('eco')">Open Ecology Center</div>
+  <div class="msep"></div>
+  <div class="mi" onclick="location.reload()">Reload Desktop <span class="sc">⌘R</span></div>
 </div>
 <div class="dropdown" id="m-people">
   <div class="mi" onclick="nav('familyhiltonv2.html')">Family Hilton <span class="sc">↗</span></div>
   <div class="mi" onclick="nav('stephen.html')">Stephen <span class="sc">↗</span></div>
   <div class="mi cur">Joy <span class="sc">✓</span></div>
   <div class="mi" onclick="nav('sunny.html')">Sunny <span class="sc">↗</span></div>
+</div>
+<div class="dropdown" id="m-fieldnotes">
+  <div class="mi" onclick="dlgSpecies()">Species log</div>
+  <div class="mi" onclick="dlgGarden()">Garden status</div>
+  <div class="msep"></div>
+  <div class="mi" onclick="dlgAboutJoy()">About Joy</div>
+  <div class="mi" onclick="openApp('parks')">Programs @ the Parks Foundation</div>
+  <div class="mi" onclick="window.open('https://www.linkedin.com/in/joy-hilton-a755448a/','_blank','noopener')">Reach Joy on LinkedIn <span class="sc">↗</span></div>
 </div>
 
 <div class="wallhero">
@@ -209,6 +249,39 @@
   });
   document.addEventListener('click',function(e){if(e.target.closest('.dropdown .mi')) closeMenus();});
   addEventListener('keydown',function(e){if(e.key==='Escape')closeMenus();});
+
+  /* ---- menu infra: dialogs, toasts, zoom ---- */
+  var dlgN=0;
+  function dialog(title,body,btns,onok){
+    var w=document.createElement('div'); w.className='window dlg'; w.id='dlg'+(++dlgN);
+    var ww=Math.min(400,innerWidth-32);
+    w.style.width=ww+'px'; w.style.left=Math.round((innerWidth-ww)/2)+'px'; w.style.top=Math.round(Math.max(50,innerHeight*0.22))+'px';
+    w.innerHTML='<div class="titlebar"><span class="traffic"><i class="t-close"></i></span><span class="tt"><b>'+title+'</b></span></div>'+
+      '<div class="winbody dlgbody">'+body+'<div class="dlgbtns">'+(btns||'<button class="dbtn p" data-ok>OK</button>')+'</div></div>';
+    document.body.appendChild(w); w.addEventListener('mousedown',function(){front(w);}); front(w);
+    function close(){ w.remove(); }
+    w.querySelector('.t-close').onclick=close;
+    w.querySelectorAll('[data-ok]').forEach(function(b){ b.onclick=function(){ close(); if(onok) onok(); }; });
+    w.querySelectorAll('[data-act]').forEach(function(b){ var fn=b.getAttribute('data-act'); b.onclick=function(){ close(); if(typeof window[fn]==='function') window[fn](); }; });
+    return w;
+  }
+  function toast(html,ms){ var t=document.createElement('div'); t.className='toast'; t.innerHTML=html; document.body.appendChild(t);
+    requestAnimationFrame(function(){t.classList.add('on');}); setTimeout(function(){t.classList.remove('on'); setTimeout(function(){t.remove();},320);}, ms||3000); }
+  var dzoom=1;
+  function zoomBy(d){ dzoom=Math.max(0.7,Math.min(1.5,Math.round((dzoom+d)*10)/10)); document.documentElement.style.zoom=(dzoom===1?'':dzoom); toast('Zoom: <b>'+Math.round(dzoom*100)+'%</b>',1400); }
+  function zoomReset(){ dzoom=1; document.documentElement.style.zoom=''; toast('Zoom: <b>100%</b> &middot; actual size',1400); }
+  function closeFront(){
+    var open=[]; for(var k in opened){ if(opened[k]){ var w=document.getElementById('win-'+k); if(w&&!w.classList.contains('min')) open.push(w); } }
+    if(open.length){ open.sort(function(a,b){return (+a.style.zIndex||0)-(+b.style.zIndex||0);}); open[open.length-1].classList.add('min'); dockMark(); }
+    else { toast('No windows open.',2000); }
+  }
+  /* File / Field-notes menu actions */
+  function dlgVisitor(){ dialog('New Visitor','<div class="big">🌿</div><p><b>Welcome.</b> This is Joy’s corner of FamilyHiltonOS — a biologist and environmental educator. There’s a résumé in that window, plus the American Canyon Community &amp; Parks Foundation and the Napa River Ecology Center where she runs programs. Mind the muddy boots.</p>'); }
+  function dlgUpToDate(){ dialog('Check for Updates','<div class="big">✅</div><p><b>You’re up to date.</b></p><p class="sm">Latest: spring garden-based education programs and a fresh round of Napa River field days. Always recruiting volunteers.</p>','<button class="dbtn p" data-ok>Lovely</button>'); }
+  function dlgSpecies(){ dialog('Species log — today','<div class="big">🐾</div><p><b>1 observed.</b></p><p class="sm"><i>Canis familiaris</i> &mdash; one golden retriever, “Sunny.” Status: napping. Threat level: nil. Conservation priority: maximum. (Two teenagers also sighted; notoriously hard to photograph.)</p>','<button class="dbtn p" data-ok>Noted</button>'); }
+  function dlgGarden(){ dialog('Garden status','<div class="big">🌱</div><p>Beds: planted. Compost: cooking. Pollinators: present. Weeds: winning, as usual. Tomatoes: optimistic.</p><p class="sm">Want to help? The Parks Foundation always needs hands in the dirt.</p>','<button class="dbtn" data-ok>Close</button><button class="dbtn p" data-act="openParksApp">Parks Foundation</button>'); }
+  function dlgAboutJoy(){ dialog('About Joy','<p>Biologist and educator — Education Director at the American Canyon Community &amp; Parks Foundation, where she runs the Napa River Ecology Center and garden-based, environmental, and food-systems education programs.</p><p class="sm">Background in program development, environmental &amp; agriculture education, food policy, farmers’ markets, marketing and outreach. University of Minnesota–Twin Cities. <a href="https://www.linkedin.com/in/joy-hilton-a755448a/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://joyhilton.skillsnap.me" target="_blank" rel="noopener">résumé</a></p>','<button class="dbtn p" data-ok>OK</button>'); }
+  function openParksApp(){ openApp('parks'); }
 
   window.openApp=openApp; window.home=home; window.nav=nav; window.closeMenus=closeMenus;
   setTimeout(function(){openApp('resume');},250);
