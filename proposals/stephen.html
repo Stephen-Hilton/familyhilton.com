@@ -107,6 +107,43 @@
   .toast{position:fixed;top:42px;right:16px;z-index:99800;background:rgba(20,28,48,.93);color:#eaf0fb;padding:11px 16px;border-radius:10px;
     font-size:13px;line-height:1.5;max-width:300px;box-shadow:0 12px 32px rgba(0,0,0,.32);opacity:0;transform:translateY(-8px);transition:opacity .28s,transform .28s;}
   .toast.on{opacity:1;transform:none;} .toast b{color:#fff;}
+
+  /* ---- career timeline app ---- */
+  .career-tl{list-style:none;margin:0;padding:0;}
+  .career-tl li{position:relative;padding:0 0 18px 22px;border-left:2px solid var(--line);}
+  .career-tl li:last-child{border-left-color:transparent;padding-bottom:2px;}
+  .career-tl li::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--accent);}
+  .career-tl li.life::before{background:var(--accent2);border-color:var(--accent2);}
+  .career-tl li .yr{display:block;font-family:'JetBrains Mono';font-size:11.5px;color:var(--soft);margin-bottom:1px;}
+  .career-tl li b{font-size:14.5px;display:block;}
+  .career-tl li.life b{font-style:italic;}
+  .career-tl li .d{font-size:13px;line-height:1.5;color:#4a4f5d;margin-top:3px;}
+  .winbody a.dbtn{text-decoration:none;}
+
+  /* ---- Keynote app (fullscreen presentation) ---- */
+  #keynote{position:fixed;inset:0;z-index:100000;display:none;background:#0c1020;overflow:hidden;color:#eef1f7;font-family:'Inter',system-ui,sans-serif;}
+  #keynote.on{display:block;}
+  #keynote .ktrack{position:absolute;inset:0;display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);will-change:transform;}
+  #keynote .kslide{flex:0 0 100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7vh 8vw;}
+  #keynote .kbig{font-size:clamp(38px,8vw,108px);font-weight:700;line-height:1.04;letter-spacing:-.03em;}
+  #keynote .kbig em,#keynote .kbignum{font-style:normal;background:linear-gradient(92deg,#5b8cff,#2bd6a8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  #keynote .kbignum{font-size:clamp(54px,13vw,170px);font-weight:800;letter-spacing:-.04em;line-height:1;}
+  #keynote .ksub{font-size:clamp(15px,2.3vw,26px);line-height:1.5;max-width:880px;margin-top:24px;opacity:.85;}
+  #keynote .keyebrow{font-family:'JetBrains Mono';font-size:clamp(11px,1.4vw,15px);letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-bottom:16px;}
+  #keynote .kbody{font-size:clamp(14px,1.9vw,22px);line-height:1.7;max-width:920px;margin-top:16px;opacity:.9;}
+  #keynote .kbody a,#keynote .kcap a{color:#8fb6ff;}
+  #keynote .kslide.kphoto{background:linear-gradient(rgba(8,12,24,.4),rgba(8,12,24,.7)),var(--bg) center/cover;align-items:flex-start;justify-content:flex-end;text-align:left;}
+  #keynote .kcap{font-size:clamp(16px,2.3vw,28px);line-height:1.45;max-width:780px;font-weight:500;text-shadow:0 2px 18px rgba(0,0,0,.55);}
+  #keynote .kchips{display:flex;flex-wrap:wrap;gap:10px 11px;justify-content:center;max-width:1000px;margin-top:8px;}
+  #keynote .kchips span{font-family:'JetBrains Mono';font-size:clamp(11px,1.5vw,16px);padding:7px 13px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.05);}
+  #keynote .kbar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.12);}
+  #keynote .kfill{height:100%;width:10%;background:linear-gradient(90deg,#5b8cff,#2bd6a8);transition:width .45s;}
+  #keynote .kchrome{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);font-family:'JetBrains Mono';font-size:12px;opacity:.8;z-index:2;}
+  #keynote .knav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);color:#eef1f7;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:19px;line-height:0;padding:0;z-index:2;}
+  #keynote .knav:hover{background:rgba(255,255,255,.18);}
+  #keynote .kexit{position:absolute;top:16px;right:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);color:#eef1f7;font-family:'JetBrains Mono';font-size:12px;padding:7px 12px;border-radius:8px;cursor:pointer;z-index:2;}
+  #keynote .kexit:hover{background:rgba(255,255,255,.18);}
+  #keynote .khint{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono';font-size:11.5px;opacity:.42;transition:opacity .7s;z-index:2;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -162,6 +199,8 @@
 
 <div class="icons">
   <div class="dicon" onclick="openApp('resume')"><div class="gl">📄</div><span>Résumé</span></div>
+  <div class="dicon" onclick="openApp('timeline')"><div class="gl">📈</div><span>Timeline</span></div>
+  <div class="dicon" onclick="openKeynote()"><div class="gl">🎞️</div><span>Keynote</span></div>
   <div class="dicon" onclick="openApp('blog')"><div class="gl">📝</div><span>Blog</span></div>
   <div class="dicon" onclick="openApp('skillsnap')"><div class="gl">✨</div><span>SkillSnap.me</span></div>
   <div class="dicon" onclick="openApp('makeinfinite')"><div class="gl">♾️</div><span>MakeInfinite</span></div>
@@ -174,6 +213,8 @@
 
 <div class="dock">
   <div class="d" onclick="openApp('resume')"><span class="lbl">Résumé — stephen.skillsnap.me</span>📄</div>
+  <div class="d" onclick="openApp('timeline')"><span class="lbl">Career Timeline</span>📈</div>
+  <div class="d" onclick="openKeynote()"><span class="lbl">Keynote — full screen</span>🎞️</div>
   <div class="d" onclick="openApp('blog')"><span class="lbl">Blog</span>📝</div>
   <div class="d" onclick="openApp('skillsnap')"><span class="lbl">SkillSnap.me</span>✨</div>
   <div class="d" onclick="openApp('makeinfinite')"><span class="lbl">MakeInfinite</span>♾️</div>
@@ -181,6 +222,49 @@
   <div class="d" onclick="openApp('linkedin')"><span class="lbl">LinkedIn</span>💼</div>
   <div class="d sep"></div>
   <div class="d" onclick="home()"><span class="lbl">Back to FamilyHilton</span>🏡</div>
+</div>
+
+<!-- ===== Career Timeline app content (rendered into a window by openApp) ===== -->
+<div id="career-tl-content" hidden>
+  <h2 style="margin-bottom:2px;">Career — a working timeline</h2>
+  <p style="color:var(--soft);font-size:13px;margin:0 0 18px;">Twenty-odd years of turning messy data into shipping products — with a couple of life markers in there too. Full résumé: <a href="https://stephen.skillsnap.me" target="_blank" rel="noopener">stephen.skillsnap.me</a>.</p>
+  <ul class="career-tl">
+    <li><span class="yr">2026 — present</span><b>SkillSnap.me — Solo founder</b><div class="d">AI résumé &amp; cover-letter SaaS. Concept → revenue-positive in &lt;8 weeks. Serverless AWS (Bedrock, Lambda, DynamoDB, SQS, S3, CloudFront, Cognito); a multi-model LLM&nbsp;+&nbsp;RAG generation pipeline; Stripe billing, pricing, automated support.</div></li>
+    <li><span class="yr">2025 — present</span><b>Paydaay (stealth fintech) — Fractional CTO / CPO</b><div class="d">AWS serverless architecture; a Rust + Postgres data platform; AI-agentic, auto-healing infra; five-9s transaction systems. Runs the college intern program.</div></li>
+    <li class="life"><span class="yr">~2024</span><b>Two kids became two teenagers</b><div class="d">One deep in theater &amp; K-pop, one deep in ecology &amp; biology — both deep in D&amp;D. The annual trip continues: Scotland, France, Greece.</div></li>
+    <li><span class="yr">2022 — present</span><b>MakeInfinite Labs — Chief of Staff → Head of Solutions/GTM → Strategic Advisor</b><div class="d">Grew a pre-launch AI product from $0 → $3M ARR (12 mo) → $14M ARR (24 mo). 900+ technical stakeholders, 20+ conference talks, the first Rust CLI and the Python SDK, the public docs.</div></li>
+    <li><span class="yr">2010 — 2022</span><b>Teradata — Sr. Solution Engineer → Director, Western US → Global Director, Strategy / Analytics / Automation</b><div class="d">$80M+ quota, ~50% of US compute capacity (Apple, Netflix, Meta, LinkedIn, eBay, PayPal, EA). Later: a telemetry &amp; analytics framework across 2,000+ accounts / $2B ARR with board-level reporting. Petabyte-scale Hadoop / Spark / Kafka platforms in the early years.</div></li>
+    <li class="life"><span class="yr">2010s</span><b>Put down roots in Napa County, California</b><div class="d">Two adults, two kids, a golden retriever named Sunny — and a standing plan to go somewhere, usually Europe, at least once a year.</div></li>
+    <li><span class="yr">2009 — 2010</span><b>Lunexa Consulting — Sr. Technical Consultant</b><div class="d">Enterprise Data Warehouse for Visa; KPI trees for Yahoo!; data engineering for Wells Fargo &amp; RealNetworks.</div></li>
+    <li><span class="yr">2001 — 2009</span><b>Best Buy Corp. — Data Analyst → Manager → Sr. Manager, Infrastructure &amp; Innovation Center</b><div class="d">Led ~30 BI engineers serving 4,000+ stores; retail-innovation pilots delivered ~18% labor-efficiency gains.</div></li>
+  </ul>
+  <p style="font-size:13px;color:var(--soft);margin:14px 0 0;line-height:1.55;"><b>Stack:</b> Python · Rust · SQL · AWS Bedrock / Lambda / DynamoDB / SQS / S3 / CloudFront / Cognito · RAG · Claude Skills / MCP / Code agents · Cursor · Kafka · Spark · Stripe · AWS Solutions Architect · MBA</p>
+  <div style="margin-top:16px;display:flex;gap:9px;flex-wrap:wrap;">
+    <a class="dbtn p" href="https://stephen.skillsnap.me" target="_blank" rel="noopener">Full résumé ↗</a>
+    <a class="dbtn" onclick="openKeynote()" style="cursor:pointer;">▶ Play the keynote</a>
+  </div>
+</div>
+
+<!-- ===== Keynote — fullscreen presentation app ===== -->
+<div id="keynote" aria-hidden="true">
+  <div class="ktrack">
+    <section class="kslide"><div class="kbig">Hi —<br>I'm <em>Stephen</em>.</div><div class="ksub">Technical founder &amp; solutions leader. 20+ years turning messy data into shipping products — the last few all-in on AI.</div></section>
+    <section class="kslide kphoto" style="--bg:url('assets/photos/fam14.jpg')"><div class="kcap">Napa County, California. Two adults, two teenagers, one golden retriever — and a standing plan to go to Europe at least once a year.</div></section>
+    <section class="kslide"><div class="kbig">I build <em>AI products</em>.</div><div class="ksub">End to end — the model pipeline, the infrastructure, and the business around it.</div></section>
+    <section class="kslide"><div class="keyebrow">2026 · solo</div><div class="kbig">SkillSnap</div><div class="kbody"><b>Concept → revenue-positive in under eight weeks.</b><br>Serverless AWS — Bedrock · Lambda · DynamoDB · SQS · S3 · CloudFront · Cognito.<br>A multi-model LLM&nbsp;+&nbsp;RAG pipeline that tailors résumés &amp; cover letters to a specific posting.<br>Stripe billing, pricing, automated support — the whole business.</div></section>
+    <section class="kslide"><div class="kbignum">$0 → $14M</div><div class="ksub">ARR built on a <em style="font-style:italic;">pre-launch</em> AI product at MakeInfinite Labs — $3M in 12 months, $14M in 24.</div></section>
+    <section class="kslide"><div class="keyebrow">before that — a 20-year run</div><div class="kbody">Best Buy — BI &amp; innovation, ~30 engineers, 4,000+ stores.<br>Lunexa — EDW for Visa; KPI trees for Yahoo!.<br>Teradata — an $80M+ territory (Apple, Netflix, Meta, LinkedIn) and a $2B-ARR telemetry framework.<br>Petabyte-scale Hadoop / Spark / Kafka platforms before "data engineering" was a job title.</div></section>
+    <section class="kslide"><div class="keyebrow">the toolbox</div><div class="kchips"><span>Python</span><span>Rust</span><span>SQL</span><span>AWS Bedrock</span><span>Lambda</span><span>DynamoDB · SQS</span><span>S3 · CloudFront</span><span>Cognito</span><span>RAG / embeddings</span><span>Claude Skills / MCP</span><span>Claude Code agents</span><span>Cursor</span><span>Kafka · Spark</span><span>Stripe</span><span>AWS Solutions Architect</span><span>MBA</span></div></section>
+    <section class="kslide kphoto" style="--bg:url('assets/photos/fam07.jpg')"><div class="kcap">I also coach two teenagers and one extremely good golden retriever. Trips so far: Scotland, France, Greece. Next on the list: maybe Japan.</div></section>
+    <section class="kslide"><div class="kbig">Let's <em>talk</em>.</div><div class="kbody"><a href="mailto:stephen@familyhilton.com">stephen@familyhilton.com</a> &nbsp;·&nbsp; 707-877-6679<br><a href="https://stephen.skillsnap.me" target="_blank" rel="noopener">stephen.skillsnap.me</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/sahilton/" target="_blank" rel="noopener">linkedin.com/in/sahilton</a> &nbsp;·&nbsp; <a href="https://github.com/Stephen-Hilton" target="_blank" rel="noopener">github.com/stephen-hilton</a><br><span style="opacity:.7;">Open to senior AI / solutions / platform roles.</span></div></section>
+    <section class="kslide"><div class="kbig" style="font-size:clamp(30px,4.5vw,56px);">Thanks. 🙏</div><div class="ksub" style="margin-top:14px;">Press <b>Esc</b> to return to the desktop.</div></section>
+  </div>
+  <div class="kbar"><div class="kfill" id="kfill"></div></div>
+  <button class="knav" id="kprev" style="left:18px;" aria-label="previous slide">‹</button>
+  <button class="knav" id="knext" style="right:18px;" aria-label="next slide">›</button>
+  <div class="kchrome"><span id="kcount">1 / 10</span></div>
+  <button class="kexit" id="kexit">✕ Esc</button>
+  <div class="khint" id="khint">← → / space to advance · Esc to exit</div>
 </div>
 
 <script>
@@ -191,6 +275,7 @@
   /* apps that frame a live URL */
   var APPS={
     resume:       {title:'Résumé', url:'https://stephen.skillsnap.me', emoji:'📄'},
+    timeline:     {title:'Career Timeline', emoji:'📈', contentId:'career-tl-content'},
     blog:         {title:'Blog', url:'https://familyhilton.com/blogs.html', emoji:'📝'},
     skillsnap:    {title:'SkillSnap.me', url:'https://skillsnap.me', emoji:'✨'},
     makeinfinite: {title:'MakeInfinite', url:'https://makeinfinite.com', emoji:'♾️'},
@@ -213,8 +298,10 @@
       w.style.left=Math.max(12,Math.min(innerWidth-ww-12,L))+"px"; w.style.top=Math.max(46,T)+"px"; w.style.width=ww+"px"; w.style.height=wh+"px";
       var titlebar='<div class="titlebar"><span class="traffic"><i class="t-close"></i><i class="t-min"></i><i class="t-zoom"></i></span>'+
           '<span class="tt"><b>'+a.emoji+' '+a.title+'</b></span>'+
-          '<a class="ext" href="'+a.url+'" target="_blank" rel="noopener">Open in new tab ↗</a></div>';
-      var body = '<div class="frameshell"><div class="hintbar"><span class="mono">'+a.url+'</span><span>loading live…</span></div>'+
+          (a.url?'<a class="ext" href="'+a.url+'" target="_blank" rel="noopener">Open in new tab ↗</a>':'')+'</div>';
+      var body = a.contentId
+        ? '<div class="winbody">'+((document.getElementById(a.contentId)||{innerHTML:''}).innerHTML)+'</div>'
+        : '<div class="frameshell"><div class="hintbar"><span class="mono">'+a.url+'</span><span>loading live…</span></div>'+
           '<div class="framewrap"><div class="ph"><b>'+a.title+'</b><div>If this stays blank, it didn’t load — open it directly:</div>'+
             '<a href="'+a.url+'" target="_blank" rel="noopener">Open '+a.url.replace(/^https?:\/\//,'')+' ↗</a></div>'+
             '<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>';
@@ -310,7 +397,49 @@
   function emailStephen(){ location.href='mailto:stephen@familyhilton.com?subject=Hello%20Stephen'; }
   function openResumeApp(){ openApp('resume'); }
 
-  window.openApp=openApp; window.home=home; window.nav=nav; window.closeMenus=closeMenus;
+  /* ---- Keynote app (fullscreen presentation) ---- */
+  var kIdx=0, kSlides=null;
+  function openKeynote(){
+    var el=document.getElementById('keynote'); kSlides=el.querySelectorAll('.kslide'); kIdx=0;
+    el.classList.add('on'); el.setAttribute('aria-hidden','false'); kRender();
+    var rf=document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen;
+    if(rf){ try{ var p=rf.call(document.documentElement); if(p&&p.catch) p.catch(function(){}); }catch(e){} }
+    var h=document.getElementById('khint'); if(h){ h.style.opacity=''; setTimeout(function(){ h.style.opacity='0'; }, 3600); }
+  }
+  function closeKeynote(){
+    var el=document.getElementById('keynote'); if(!el.classList.contains('on')) return;
+    el.classList.remove('on'); el.setAttribute('aria-hidden','true');
+    try{ if(document.fullscreenElement){ (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document); } }catch(e){}
+  }
+  function kRender(){
+    if(!kSlides) return;
+    document.getElementById('kfill').style.width=(100*(kIdx+1)/kSlides.length)+'%';
+    document.getElementById('kcount').textContent=(kIdx+1)+' / '+kSlides.length;
+    document.querySelector('#keynote .ktrack').style.transform='translateX(-'+(kIdx*100)+'%)';
+    document.getElementById('kprev').style.visibility=kIdx===0?'hidden':'visible';
+    document.getElementById('knext').style.visibility=kIdx===kSlides.length-1?'hidden':'visible';
+  }
+  function kStep(n){ if(!kSlides)return; var ni=Math.max(0,Math.min(kSlides.length-1,kIdx+n)); if(ni!==kIdx){ kIdx=ni; kRender(); } }
+  (function(){
+    var el=document.getElementById('keynote'); if(!el) return;
+    document.getElementById('kprev').onclick=function(e){e.stopPropagation();kStep(-1);};
+    document.getElementById('knext').onclick=function(e){e.stopPropagation();kStep(1);};
+    document.getElementById('kexit').onclick=function(e){e.stopPropagation();closeKeynote();};
+    el.addEventListener('click',function(e){ if(e.target.closest('a')||e.target.closest('button')) return; kStep(1); });
+    addEventListener('keydown',function(e){
+      if(!el.classList.contains('on')) return;
+      if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'||e.key==='Enter'){ e.preventDefault(); kStep(1); }
+      else if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='Backspace'){ e.preventDefault(); kStep(-1); }
+      else if(e.key==='Escape'){ closeKeynote(); }
+      else if(e.key==='Home'){ kIdx=0; kRender(); }
+      else if(e.key==='End'){ kIdx=(kSlides?kSlides.length-1:0); kRender(); }
+    });
+    document.addEventListener('fullscreenchange',function(){ if(el.classList.contains('on') && !document.fullscreenElement) closeKeynote(); });
+    var tx0=0; el.addEventListener('touchstart',function(e){ tx0=e.touches[0].clientX; },{passive:true});
+    el.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-tx0; if(Math.abs(dx)>40) kStep(dx<0?1:-1); },{passive:true});
+  })();
+
+  window.openApp=openApp; window.home=home; window.nav=nav; window.closeMenus=closeMenus; window.openKeynote=openKeynote;
   /* open the résumé on arrival */
   setTimeout(function(){openApp('resume');},250);
 </script>
