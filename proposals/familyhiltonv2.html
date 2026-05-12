@@ -64,6 +64,10 @@
   .titlebar .tt b{color:var(--ink);}
   .titlebar .ext{font-size:11.5px;font-weight:600;text-decoration:none;color:var(--accent);white-space:nowrap;margin-left:auto;}
   .titlebar .ext:hover{text-decoration:underline;}
+  .resize-grip{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize;z-index:6;opacity:.4;transition:opacity .15s;
+    background:repeating-linear-gradient(135deg, transparent 0 3px, var(--soft) 3px 4px);clip-path:polygon(100% 0, 100% 100%, 0 100%);}
+  .resize-grip:hover{opacity:.85;}
+  body.win-busy iframe{pointer-events:none;}
   .winbody{flex:1;overflow:auto;padding:22px 24px 26px;}
   .winbody h2{font-size:20px;margin:0 0 4px;letter-spacing:-.01em;}
   .winbody h3{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--soft);margin:22px 0 10px;}
@@ -416,8 +420,29 @@
     if(r.left<0)w.style.left='8px'; if(r.top<34)w.style.top='40px'; if(r.left>innerWidth-80)w.style.left=(innerWidth-160)+'px';}
   function go(url){ document.body.style.transition='opacity .25s'; document.body.style.opacity='0'; setTimeout(function(){location.href=url;},230); }
 
-  /* ---- dragging ---- */
+  /* ---- resizing (bottom-right grip, like an OS window) ---- */
+  function makeResizable(win){
+    var grip=win.querySelector('.resize-grip'); if(!grip) return;
+    var rz=false, sx=0, sy=0, sw=0, sh=0;
+    function start(e){ rz=true; var t=e.touches?e.touches[0]:e; sx=t.clientX; sy=t.clientY;
+      var r=win.getBoundingClientRect(); sw=r.width; sh=r.height; front(win);
+      document.body.classList.add('win-busy'); e.preventDefault(); }
+    function moveR(e){ if(!rz) return; var t=e.touches?e.touches[0]:e; var top=parseInt(win.style.top)||40;
+      var nw=Math.max(260, Math.min(innerWidth-16, sw+(t.clientX-sx)));
+      var nh=Math.max(150, Math.min(innerHeight-top-10, sh+(t.clientY-sy)));
+      win.style.width=nw+'px'; win.style.height=nh+'px'; }
+    function end(){ if(rz){ rz=false; document.body.classList.remove('win-busy'); } }
+    grip.addEventListener('mousedown', start);
+    grip.addEventListener('touchstart', start, {passive:false});
+    addEventListener('mousemove', moveR);
+    addEventListener('touchmove', moveR, {passive:false});
+    addEventListener('mouseup', end);
+    addEventListener('touchend', end);
+  }
+
+  /* ---- dragging + resizing wiring ---- */
   document.querySelectorAll('.window').forEach(function(win){
+    win.insertAdjacentHTML('beforeend','<div class="resize-grip"></div>');
     win.addEventListener('mousedown',function(){front(win);});
     var tb=win.querySelector('.titlebar'), drag=false,ox=0,oy=0;
     tb.addEventListener('mousedown',function(e){if(e.target.tagName==='I'||e.target.tagName==='A')return; drag=true; var r=win.getBoundingClientRect(); ox=e.clientX-r.left; oy=e.clientY-r.top; e.preventDefault();});
@@ -426,6 +451,7 @@
     tb.addEventListener('touchstart',function(e){if(e.target.tagName==='I'||e.target.tagName==='A')return; var t=e.touches[0]; var r=win.getBoundingClientRect(); ox=t.clientX-r.left; oy=t.clientY-r.top; drag=true;},{passive:true});
     addEventListener('touchmove',function(e){if(!drag)return; var t=e.touches[0]; win.style.left=Math.max(2,Math.min(innerWidth-60,t.clientX-ox))+'px'; win.style.top=Math.max(34,Math.min(innerHeight-40,t.clientY-oy))+'px';},{passive:true});
     addEventListener('touchend',function(){drag=false;});
+    makeResizable(win);
   });
 
   /* ---- lightbox over the Photos / Family windows ---- */
