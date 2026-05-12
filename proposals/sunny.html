@@ -111,15 +111,15 @@
   .footdog{font-family:'JetBrains Mono';font-size:11px;color:#9a8a6a;margin-top:30px;transform:rotate(.4deg);}
 
   /* a chewed-up polaroid of the dog */
-  .sunnypic{display:block;width:218px;margin:18px 0 18px auto;background:#fff;padding:11px 11px 30px;box-shadow:0 12px 28px rgba(0,0,0,.32);
+  .sunnypic{float:right;width:206px;margin:2px 0 16px 28px;background:#fff;padding:11px 11px 30px;box-shadow:0 12px 28px rgba(0,0,0,.32);
     transform:rotate(6deg);position:relative;
     clip-path:polygon(0 5%,6% 0,28% 6%,46% 1%,68% 7%,88% 2%,100% 8%,97% 30%,100% 52%,96% 74%,100% 92%,82% 100%,55% 96%,30% 100%,8% 96%,0 70%,4% 40%);}
-  .sunnypic img{width:100%;display:block;background:#ddd;}
+  .sunnypic img{width:100%;height:236px;object-fit:cover;object-position:center 20%;display:block;background:#ddd;}
   .sunnypic figcaption{font-family:'Shadows Into Light',cursive;font-size:18px;color:#3a2d1c;text-align:center;margin-top:7px;transform:rotate(-1.6deg);line-height:1.2;}
   .sunnypic::after{content:"";position:absolute;right:-5px;top:33%;width:24px;height:28px;background:var(--dirt);border-radius:50% 0 50% 50%;transform:rotate(20deg);}
   .sunnypic .puncture{position:absolute;width:7px;height:7px;background:rgba(40,28,16,.28);border-radius:50%;box-shadow:0 0 3px rgba(0,0,0,.2) inset;}
   .sunnypic .p1{left:30px;top:46px;} .sunnypic .p2{left:43px;top:58px;} .sunnypic .p3{right:34px;bottom:60px;}
-  @media (max-width:680px){.sunnypic{margin:18px auto;transform:rotate(3deg);}}
+  @media (max-width:680px){.sunnypic{float:none;width:170px;margin:18px auto;transform:rotate(3deg);}}
 
   /* ---- people menu (chewed) ---- */
   .topbar .menu{cursor:pointer;font-family:'JetBrains Mono';font-size:12px;padding:1px 7px;border-radius:4px;color:#f3e7cf;transition:background .12s;}
@@ -181,7 +181,7 @@
   <div class="err">
 <span class="dim">$ ./familyhilton --serve</span>
 <span class="ok">[ok]</span>   mounted /home/hilton ........... fine i guess
-<span class="w">[warn]</span> /stephen, /joy desktops present <span class="dim">(boring, no balls)</span>
+<span class="w">[warn]</span> /stephen, /joy desktops present <span class="dim">(boring, no toys)</span>
 <span class="e">[err]</span>  ParseError: expected &lt;content&gt;, found <span class="w">tennis ball</span> at line 1
 <span class="e">[err]</span>  ParseError: expected &lt;/div&gt;, found <span class="w">slobber</span>
 <span class="e">[err]</span>  404: BALL NOT FOUND  (it was RIGHT HERE. i SAW it.)
