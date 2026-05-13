@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stephen Hilton — FamilyHiltonOS</title>
-<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -147,7 +147,7 @@
 </style>
 </head>
 <body>
-<!-- PROPOSAL: StephenOS — Stephen's desktop inside FamilyHiltonOS; apps frame his résumé, blog, GitHub, LinkedIn, SkillSnap and MakeInfinite live. -->
+<!-- familyhilton.com/stephen — Stephen's desktop inside FamilyHiltonOS. Apps frame his résumé / SkillSnap / MakeInfinite live; GitHub & LinkedIn open in a new tab. -->
 
 <div class="topbar">
   <b>FamilyHiltonOS</b>
@@ -161,7 +161,7 @@
   <div class="mi" onclick="dlgUpToDate()">Check for Updates…</div>
   <div class="msep"></div>
   <div class="mi" onclick="closeFront()">Close Window <span class="sc">⌘W</span></div>
-  <div class="mi" onclick="nav('familyhiltonv2.html')">Back to Family Hilton <span class="sc">↗</span></div>
+  <div class="mi" onclick="nav('index.html')">Back to Family Hilton <span class="sc">↗</span></div>
 </div>
 <div class="dropdown" id="m-view">
   <div class="mi" onclick="zoomBy(0.1)">Zoom In <span class="sc">⌘ +</span></div>
@@ -170,12 +170,11 @@
   <div class="msep"></div>
   <div class="mi" onclick="openApp('resume')">Open Résumé</div>
   <div class="mi" onclick="openApp('skillsnap')">Open SkillSnap.me</div>
-  <div class="mi" onclick="openApp('blog')">Open Blog</div>
   <div class="msep"></div>
   <div class="mi" onclick="location.reload()">Reload Desktop <span class="sc">⌘R</span></div>
 </div>
 <div class="dropdown" id="m-people">
-  <div class="mi" onclick="nav('familyhiltonv2.html')">Family Hilton <span class="sc">↗</span></div>
+  <div class="mi" onclick="nav('index.html')">Family Hilton <span class="sc">↗</span></div>
   <div class="mi cur">Stephen <span class="sc">✓</span></div>
   <div class="mi" onclick="nav('joy.html')">Joy <span class="sc">↗</span></div>
   <div class="mi" onclick="nav('sunny.html')">Sunny <span class="sc">↗</span></div>
@@ -201,7 +200,6 @@
   <div class="dicon" onclick="openApp('resume')"><div class="gl">📄</div><span>Résumé</span></div>
   <div class="dicon" onclick="openApp('timeline')"><div class="gl">📈</div><span>Timeline</span></div>
   <div class="dicon" onclick="openKeynote()"><div class="gl">🎞️</div><span>Keynote</span></div>
-  <div class="dicon" onclick="openApp('blog')"><div class="gl">📝</div><span>Blog</span></div>
   <div class="dicon" onclick="openApp('skillsnap')"><div class="gl">✨</div><span>SkillSnap.me</span></div>
   <div class="dicon" onclick="openApp('makeinfinite')"><div class="gl">♾️</div><span>MakeInfinite</span></div>
   <div class="dicon" onclick="openApp('github')"><div class="gl">🐙</div><span>GitHub</span></div>
@@ -209,13 +207,12 @@
   <div class="dicon home" onclick="home()"><div class="gl">🏡</div><span>FamilyHilton</span></div>
 </div>
 
-<a class="backlink" href="index.html">← all proposals</a>
+<a class="backlink" href="index.html">← familyhilton.com</a>
 
 <div class="dock">
   <div class="d" onclick="openApp('resume')"><span class="lbl">Résumé — stephen.skillsnap.me</span>📄</div>
   <div class="d" onclick="openApp('timeline')"><span class="lbl">Career Timeline</span>📈</div>
   <div class="d" onclick="openKeynote()"><span class="lbl">Keynote — full screen</span>🎞️</div>
-  <div class="d" onclick="openApp('blog')"><span class="lbl">Blog</span>📝</div>
   <div class="d" onclick="openApp('skillsnap')"><span class="lbl">SkillSnap.me</span>✨</div>
   <div class="d" onclick="openApp('makeinfinite')"><span class="lbl">MakeInfinite</span>♾️</div>
   <div class="d" onclick="openApp('github')"><span class="lbl">GitHub</span>🐙</div>
@@ -270,13 +267,12 @@
 <script>
   /* clock */
   function tick(){var d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});} tick(); setInterval(tick,30000);
-  function home(){document.body.style.transition='opacity .25s';document.body.style.opacity='0';setTimeout(function(){location.href='familyhiltonv2.html';},230);}
+  function home(){document.body.style.transition='opacity .25s';document.body.style.opacity='0';setTimeout(function(){location.href='index.html';},230);}
 
   /* apps that frame a live URL */
   var APPS={
     resume:       {title:'Résumé', url:'https://stephen.skillsnap.me', emoji:'📄'},
     timeline:     {title:'Career Timeline', emoji:'📈', contentId:'career-tl-content'},
-    blog:         {title:'Blog', url:'https://familyhilton.com/blogs.html', emoji:'📝'},
     skillsnap:    {title:'SkillSnap.me', url:'https://skillsnap.me', emoji:'✨'},
     makeinfinite: {title:'MakeInfinite', url:'https://makeinfinite.com', emoji:'♾️'},
     github:       {title:'GitHub — Stephen-Hilton', url:'https://github.com/Stephen-Hilton', emoji:'🐙', noframe:true, shortname:'GitHub',

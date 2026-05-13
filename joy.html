@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Joy Hilton — FamilyHiltonOS</title>
-<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -109,7 +109,7 @@
 </style>
 </head>
 <body>
-<!-- PROPOSAL: JoyOS — Joy's desktop inside FamilyHiltonOS; apps frame her résumé, LinkedIn, the Parks Foundation and the Napa River Ecology Center live. -->
+<!-- familyhilton.com/joy — Joy's desktop inside FamilyHiltonOS. Apps frame her résumé, the Parks Foundation and the Napa River Ecology Center; LinkedIn opens in a new tab. -->
 
 <div class="topbar">
   <b>FamilyHiltonOS</b>
@@ -123,7 +123,7 @@
   <div class="mi" onclick="dlgUpToDate()">Check for Updates…</div>
   <div class="msep"></div>
   <div class="mi" onclick="closeFront()">Close Window <span class="sc">⌘W</span></div>
-  <div class="mi" onclick="nav('familyhiltonv2.html')">Back to Family Hilton <span class="sc">↗</span></div>
+  <div class="mi" onclick="nav('index.html')">Back to Family Hilton <span class="sc">↗</span></div>
 </div>
 <div class="dropdown" id="m-view">
   <div class="mi" onclick="zoomBy(0.1)">Zoom In <span class="sc">⌘ +</span></div>
@@ -137,7 +137,7 @@
   <div class="mi" onclick="location.reload()">Reload Desktop <span class="sc">⌘R</span></div>
 </div>
 <div class="dropdown" id="m-people">
-  <div class="mi" onclick="nav('familyhiltonv2.html')">Family Hilton <span class="sc">↗</span></div>
+  <div class="mi" onclick="nav('index.html')">Family Hilton <span class="sc">↗</span></div>
   <div class="mi" onclick="nav('stephen.html')">Stephen <span class="sc">↗</span></div>
   <div class="mi cur">Joy <span class="sc">✓</span></div>
   <div class="mi" onclick="nav('sunny.html')">Sunny <span class="sc">↗</span></div>
@@ -168,7 +168,7 @@
   <div class="dicon home" onclick="home()"><div class="gl">🏡</div><span>FamilyHilton</span></div>
 </div>
 
-<a class="backlink" href="index.html">← all proposals</a>
+<a class="backlink" href="index.html">← familyhilton.com</a>
 
 <div class="dock">
   <div class="d" onclick="openApp('resume')"><span class="lbl">Résumé — joyhilton.skillsnap.me</span>📄</div>
@@ -181,7 +181,7 @@
 
 <script>
   function tick(){var d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});} tick(); setInterval(tick,30000);
-  function home(){document.body.style.transition='opacity .25s';document.body.style.opacity='0';setTimeout(function(){location.href='familyhiltonv2.html';},230);}
+  function home(){document.body.style.transition='opacity .25s';document.body.style.opacity='0';setTimeout(function(){location.href='index.html';},230);}
 
   var APPS={
     resume:   {title:'Résumé — Joy Hilton', url:'https://joyhilton.skillsnap.me', emoji:'📄'},

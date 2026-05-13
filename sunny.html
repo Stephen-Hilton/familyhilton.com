@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sunny's Desktop — *gnaw* — Family Hilton</title>
-<link rel="icon" type="image/png" href="../src/images/favicon.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Gloria+Hallelujah&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -118,8 +118,6 @@
   .hometag .card::after{content:"";position:absolute;right:-3px;top:30%;width:18px;height:22px;background:#6b4f31;border-radius:50% 0 50% 50%;transform:rotate(18deg);} /* a bite */
   .hometag:hover{transform:translateX(-50%) rotate(-2deg);transition:transform .25s;}
 
-  .allprops{position:fixed;right:14px;bottom:14px;z-index:60;font-family:'JetBrains Mono';font-size:11px;color:#3a2d1c;background:#d8c79a;border:2px solid #a98f56;padding:6px 10px;text-decoration:none;transform:rotate(2deg);box-shadow:0 4px 10px rgba(0,0,0,.25);clip-path:polygon(0 12%,10% 0,100% 6%,96% 90%,86% 100%,0 96%,5% 50%);}
-  .allprops:hover{transform:rotate(-1deg);}
 
   .footdog{font-family:'JetBrains Mono';font-size:11px;color:#9a8a6a;margin-top:30px;transform:rotate(.4deg);}
 
@@ -147,14 +145,14 @@
 </head>
 <body>
 
-<!-- PROPOSAL: Sunny's Desktop — what familyhilton.com/sunny looks like after the golden retriever got to it. Chewed edges, tennis balls, bones, paw prints, broken text. The "FamilyHilton" tag hangs crooked and bitten; click it to crawl back to the main desktop. -->
+<!-- familyhilton.com/sunny — Sunny's desktop. The golden retriever got to it. The crooked, bitten "FamilyHilton" tag links back to the main desktop. -->
 
 <div class="topbar">
   <b>FAMILYHILT&#9608;N&#8202;OS</b> <span class="menu" data-menu="m-people">people&hellip;</span> <span class="glitch"></span>
   <span class="right">battery: chewed</span>
 </div>
 <div class="dropdown" id="m-people">
-  <div class="mi" onclick="nav('familyhiltonv2.html')">Family Hilton <span class="sc">&#8599;</span></div>
+  <div class="mi" onclick="nav('index.html')">Family Hilton <span class="sc">&#8599;</span></div>
   <div class="mi" onclick="nav('stephen.html')">Stephen <span class="sc">&#8599;</span></div>
   <div class="mi" onclick="nav('joy.html')">Joy <span class="sc">&#8599;</span></div>
   <div class="mi cur">Sunny <span class="sc">&#10003; (woof)</span></div>
@@ -169,8 +167,6 @@
   <span class="card">FamilyHilton<small>&#8592; back &nbsp;·&nbsp; *spit* sorry</small></span>
 </a>
 
-<a class="allprops" href="index.html">../all proposals</a>
-
 <div class="sheet">
   <span class="tape t1"></span><span class="tape t2"></span><span class="tape t3"></span>
 
@@ -182,7 +178,7 @@
     the laptop &#8202;<span class="strike">on the floor</span>&#8202; &amp; said "watch the page" so i did. with my teeth. it is watched now.
   </p>
 
-  <div class="err"><figure class="sunnypic"><img src="../src/images/sunny00.png" alt="Sunny, a golden retriever, perched right on the page"><figcaption>exhibit&nbsp;A: me.<br>i am the goodest. &#10003;</figcaption></figure>
+  <div class="err"><figure class="sunnypic"><img src="assets/sunny00.png" alt="Sunny, a golden retriever, perched right on the page"><figcaption>exhibit&nbsp;A: me.<br>i am the goodest. &#10003;</figcaption></figure>
 <span class="dim">$ ./familyhilton --serve</span>
 <span class="ok">[ok]</span>   mounted /home/hilton ........... fine i guess
 <span class="w">[warn]</span> /stephen, /joy desktops present <span class="dim">(boring, no toys)</span>
@@ -227,7 +223,7 @@
 </div>
 
 <script>
-  function home(){document.body.style.transition='opacity .3s';document.body.style.opacity='0';setTimeout(function(){location.href='familyhiltonv2.html';},260);}
+  function home(){document.body.style.transition='opacity .3s';document.body.style.opacity='0';setTimeout(function(){location.href='index.html';},260);}
 
   /* scatter paw prints, tennis balls, bones */
   (function(){
